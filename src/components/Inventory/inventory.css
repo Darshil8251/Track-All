@@ -1,0 +1,256 @@
+.maindiv {
+  /* border: 3px solid black;    */
+  margin-left: 230px;
+  height: 65rem;
+  display: block;
+  flex-direction: column;
+}
+
+.Merchandise_Menu {
+  width: 182px;
+  height: 50px;
+
+  margin-top: 32px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+
+  color: #05004e;
+  /* border: 3px solid; */
+}
+
+.second_divs {
+  background-color: rgba(242, 242, 242, 1);
+}
+
+.second_divs_navbar {
+  display: flex;
+  text-decoration: none;
+  justify-content: space-around;
+  margin-bottom: 0px;
+  list-style: none;
+}
+
+.second_divs_navbar_buttons {
+  width: 132px;
+  height: 32px;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 30px;
+
+  border-radius: 8px 8px 0px 0px;
+}
+
+.second_divs_navbar_buttons_link {
+  text-decoration: none;
+  color: #666666;
+}
+
+.second_divs_navbar_buttons_link:hover {
+  text-decoration: none;
+  color: #666666;
+}
+
+.second_divs_navbar_buttons:hover {
+  background: #FBB700;
+  width: 132px;
+  height: 32px;
+  text-decoration: none;
+  color: rgba(31, 31, 31, 0.7);
+  border-radius: 8px 8px 0px 0px;
+}
+
+.second_divs_searchbox_buttin {
+  margin: 30px;
+}
+
+.second_divs_search_box {
+  width: 550px;
+  height: 36px;
+  left: 284px;
+  top: 183px;
+
+  background-color: rgba(31, 31, 31, 0.5);
+  border-radius: 8px;
+}
+
+.second_divs_search_button {
+  width: 208px;
+  height: 36px;
+
+  margin-left: 400px;
+  border-radius: 8px;
+}
+
+.second_divs_tabls {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 0px;
+  margin-top: 20px;
+}
+
+.second_divs_tabls_one {
+  width: 455px;
+  /* height: 366px; */
+  left: 283px;
+  top: 249px;
+  border: 1px solid #1F1F1F;
+
+  margin: 10px;
+  /* border: 3px solid; */
+  background-color: rgba(255, 252, 243, 1);
+}
+
+.second_divs_tabls_two {
+  width: 455px;
+  /* height: 366px; */
+  left: 283px;
+  top: 249px;
+  margin: 10px;
+
+  /* border: 3px solid; */
+
+  background: #bfbfbf;
+}
+
+.second_divs_tabls_three {
+  width: 455px;
+  /* height: 366px; */
+  left: 283px;
+  margin: 10px;
+  top: 249px;
+  /* border: 3px solid; */
+
+  background: #bfbfbf;
+}
+
+.second_divs_change_table_buttons {
+  /* margin: 10px; */
+  padding: 15px;
+}
+
+/* kbuivsaufkjsrlgojdoibhjskklg;dphoibvh */
+
+.Raw_Items_Stock {
+  width: 182px;
+  height: 50px;
+
+  margin-top: 32px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+
+  color: #05004e;
+}
+
+.fourth_divs {
+  background-color: rgba(242, 242, 242, 1);
+}
+
+
+.fourth_divs_navbar {
+  display: flex;
+  text-decoration: none;
+  justify-content: space-around;
+  margin-bottom: 0px;
+  list-style: none;
+}
+
+.fourth_divs_navbar_buttons {
+  width: 132px;
+  height: 32px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 30px;
+
+  border-radius: 8px 8px 0px 0px;
+}
+
+.fourth_divs_navbar_buttons:hover {
+  background: #FBB700;
+  width: 132px;
+  height: 32px;
+
+  color: #666666;
+  border-radius: 8px 8px 0px 0px;
+}
+
+.fourth_divs_searchbox_buttin {
+  margin: 30px;
+}
+
+.fourth_divs_search_box {
+  width: 550px;
+  height: 36px;
+  left: 284px;
+  top: 183px;
+
+  background-color: rgba(31, 31, 31, .5);
+  border-radius: 8px;
+}
+
+.fourth_divs_search_button {
+  width: 208px;
+  height: 36px;
+  margin-left: 400px;
+  border-radius: 8px;
+}
+
+.tableitem {
+  border-bottom: 1px solid #1F1F1F;
+}
+
+.fourth_divs_tabls {
+  display: flex;
+  justify-content: space-around;
+
+  margin-bottom: 0px;
+  margin-top: 20px;
+
+}
+
+.fourth_divs_tabls_one {
+  width: 455px;
+  border: 1px solid #1F1F1F;
+  margin: 10px;
+  /* border: 3px solid; */
+
+  background-color: rgba(255, 252, 243, 1);
+}
+
+.fourth_divs_tabls_two {
+  width: 455px;
+  /* height: 366px; */
+  left: 283px;
+  top: 249px;
+  margin: 10px;
+
+  /* border: 3px solid; */
+
+  background-color: #bfbfbf;
+}
+
+.fourth_divs_tabls_three {
+  width: 455px;
+  /* height: 366px; */
+  left: 283px;
+  margin: 10px;
+  top: 249px;
+  /* border: 3px solid; */
+
+  background: #bfbfbf;
+}
+
+.fourth_divs_change_table_buttons {
+  /* margin: 10px;
+   */
+  padding: 15px;
+}

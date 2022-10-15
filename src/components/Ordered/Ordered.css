@@ -1,0 +1,352 @@
+
+.maincontainer{
+  width: 1250px;
+  padding-right: var(--bs-gutter-x,.75rem);
+  padding-left: var(--bs-gutter-x,.75rem);
+  margin-right: auto;
+  margin-left: 261px;
+  margin-top: 112px;
+  border:1px solid rgba(31, 31, 31, 0.2);
+  border-radius: 8px 8px 0px 0px;
+
+}
+
+.navbar{
+  padding: 0;
+  margin: 0;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+.container{
+width: 1250px;
+}
+button {
+  border: 0ch;
+  background-color: whitesmoke;
+  color: #005695;
+}
+
+/* * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+} */
+
+header {
+  display: flex;
+  align-items: center;
+  /* padding: 1.1rem 5rem; */
+  margin-top: 12px;
+    margin-bottom: 18px;
+  background: #ffffff;
+}
+
+.brand a {
+  text-decoration: none;
+  color: #1f1f1f;
+  width: 95px;
+  height: 25px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 25p;
+  margin: 0px;
+  margin-left: 20px;
+}
+
+.ulcss {
+  display: flex;
+  flex-direction: row;
+}
+
+.statuscss {
+  list-style-type: none;
+  margin-left: 2rem;
+}
+
+.statuscss a {
+  text-decoration: none;
+  color: black;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.dropbtn {
+  background-color: white;
+  color: black;
+  margin-right: 10px;
+  cursor: pointer;
+  display: flex;
+  padding: 2px 12px;
+  width: 135px;
+  height: 26px;
+  border: 1px solid rgba(31, 31, 31, 0.2);
+  border-radius: 4px;
+
+  font-style: normal;
+  font-weight: 350;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.005em;
+  gap: 25px;
+}
+
+.dropname {
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 2px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #ffeebf;
+  min-width: 135px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ffd500;
+  cursor: pointer;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropname2 {
+  background-color: white;
+  color: black;
+  margin-right: 10px;
+  cursor: pointer;
+  display: flex;
+  padding: 2px 12px;
+  width: 200px;
+  height: 26px;
+  border: 1px solid rgba(31, 31, 31, 0.2);
+  border-radius: 4px;
+
+  font-style: normal;
+  font-weight: 350;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.005em;
+}
+
+.entery_selection {
+  margin-left: 10px;
+}
+
+.dropicon {
+  margin-top: 3px;
+}
+.navbarstatus {
+  margin-left: 200px;
+}
+
+select {
+  border: none;
+  outline: none;
+  border-radius: 0%;
+}
+
+option::after {
+  border-radius: 0%;
+  border: none;
+}
+
+.statusbuttonname {
+  font-style: normal;
+  font-weight: 600;
+
+  color: #1f1f1f;
+
+  opacity: 0.7;
+}
+
+
+ .statusbutton{
+  width: 57px;
+
+font-style: normal;
+font-weight: 600;
+line-height: 18px; 
+color:#005695;
+/* identical to box height */
+
+/* letter-spacing: -0.005em; */
+
+/* color: #005695; */
+
+/* opacity: 0.4; */
+
+/* Inside auto layout */
+
+/* flex: none;
+order: 1;
+flex-grow: 0;*/
+} 
+.statuscolor a{
+  color: #005695;
+}
+
+.statuscolor a:hover{
+width: 95px;
+height: 30px;
+left: 0px;
+top: 0px;
+cursor: pointer;
+color:#022c4a;
+background-color: #5f9cc7; 
+
+padding: 8px;
+border-radius: 4px; 
+
+}
+.table_order_details {
+  display: flex;
+  margin: 20px;
+}
+
+.table_order_details_img {
+  width: 32px;
+  height: 32px;
+  left: 0px;
+  top: 0px;
+
+}
+
+.order_status {
+  color: #dd6a00;
+
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.menu-bar {
+  height: fit-content;
+  width: 1073px;
+}
+
+.menu-bar ul {
+  list-style: none;
+  display: flex;
+}
+
+.menu-bar ul li {
+  padding: 0px 6px;
+  position: relative;
+}
+
+.menu-bar ul li a {
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.fas {
+  float: right;
+
+  margin-left: 5px;
+  /* padding-top: 3px; */
+}
+
+/* dropdown menu style */
+.dropdown-menu {
+  display: none;
+}
+
+.menu-bar ul li:hover .dropdown-menu {
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 100%;
+}
+
+.menu-bar ul li:hover .dropdown-menu ul {
+  display: block;
+  margin: 0px;
+}
+
+.menu-bar ul li:hover .dropdown-menu ul li {
+  width: 130px;
+  padding: 10px;
+}
+
+.dropdown-menu-1 {
+  display: none;
+}
+
+.dropdown-menu ul li:hover .dropdown-menu-1 {
+  display: block;
+  position: absolute;
+  left: 150px;
+  top: 0px;
+  background-color: whitesmoke;
+}
+
+.status button:hover {
+  background-color: lightblue;
+  cursor: pointer;
+}
+
+.navjs {
+  height: 10px;
+  font-size: medium;
+}
+
+
+.tablecss {
+  width: 100%;
+}
+
+
+.table-striped tbody tr {
+  background-color: white;
+}
+
+.trborder {
+  border-bottom: 1px solid rgb(175, 171, 171);
+
+}
+
+.trhead {
+  border-bottom: 1px solid rgb(230, 224, 224);
+}
+
+tr {
+  margin: 1000px;
+}
+.spiner{
+  margin: auto;
+  margin-top: 350px;
+  margin-left: 200px;
+}
+.paginationmain ul li a{
+  color:  #121212;
+}
+
+.page-item.active .page-link{
+  background-color: #7cb866;
+  color:  #121212;
+  /* opacity: 0.1; */
+}

@@ -1,0 +1,80 @@
+.fullbody {
+    margin: 100px;
+    width: 800px;
+    padding: 110px;
+    align-self: center;
+    margin-left: 450px;
+    background-color: white;
+    opacity: 0.9;
+  }
+  
+  .fullbody-fluid {
+    background-size: cover;
+    background-repeat: no-repeat;
+  
+    filter: drop-shadow(0.6em 0.6em 0.2em);
+  }
+  
+  .first-name-input {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    min-width: 500px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .mobile-no-input {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    min-width: 500px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .email-input {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    min-width: 500px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .password-input {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    min-width: 500px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .confirm-password-input {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    min-width: 500px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .validateerror {
+    font-size: 20px;
+    color: red;
+  }
+  
+  .valid {
+    color: green;
+  }
+  .invalid {
+    color: red;
+  }
+  
+  .signup-submit-button {
+    border-radius: 5px;
+    background-color: blue;
+    color: white;
+    border-color: blue;
+  }
+  
+  .signin-link {
+    text-decoration: none;
+  }
+  

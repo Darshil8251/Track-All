@@ -1,0 +1,102 @@
+
+.dashboard{
+    margin-left: 336px;
+    width: 1120px
+}
+.totalrevenue{
+    display: inline;
+    border: 2px solid black;
+}
+.cardstyle{
+    width: 224px;
+    height: 150px;
+    border: 1px solid rgba(27, 27, 27, 0.25);
+    border-radius: 8px;
+}
+.cardmargin{
+    margin-right: 0px;
+}
+
+.firstchart{
+    border: 1px solid rgba(27, 27, 27, 0.25);
+    border-radius: 8px;
+    background-color:#FFF7E1;
+}
+.secondchart{
+    border: 1px solid rgba(27, 27, 27, 0.25);
+    border-radius: 8px;
+    background-color:#FFF7E1;
+}
+
+.headingchart{
+    display: inline-block;
+    justify-content: left;
+    margin-right: 329px;
+    margin-bottom: 10px;
+    /* margin-left: -10px; */
+}
+
+
+
+
+.tablecssdashboard{
+    width: 100%;
+}
+
+.tablecssdashboard tbody tr{
+    margin-bottom: 10px;
+}
+
+.topproductdiv{
+    border: 1px solid rgba(27, 27, 27, 0.55);
+border-radius: 20px;
+margin-right: 70px;
+background-color: #DDFFD1;
+  }
+  
+.charts{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.progressSales{
+    border: 1px solid #1B1B1B;
+    border-radius: 8px;
+    width :100px; 
+    display:flex ;
+    justify-content:center;
+    background: #279500;
+    color: white;
+}
+.progressSalestd{
+display :flex;
+justify-content : center;}
+/* .topproductdiv table tr th {
+    width: 15%;
+} */
+
+.piechart{
+    display: flex;
+    justify-content: right;
+}
+
+.topheading{
+    display: flex;
+}
+
+.topheading2{
+    color: #1F1F1F;
+}
+.dropdownhover:hover {
+    cursor: pointer;
+    background-color: #FFEEBF;
+}
+.ddowntopprofuct{
+    margin-bottom: 10px;
+}
+.topproduct{
+    display: inline-block;
+    margin-right: 567px;
+    font-size: 25px;
+    margin-top:20px;
+}

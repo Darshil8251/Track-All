@@ -1,0 +1,57 @@
+.left {
+    box-sizing: border-box;
+    padding: 30px 0px;
+   
+
+    position: fixed;
+    width: 229px;
+    height: 945px;
+    left: 0px;
+    top: 0px;
+
+    background: #FFFFFF;
+    border-right: 2px solid rgba(31, 31, 31, 0.5);
+
+  
+}
+.left image{
+    padding: 5px;
+}
+
+.Navbar {
+    margin-top: 90px;
+    margin-left: -42px;
+    
+   
+}
+
+.Navbar li {
+    text-decoration: none;
+    list-style: none;
+    padding: 25px;
+    text-align: center;
+    width: 236px;
+}
+
+.Navbar li a {
+    color: rgb(39, 140, 0);
+    padding: 10px;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+.linavbarcss:hover {
+    background-color: lightgreen;
+    box-sizing: 50%;
+}
+
+.Dashboard{
+    margin-left: 8px;
+}
+.Inventory{
+    margin-left: 2px;
+}
+.Resources{
+    margin-left: 2px;
+}

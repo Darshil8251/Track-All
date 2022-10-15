@@ -1,0 +1,24 @@
+.pop{
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 8px;
+    margin: 200px;
+margin-right: 490px;
+text-align: center;
+}
+.ordered{
+    background-color: orange;
+}
+div button{
+    border: 2px solid black;
+    border-radius: 3px;
+   margin: 5px;
+
+}
+.Rejected{
+    color: red;
+    background-color: black;
+}
+.Accepted{
+    color: white;
+}

@@ -1,0 +1,104 @@
+.order_table {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+  
+  .head_of_status {
+    margin-bottom: 50px;
+  }
+  .table_order_details {
+    display: flex;
+  }
+  
+  .table_order_details_img {
+    width: 32px;
+    height: 32px;
+    left: 0px;
+    top: 0px;
+  }
+  .table_order_details_orderidname {
+    margin-left: 15px;
+  }
+  
+  .order_status {
+    color: #dd6a00;
+  }
+  
+  body {
+    font-family: sans-serif;
+  }
+  
+  .menu-bar {
+    height: fit-content;
+    width: 1073px;
+  }
+  
+  .menu-bar ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  .menu-bar ul li {
+    padding: 0px 6px;
+    position: relative;
+  }
+  
+  .menu-bar ul li a {
+    font-size: 15px;
+    text-decoration: none;
+  }
+  
+  .fas {
+    float: right;
+   
+    margin-left: 5px;
+    /* padding-top: 3px; */
+  }
+  
+  /* dropdown menu style */
+  .dropdown-menu {
+    display: none;
+  }
+  
+  .menu-bar ul li:hover .dropdown-menu {
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 100%;
+  }
+  
+  .menu-bar ul li:hover .dropdown-menu ul {
+    display: block;
+    margin: 0px;
+  }
+  
+  .menu-bar ul li:hover .dropdown-menu ul li {
+    width: 130px;
+    padding: 10px;
+  }
+  
+  .dropdown-menu-1 {
+    display: none;
+  }
+  
+  .dropdown-menu ul li:hover .dropdown-menu-1 {
+    display: block;
+    position: absolute;
+    left: 150px;
+    top: 0px;
+    background-color: whitesmoke;
+  }
+  
+  .status button:hover{
+    background-color: lightblue;
+    cursor: pointer;
+  }
+  
+  .navjs {
+    height: 10px;
+    font-size: medium;
+  }
+  
+  .nav-item div button{
+    margin-right: 50px;
+  }

@@ -1,0 +1,45 @@
+.setup-fullbody {
+  margin: 100px;
+  width: 800px;
+  padding: 110px;
+  align-self: center;
+  margin-left: 450px;
+  border: 2px solid black;
+
+  background-color: white;
+  opacity: 0.9;
+}
+
+.setup-inputfield-remove {
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.merchandise-input {
+  background-color: rgb(30, 30, 30);
+  color: white;
+  min-width: 500px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+
+.setup-validateerror {
+  font-size: 20px;
+  color: red;
+}
+
+.setup-submit-button {
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+  border-color: blue;
+}
+
+.add-field-plus-button {
+  margin-top: 5px;
+  display: flex;
+}
+.add-plus-button-text {
+  margin-left: 20px;
+}

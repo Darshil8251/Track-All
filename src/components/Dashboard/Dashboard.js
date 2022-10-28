@@ -11,6 +11,7 @@ import Barchart1 from "./Chart/Barchart1";
 import Barchart2 from "./Chart/Barchart2";
 // import Piechart1 from "./chart/Piechart";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import Slider from '../Slider';
 
 const Dashboard = () => {
   const [Data, setData] = useState([]);
@@ -53,9 +54,11 @@ const Dashboard = () => {
   }, []);
 
   return (
+    <>
+    <Slider/>
     <div className="col main pt-4 dashboard">
-      <h5 className="mb-4 topheading">Sales Summery</h5>
-      <div className="dropdown" style={{ marginLeft: "885px" }}>
+      <h3 className= "topheading" style={{fontWeight : "bold"}}>Sales Summary</h3>
+      <div className="dropdown" style={{margin : "0px"}} >
         <button
           className="btn btn-secondary dropdown-toggle"
           type="button"
@@ -67,7 +70,7 @@ const Dashboard = () => {
           Filter By
         </button>
         <div
-          className="dropdown-menu   dropdownhover"
+          className="dropdown-menu   dropdownhover" style={{backgroundColor:" #ffeebf"}}
           aria-labelledby="dropdownMenuButton"
         >
           <a
@@ -207,7 +210,7 @@ const Dashboard = () => {
             >
               Filter By
             </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div className="dropdown-menu popularityhover" aria-labelledby="dropdownMenuButton" style={{backgroundColor:" #ffeebf"}}>
               <a
                 className="dropdown-item"
                 onClick={() => {
@@ -285,6 +288,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <>
       <div className="left">
-      <img src={Logo} alt="track all" style={{margin: "auto"}}/>
+      <img src={Logo} alt="track all" style={{marginLeft: "50px"}}/>
       <hr style={{
         position: "absolute",
         width: "226px",
@@ -40,7 +40,7 @@ const Navbar = () => {
       <div className='Navbar'>
         <ul>
           <li className="linavbarcss" ><Link to="/dashboard"  ><img src={Dashboard_Image} alt="Dashboard" /> Dashboard</Link></li>
-          <li className="linavbarcss" style={{marginLeft: "-10px"}}><Link to="/ordered" ><img src={Order} alt="Order" /> Ordered</Link></li>
+          <li className="linavbarcss" style={{marginLeft: "-10px"}}><Link to="/ordered" ><img src={Order} alt="Ordered" /> Ordered</Link></li>
           <li className="linavbarcss" style={{marginLeft: "-7px"}}><Link to="/inventory" ><img src={Inventory} alt="Inventory" /> Inventory</Link></li>
           <li className="linavbarcss" style={{marginLeft: "-8px"}}><Link to="/resources" ><img src={Resources} alt="Resources" /> Resource</Link></li>
         </ul>

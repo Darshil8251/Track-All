@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 import "./setup.css";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Routes,
+} from "react-router-dom";
 
 function Body() {
   const [serviceList, SetserviceList] = useState([{ service: "" }]);
@@ -20,7 +27,7 @@ function Body() {
     if (id_pattren.test(id_value)) {
       setIdValue("");
     } else if (!id_pattren.test(id_value) && id_value !== "") {
-      setIdValue("Id is not valid");
+      
     } else {
       setIdValue("");
     }
@@ -96,13 +103,13 @@ function Body() {
 
               <div>
                 <button type="submit" className="setup-submit-button">
-                  Register
+                <Link to="../signin">Submit</Link> 
                 </button>
               </div>
               <hr />
               <div>
                 <label>
-                  Already have an account ? <a href="/">Sign in</a>
+                  Already have an account ? <Link to="../signin">Sign in</Link>
                 </label>
               </div>
             </form>

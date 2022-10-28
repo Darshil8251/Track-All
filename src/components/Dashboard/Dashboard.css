@@ -81,7 +81,8 @@ justify-content : center;}
 }
 
 .topheading{
-    display: flex;
+    display: inline;
+    margin-right: 761px;
 }
 
 .topheading2{
@@ -89,7 +90,10 @@ justify-content : center;}
 }
 .dropdownhover:hover {
     cursor: pointer;
-    background-color: #FFEEBF;
+    /* background-color: #FFEEBF; */
+}
+.dropdownhover a:hover {
+    background-color: #ffd500;
 }
 .ddowntopprofuct{
     margin-bottom: 10px;
@@ -99,4 +103,9 @@ justify-content : center;}
     margin-right: 567px;
     font-size: 25px;
     margin-top:20px;
+}
+
+.popularityhover a:hover{
+    cursor: pointer;
+    background-color: #ffd500;
 }

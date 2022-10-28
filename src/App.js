@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import Slider from "./components/Slider";
-import Ordered from "./components/Ordered/Ordered";
-import Dashboard from "./components/Dashboard/Dashboard";
-import Inventory from "./components/Inventory/Inventory";
+
+// import Ordered from "./components/Ordered/Ordered";
+// import Dashboard from "./components/Dashboard/Dashboard";
+// import Inventory from "./components/Inventory/Inventory";
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,32 +11,46 @@ import {
   Link,
   Routes,
 } from "react-router-dom";
-import Resources from "./components/Resources/Resources";
-import NotAccepted from './components/Ordered/NotAccepted';
+import Slider from "../src/components/Slider";
+// import Resources from "./components/Resources/Resources";
+// import NotAccepted from './components/Ordered/NotAccepted';
 import { useEffect, useState } from "react";
 import Signup from "./components/Login/Singup";
+import Setup from './components/Login/Setup';
+import Signin from "./components/Login/Signin";
+import TrackAll from "./components/Login/TrackAll";
+import Dashboard  from "./components/Dashboard/Dashboard";
+import Ordered from "./components/Ordered/Ordered";
+import Inventory from "./components/Inventory/Inventory";
+import Resources from "./components/Resources/Resources";
+
 
 function App() {
 
   
   return (
     <>
-    
-    {/* <Signup/> */}
-    {/* <Dashboard/> */}
-    
+
     <Router>
-        <div className="App">
-          <Slider />
-          <Routes>
-            <Route path="dashboard" exact element={<Dashboard />}></Route>
-            <Route path="/" element={<Ordered />}></Route>
-            <Route path="ordered" element={<Ordered />}></Route>
+    <div className="app">
+       <Routes>
+        <Route path="/" exact element={<Signup/>}></Route>
+        <Route path="Setup" element={<Setup/>}></Route>
+        <Route path="Signin" element={<Signin/>}></Route>
+         <Route path="order" element={<Ordered/>}/>
+         <Route path="dashboard" exact element={<Dashboard />}></Route>
+            <Route path="ordered" element={<Ordered/>}></Route>
             <Route path="inventory" element={<Inventory />}></Route>
             <Route path="Resources" element={<Resources />}></Route>
-          </Routes>
-        </div>
+         </Routes>
+    
+    </div>
+       
+      
       </Router>
+
+
+    
     </>
   );
 }

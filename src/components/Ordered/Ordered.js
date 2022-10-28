@@ -2,98 +2,88 @@ import React from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import "./Ordered.css";
 import { Modal } from "react-bootstrap";
-import { useEffect, useRef,useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Searchbar from "../Seachbar";
-import Swiggy from '../Image/Swiggy.svg';
-import Ubereat from '../Image/Uber_Eats.svg'
-import 'bootstrap/dist/css/bootstrap.css';
-import Spinner from 'react-bootstrap/Spinner';
-import Zomato from '../Image/Zomato.svg';
-import Foodpanda from '../Image/Foodpanda.svg';
+import Swiggy from "../Image/Swiggy.svg";
+import Ubereat from "../Image/Uber_Eats.svg";
+import "bootstrap/dist/css/bootstrap.css";
+import Spinner from "react-bootstrap/Spinner";
+import Zomato from "../Image/Zomato.svg";
+import Slider from "../Slider";
+import Foodpanda from "../Image/Foodpanda.svg";
 
 function Ordered() {
+  const [newOrder, setNewOrder] = useState({});
   const [show, setShow] = useState(false);
-    const [time, settime] = useState();
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  const [time, settime] = useState(10);
+
+  const handleClose = async () => {
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    };
+    const response = await fetch(
+      "https://trackall.bsite.net/api/order/PutRejectOrder/" +
+        newOrder.marketPlaceName +
+        "/" +
+        newOrder.orderId,
+      requestOptions
+    );
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
   const Ref = useRef(null);
 
-
-
-  const [loading,setloading]=useState(false);
+  const [loading, setloading] = useState(false);
   // The state for our timer
-  const [timer, setTimer] = useState('0:00');
-
+  const [timer, setTimer] = useState("0:00");
 
   const getTimeRemaining = (e) => {
-      const total = Date.parse(e) - Date.parse(new Date());
-      const seconds = Math.floor((total / 1000) % 60);
-      const minutes = Math.floor((total / 1000 / 60) % 60);
+    const total = Date.parse(e) - Date.parse(new Date());
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
 
-      return {
-          total, minutes, seconds
-      };
-  }
-
+    return {
+      total,
+      minutes,
+      seconds,
+    };
+  };
 
   const startTimer = (e) => {
-      let { total, minutes, seconds }
-          = getTimeRemaining(e);
-      if (total >= 0) {
-
-          // update the timer
-          // check if less than 10 then we need to 
-          // add '0' at the beginning of the variable
-          setTimer(
-              (minutes > 9 ? minutes : minutes) + ':'
-              + (seconds > 9 ? seconds : '0' + seconds)
-          )
-      }
-  }
-
+    let { total, minutes, seconds } = getTimeRemaining(e);
+    if (total >= 0) {
+      // update the timer
+      // check if less than 10 then we need to
+      // add '0' at the beginning of the variable
+      setTimer(
+        (minutes > 9 ? minutes : minutes) +
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
+      );
+    }
+  };
 
   const clearTimer = (e) => {
+    setTimer("0:60");
 
-      // If you adjust it you should also need to
-      // adjust the Endtime formula we are about
-      // to code next    
-      setTimer('0:60');
-
-      // If you try to remove this line the 
-      // updating of timer Variable will be
-      // after 1000ms or 1sec
-      if (Ref.current) clearInterval(Ref.current);
-      const id = setInterval(() => {
-          startTimer(e);
-      }, 1000)
-      Ref.current = id;
-  }
+    if (Ref.current) clearInterval(Ref.current);
+    const id = setInterval(() => {
+      startTimer(e);
+    }, 1000);
+    Ref.current = id;
+  };
 
   const getDeadTime = () => {
-      let deadline = new Date();
+    let deadline = new Date();
 
-      // This is where you need to adjust if 
-      // you entend to add more time
-      deadline.setSeconds(deadline.getSeconds() + 60);
-      return deadline;
-  }
+    deadline.setSeconds(deadline.getSeconds() + 60);
+    return deadline;
+  };
 
-  // We can use useEffect so that when the component
-  // mount the timer will start as soon as possible
-
-  // We put empty array to act as componentDid
-  // mount only
-  //useEffect(() => {
-  //    clearTimer(getDeadTime());
-  //}, []);
-
-  // Another way to call the clearTimer() to start
-  // the countdown is via action event from the
-  // button first we create function to be called
-  // by the button
   const onClickReset = () => {
-      clearTimer(getDeadTime());
-  }
+    clearTimer(getDeadTime());
+  };
 
   const mystyle = {
     margintop: "200px",
@@ -107,31 +97,30 @@ function Ordered() {
   // Use For timer
 
   const connection = new HubConnectionBuilder()
-  .withUrl("https://heyq.bsite.net/signalRServer")
-  .build();
-useEffect(() => {
-  var s = "71897957-87eb-45c0-8d50-a73c5490f17e";
-  connection
+    .withUrl("https://heyq.bsite.net/signalRServer")
+    .build();
+  useEffect(() => {
+    var s = "71897957-87eb-45c0-8d50-a73c5490f17e";
+    connection
       .start()
       .then(() => {
-          connection.invoke("Get", s).catch((err) => console.error(err));
-          console.log(s);
-          console.log("connected");
+        connection.invoke("Get", s).catch((err) => console.error(err));
+        console.log(s);
+        console.log("connected");
       })
       .catch((err) => {
-          console.log(err);
+        console.log(err);
       });
-}, []);
-const [order, setOrder] = useState([]);
-const [newOrder, setNewOrder] = useState({});
-useEffect(() => {
-  connection.on("ReceiveOrder", (data) => {
-      console.log(data);
+  }, []);
+  const [order, setOrder] = useState([]);
+
+  useEffect(() => {
+    connection.on("ReceiveOrder", (data) => {
       handleShow();
       setNewOrder(data);
       clearTimer(getDeadTime());
-  });
-}, []);
+    });
+  }, []);
 
   // Fetching Data From API
   const FetchData = async () => {
@@ -151,21 +140,37 @@ useEffect(() => {
     setloading(true);
   };
 
+  const accept = async() => {
+    const accept = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    };
+    const response = await fetch(
+      "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
+        newOrder.marketPlaceName +
+        "/" +
+        newOrder.orderId+"/"+time,
+      accept
+    );
+  
+    setShow(false);
+  };
+
   useEffect(() => {
     FetchData();
   }, []);
 
-  if(loading==false){
-    return (
-      <>
+  // if(loading==false){
+  //   return (
+  //     <>
 
-     <div className="spiner">
-       <Spinner animation="border"  />
+  //    <div className="spiner">
+  //      <Spinner animation="border"  />
 
-     </div>
-      </>
-    )
-  }
+  //    </div>
+  //     </>
+  //   )
+  // }
 
   //Pagination java script code
   const lastIndex = currentPage * postsPerPage;
@@ -186,26 +191,23 @@ useEffect(() => {
   // Image Import
 
   const image = (supplier) => {
-    if (supplier == "Swiggy")
-      return Swiggy;
-    if(supplier=="Uber Eats")
-    return  Ubereat;
-    if(supplier=="Zomato")
-    return Zomato;
-    if(supplier=="Food Panda")
-    return "https://play-lh.googleusercontent.com/1keEOkk2GrxZpaRH73-vDqpAXhJNU9tbP5mfk82X6YxH8EhnU2JPOb5w1FLUJiqkEg";
-    };
+    if (supplier == "Swiggy") return Swiggy;
+    if (supplier == "Uber Eats") return Ubereat;
+    if (supplier == "Zomato") return Zomato;
+    if (supplier == "Food Panda")
+      return "https://play-lh.googleusercontent.com/1keEOkk2GrxZpaRH73-vDqpAXhJNU9tbP5mfk82X6YxH8EhnU2JPOb5w1FLUJiqkEg";
+  };
 
-   
   return (
     <>
+      <Slider />
       <Searchbar Details={Details} />
       <div className="maincontainer">
         <div>
           <div className="navbar">
             <header>
               <div className="brand">
-                <a >Order List</a>
+                <a>Order List</a>
               </div>
 
               <div className="dropdown">
@@ -227,11 +229,9 @@ useEffect(() => {
                   </svg>
                 </button>
                 <div className="dropdown-content">
-                <a
+                  <a
                     onClick={() => {
-                      setDetails(
-                        resetdata
-                      );
+                      setDetails(resetdata);
                       setcurrentPage(1);
                     }}
                   >
@@ -273,43 +273,24 @@ useEffect(() => {
                   >
                     Uber Eats
                   </a>
-                  <a
-                    onClick={() => {
-                      setDetails(
-                        resetdata.filter(
-                          (item) => item.marketPlaceName === "Food Panda"
-                        )
-                      );
-                      setcurrentPage(1);
-                    }}
-                  >
-                    Food Panda
-                  </a>
                 </div>
               </div>
 
               <div className="dropname2">
                 <p className="dropdownname">
                   Entries per page:{" "}
-                  <select className="entery_selection" value={postsPerPage} 
-                  onChange={
-                    (e)=>{
-                      setpostsPerPage(e.target.value)
-                    }
-                  }>
-                    <option value="5">
-                    5
-                    </option>
-                    <option value="10">
-                     10
-                    </option>
-                    <option>
-                     20
-                    </option>
+                  <select
+                    className="entery_selection"
+                    value={postsPerPage}
+                    onChange={(e) => {
+                      setpostsPerPage(e.target.value);
+                    }}
+                  >
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option>20</option>
                   </select>
-                  <div className="20">
-                   
-                  </div>
+                  <div className="20"></div>
                 </p>
               </div>
 
@@ -323,11 +304,7 @@ useEffect(() => {
                   <li className="statuscss statuscolor">
                     <a
                       className="statusbutton"
-                      onClick={() =>
-                        setDetails(
-                          resetdata
-                        )
-                      }
+                      onClick={() => setDetails(resetdata)}
                     >
                       All
                     </a>
@@ -339,8 +316,8 @@ useEffect(() => {
                         setDetails(
                           resetdata.filter(
                             (item) =>
-                              item.status === "Accepted" ||
-                              item.status === "Ready"
+                              item.status == "Accepted" ||
+                              item.status == "Ready"
                           )
                         )
                       }
@@ -411,15 +388,16 @@ useEffect(() => {
                           <img
                             className="table_order_details_img"
                             src={image(item.marketPlaceName)}
-                            style={{borderRadius:"12px"}}
+                            style={{ borderRadius: "12px" }}
                           />
                           &nbsp;&nbsp; &nbsp;
-                          {item.orderId} <br />
                           {item.customerName}
+                          <br />
+                          {item.orderId}
                         </div>
                       </td>
                       <td>{item.itemName}</td>
-                      <td>{item.price}</td>
+                      <td>&#8377;{item.price}</td>
                       <td>{item.deliveryBoyName}</td>
                       <td>{item.location}</td>
                       <td className="order_status">
@@ -433,8 +411,8 @@ useEffect(() => {
             </tbody>
           </table>
 
-          {/* Pagination Html/css Code */}
-          <nav className="paginationmain" >
+          {/* Pagination Html/css Code  */}
+          <nav className="paginationmain">
             <ul
               className="pagination justify-content-center"
               style={{ marginTop: "15px", float: "right" }}
@@ -470,103 +448,127 @@ useEffect(() => {
         </div>
 
         <Modal
-              show={show}
-              onHide={handleClose}
-              backdrop="static"
-              keyboard={false}
-              centered
-              style={{ width: "374px", margin: "auto",borderRadius:"12px"}}
-          >
-              <div style={{ borderRadius: "3px" }}>
-                  <div
-                      style={{
-                          backgroundColor: "#FBB700",
-                          borderRadius: "12px",
-                          textAlign: "center",
-                      }}
-                  >
-                      <Modal.Header>
-                          
-                          <div style={{ marginLeft:"auto",marginRight:"auto", fontWeight: "700", fontSize: "18px" }}>
-                              Order Alert
-                          </div>
-                      </Modal.Header>
-                  </div>
-                  <div>
-                      <Modal.Body>
-                          <p style={{ textAlign: "center" }}>
-                              Orderd From:<span style={{ color: "#E3263F" }}>{newOrder.marketPlaceName}</span>
-                          </p>
-                          <hr />
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+          centered
+          style={{ width: "374px", margin: "auto", borderRadius: "12px" }}
+        >
+          <div style={{ borderRadius: "3px" }}>
+            <div
+              style={{
+                backgroundColor: "#FBB700",
+                borderRadius: "12px",
+                textAlign: "center",
+              }}
+            >
+              <Modal.Header>
+                <div
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    fontWeight: "700",
+                    fontSize: "18px",
+                  }}
+                >
+                  Order Alert
+                </div>
+              </Modal.Header>
+            </div>
+            <div>
+              <Modal.Body>
+                <p style={{ textAlign: "center" }}>
+                  Orderd From:
+                  <span style={{ color: "#E3263F" }}>
+                    {newOrder.marketPlaceName}
+                  </span>
+                </p>
+                <hr />
 
-                          {/* {newOrder.itemName} = {newOrder.price}
+                {/* {newOrder.itemName} = {newOrder.price}
                     <hr></hr>
                     Total = {newOrder.price} */}
 
-                          <p style={{ textAlign: "center" ,lineHeight:"38px"}}>
-                              {newOrder.itemName} = {newOrder.price}
-                              <br />
-                              <div style={{ borderBottom: "2px dashed black", width: "214px", marginLeft: "auto", marginRight: "auto" }}></div>
-                              Total = {newOrder.price}
-                              <hr />
-                          </p>
-                      </Modal.Body>
-                  </div>
+                <p style={{ textAlign: "center", lineHeight: "38px" }}>
+                  {newOrder.itemName} = {newOrder.price}
+                  <br />
+                  <div
+                    style={{
+                      borderBottom: "2px dashed black",
+                      width: "214px",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                  ></div>
+                  Total = {newOrder.price}
+                  <hr />
+                </p>
+              </Modal.Body>
+            </div>
 
-                  <div style={{ textAlign: "center" }}>
-                      <p>
-                          Select Preprationtime
-                          <br />
-
-                          <div
-                              class="btn-group"
-                              role="group"
-                              aria-label="Basic mixed styles example"
-                          >
-                              <button type="button" style={{ background: ' #FEDE87', borderRadius: '2px' }} onClick={() => {
-                                  settime(time - 10);
-                              }}>
-                                  -
-                              </button>
-                              <button type="button" style={{ background: ' #FEDE87' }}>
-                                  10
-                              </button>
-                              <button type="button" style={{ background: ' #FEDE87' }} onClick={() => {
-                                  settime(time + 10);
-                              }}>
-                                  +
-                              </button>
-                          </div>
-                      </p>
-                      <div className="button" style={{ margin: "10px" }}>
-                          <button
-                              className="btn btn-outline-danger"
-                              style={{
-                                  width: "150px",
-                                  height: "40px" }}
-                              onClick={handleClose}
-                          >
-                              Reject
-                          </button>
-                          <button
-                              className="btn"
-                              style={{
-                                  width: "150px",
-                                  height: "40px",
-                                  backgroundColor: "#279500",
-                                  color: "white",
-                              }}
-                          >
-                              Accept ({ timer})
-                          </button>
-                      </div>
-                  </div>
+            <div style={{ textAlign: "center" }}>
+              <p>
+                Select Preprationtime
+                <br />
+                <div
+                  class="btn-group"
+                  role="group"
+                  aria-label="Basic mixed styles example"
+                >
+                  <button
+                    type="button"
+                    style={{ background: " #FEDE87", borderRadius: "2px" }}
+                    onClick={() => {
+                      if (time >= 5) {
+                        settime(time - 5);
+                      }
+                    }}
+                  >
+                    -
+                  </button>
+                  <button type="button" style={{ background: " #FEDE87" }}>
+                    <div>{time}</div>
+                  </button>
+                  <button
+                    type="button"
+                    style={{ background: " #FEDE87" }}
+                    onClick={() => {
+                      settime(time + 5);
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+              </p>
+              <div className="button" style={{ margin: "20px" }}>
+                <button
+                  className="btn btn-outline-danger"
+                  style={{
+                    width: "150px",
+                    height: "40px",
+                  }}
+                  onClick={handleClose}
+                >
+                  Reject
+                </button>
+                <button
+                  className="btn"
+                  style={{
+                    width: "150px",
+                    height: "40px",
+                    backgroundColor: "#279500",
+                    color: "white",
+                  }}
+                  onClick={accept}
+                >
+                  Accept ({timer})
+                </button>
               </div>
-          </Modal>
-
+            </div>
+          </div>
+        </Modal>
       </div>
-
-
     </>
   );
 }

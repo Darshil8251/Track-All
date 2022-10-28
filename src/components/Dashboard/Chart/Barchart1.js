@@ -1,8 +1,9 @@
 
 import React, { PureComponent} from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
-// import "./Barchart.css";
+import "./Barchart.css";
 import { useEffect, useState } from "react";
+import '../Dashboard.css';
 
 
 
@@ -81,9 +82,9 @@ useEffect(() => {
 
     return (
         <>
-         <div className="dropdown">
+         <div className="dropdown"  >
             <button
-              className="btn btn-secondary dropdown-toggle"
+              className="btn btn-secondary dropdown-toggle" 
               type="button"
               id="dropdownMenuButton"
               data-toggle="dropdown"
@@ -92,7 +93,7 @@ useEffect(() => {
             >
               Filter By
             </button>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div className="dropdown-menu dphover" aria-labelledby="dropdownMenuButton" style={{backgroundColor:" #ffeebf"}}>
               <a className="dropdown-item" onClick={
                 ()=>{
                   setData(resetdata.weekDaysSales);

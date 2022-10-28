@@ -31,7 +31,8 @@
 
 .setup-submit-button {
   border-radius: 5px;
-  background-color: blue;
+  background-color:#FBB700;
+  text-decoration: none;
   color: white;
   border-color: blue;
 }

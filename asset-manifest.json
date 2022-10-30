@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/hackthone/static/css/main.4b04dfbc.css",
+    "main.js": "/hackthone/static/js/main.728e34b0.js",
+    "static/js/787.b6fd2ddb.chunk.js": "/hackthone/static/js/787.b6fd2ddb.chunk.js",
+    "static/media/Zomato.svg": "/hackthone/static/media/Zomato.9b1611191c11a31007830676c14402e0.svg",
+    "static/media/Uber_Eats.svg": "/hackthone/static/media/Uber_Eats.294e6d6d4d53524e3b617d062fd6c92e.svg",
+    "static/media/Swiggy.svg": "/hackthone/static/media/Swiggy.b59d7442079868418cd398dcae9624a1.svg",
+    "static/media/Logo.svg": "/hackthone/static/media/Logo.2d74b64737af9fe92dabafcd62bd0ac9.svg",
+    "static/media/Foodpanda.svg": "/hackthone/static/media/Foodpanda.ae2a60a55538556cba67a637eadb3859.svg",
+    "index.html": "/hackthone/index.html",
+    "static/media/Resources.svg": "/hackthone/static/media/Resources.5206374608b07ae6b27b73849e974c99.svg",
+    "static/media/Ordered.svg": "/hackthone/static/media/Ordered.1655931775c9c1ce7b537a8962e7eccc.svg",
+    "static/media/Inventory.svg": "/hackthone/static/media/Inventory.4d7b266327ee5457bc411f57cd74e36a.svg",
+    "static/media/Ordericon.svg": "/hackthone/static/media/Ordericon.6721a4c0e1363b5b38174be2f1c60a76.svg",
+    "static/media/Cancelledorder.svg": "/hackthone/static/media/Cancelledorder.650c22199897e6239ba01546583bedfe.svg",
+    "static/media/Totalsales.svg": "/hackthone/static/media/Totalsales.68edac83ba7d8d6bc11cacc92c0bc87a.svg",
+    "static/media/Newcustomers.svg": "/hackthone/static/media/Newcustomers.53d0e2026f70cdfe43026a919d550b66.svg",
+    "static/media/Dashboard.svg": "/hackthone/static/media/Dashboard.d06e205402a70ce861a8ff625cd8417c.svg",
+    "main.4b04dfbc.css.map": "/hackthone/static/css/main.4b04dfbc.css.map",
+    "main.728e34b0.js.map": "/hackthone/static/js/main.728e34b0.js.map",
+    "787.b6fd2ddb.chunk.js.map": "/hackthone/static/js/787.b6fd2ddb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4b04dfbc.css",
+    "static/js/main.728e34b0.js"
+  ]
+}

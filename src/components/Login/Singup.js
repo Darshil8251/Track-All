@@ -10,65 +10,75 @@ import {
 import axios from "axios";
 
 function Signup() {
-  const [owner,setowner]=useState({
-    Name:"",
-    RestaurantName:"",
-    Email:"",
-    Number:"",
-    password:"",
-    ConfirmPassword:""
+  const [owner, setowner] = useState({
+    Name: "",
+    RestaurantName: "",
+    Email: "",
+    Number: "",
+    password: "",
+    ConfirmPassword: "",
   });
 
-  const storeData=()=>{
-    const Owner=document.getElementsByClassName('first-name-input').value;
-    const Restaurent=document.getElementsByClassName('Restaurent-name').value;
+  // const storeData = () => {
+  //   const Owner = document.getElementsByClassName("first-name-input").value;
+  //   const Restaurent = document.getElementsByClassName("Restaurent-name").value;
 
-    console.log("!!!!!!!!!!!!!!!",Owner);
-    
-    localStorage.setItem('Owner',Owner);
-    localStorage.setItem('Restaurent',Restaurent);
+  //   localStorage.setItem("Owner", Owner);
+  //   localStorage.setItem("Restaurent", Restaurent);
+  // };
+
+  const handlechange = (e) => {
+    setowner({ ...owner, [e.target.name]: e.target.value });
+    // console.log("heyeyye",{...owner,[e.target.name]:e.target.value});
+  };
+  const validateform=()=>{
+         
+    const owner=owner.Name;
+    const Rname=owner.RestaurantName;
+    const email=owner.Email;
+    const password=owner.password;
+    const cpassword=owner.ConfirmPassword;
+
+
+        if(owner==null){
+          alert("Please Enter the Name:");
+            return false
+        }
+        else{
+          handlesubmit();
+        }
+
   }
-  
-const handlechange=(e)=>{
-  setowner({...owner,[e.target.name]:e.target.value})
-  console.log("heyeyye",{...owner,[e.target.name]:e.target.value});
-
-}
 
 
-const handlesubmit=(e)=>{
-  e.preventDefault();
- 
-  // localStorage.setItem('Owner',(owner.Name));
-  // localStorage.setItem('RestName',(owner.RestaurantName));
-  // localStorage.setItem('password',(owner.password));
-  // localStorage.setItem('Confirm',(owner.ConfirmPassword));
-  // localStorage.setItem('Parse',JSON.parse(owner));  
-  localStorage.setItem('Owner',JSON.stringify(owner));
-  var stringify = JSON.stringify(owner);
-  // console.log(stringify);
-  // fetch('https://trackall.bsite.net/api/Authorization/SignUp/'+'stringify',{
-  //     method: 'POST',
-  //     mode: 'cors',
-  //     headers:{'Content-type':'application/json'},
-  //     body:stringify
-  //   }).then(r=>r.json()).then(res=>{
-  //     if(res){
-  //        console.log(res);
-  //     }
-  //   });
+  const handlesubmit = (e) => {
+    e.preventDefault();
+   
+     
+    localStorage.setItem("Owner", JSON.stringify(owner));
+    var stringify = JSON.stringify(owner);
+    // console.log(stringify);
+    // fetch('https://trackall.bsite.net/api/Authorization/SignUp/'+'stringify',{
+    //     method: 'POST',
+    //     mode: 'cors',
+    //     headers:{'Content-type':'application/json'},
+    //     body:stringify
+    //   }).then(r=>r.json()).then(res=>{
+    //     if(res){
+    //        console.log(res);
+    //     }
+    //   });
 
-  axios.post("https://trackall.bsite.net/api/Authorization/SignUp/",stringify)
-  .then((response)=>{
-    console.log(response);
-    e.target.reset();
-  })
-  .catch((error)=>{
-    console.log(error);
-  })
-  
-
-}
+    axios
+      .post("https://trackall.bsite.net/api/Authorization/SignUp/", stringify)
+      .then((response) => {
+        console.log(response);
+        e.target.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -98,7 +108,6 @@ const handlesubmit=(e)=>{
                 onChange={handlechange}
                 required
               />
-
             </div>
             <div>
               <input
@@ -110,7 +119,6 @@ const handlesubmit=(e)=>{
                 onChange={handlechange}
                 required
               />
-
             </div>
 
             <div>
@@ -160,16 +168,14 @@ const handlesubmit=(e)=>{
               />
             </div>
             <div>
-              <button  className="btncontinue"  onClick={handlesubmit
-          }>
-              <Link to="/setup"  >Continue</Link>
-             
+              <button className="btncontinue" onClick={validateform?<Link/>:<Signup/>}>
+                <Link to="/setup" style={{textDecoration: 'none'}}>Continue</Link>
               </button>
             </div>
             <hr />
-            <div >
+            <div>
               <label className="signin-link">
-                Already have an account ? <Link to="signin">Sign in</Link>
+                Already have an account ? <Link to="signin" style={{textDecoration:'none'}} >Sign in</Link>
               </label>
             </div>
           </form>

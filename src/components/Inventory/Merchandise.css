@@ -1,0 +1,138 @@
+.Merchandise_Menu {
+    width: 182px;
+    height: 50px;
+   
+    margin-top: 32px;
+    margin-left: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 32px;
+  
+    color: #05004e;
+    /* border: 3px solid; */
+  }
+  
+  .second_divs {
+    height: 460px;
+    background-color: rgba(242, 242, 242, 1);
+  }
+  
+  .Merchandise_Name {
+    display: flex;
+    text-decoration: none;
+    justify-content: space-around;
+    margin-bottom: 0px;
+    list-style: none;
+  }
+  
+  .Merchandise {
+    box-sizing: border-box;
+    margin-top: 20px;
+    margin-bottom: 0;
+    width: 110px;
+    height: 32px;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 30px;
+   
+  }
+  .header{
+   text-align: center;
+   color: rgba(27, 27, 27, 0.7);
+
+  }
+  
+  .Name {
+   
+    text-decoration: none;
+    color: #666666;
+  
+  }
+  .Name:hover{
+    text-decoration: none;
+    position: absolute;
+    color: #666666;
+    text-align: center;
+    background: #FBB700;
+    border-radius: 8px 8px 0px 0px;
+    width: 132px;
+    height: 35px;
+  }
+  .tabel{
+    box-sizing: border-box;
+
+position: absolute;
+width: 455px;
+height: 366px;
+left: 283px;
+top: 249px;
+
+background: #FFFCF3;
+opacity: 0.4;
+border: 0.4px solid #1F1F1F;
+border-radius: 8px;
+
+  }
+  
+  .second_divs_navbar_buttons_link:hover {
+    text-decoration: none;
+    color: #666666;
+  }
+  
+  .second_divs_searchbox_buttin {
+    margin: 30px;
+    
+  }
+  
+  .second_divs_search_box {
+    width: 550px;
+    height: 36px;
+    left: 284px;
+    top: 183px;
+  
+    background-color: rgba(31, 31, 31, 0.5);
+    border-radius: 8px;
+  }
+  
+  .second_divs_search_button {
+    width: 208px;
+    height: 36px;
+  
+    margin-left: 400px;
+    border-radius: 8px;
+  }
+  
+  .tabel {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 0px;
+    margin-top: 20px;
+    font-family: 'Plus Jakarta Sans';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+  }
+  
+  .Merchandise_Table{
+    box-sizing: border-box;
+    position: absolute;
+    width: 332px;
+    height: 225px;
+    left: 283px;
+    top: 249px;
+    
+    background: #FFFCF3;
+   
+    border-radius: 8px;
+  }
+
+  
+  .second_divs_change_table_buttons {
+    /* margin: 10px; */
+    padding: 15px;
+  }
+  

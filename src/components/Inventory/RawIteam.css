@@ -1,0 +1,145 @@
+.Raw_Items_Stock {
+  width: 182px;
+  height: 50px;
+
+  margin-top: 32px;
+  margin-left: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+
+  color: #05004e;
+}
+
+.fourth_divs {
+  background-color: rgba(242, 242, 242, 1);
+  height:540px
+}
+
+
+.fourth_divs_navbar {
+  display: flex;
+  text-decoration: none;
+  justify-content: space-around;
+  margin-bottom: 0px;
+  list-style: none;
+}
+
+.fourth_divs_navbar_buttons {
+  width: 50px;
+  height: 32px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 30px;
+
+  border-radius: 8px 8px 0px 0px;
+}
+
+.Iteam {
+  box-sizing: border-box;
+  margin-top: 20px;
+  margin-bottom: 0;
+  width: 110px;
+  height: 32px;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.Name {
+
+  text-decoration: none;
+  color: #666666;
+
+}
+
+.Name:hover {
+  text-decoration: none;
+  position: absolute;
+  color: #666666;
+  text-align: center;
+  background: #FBB700;
+  border-radius: 8px 8px 0px 0px;
+  width: 132px;
+  height: 35px;
+}
+
+.fourth_divs_searchbox_buttin {
+  margin: 30px;
+}
+
+.fourth_divs_search_box {
+  width: 550px;
+  height: 36px;
+  left: 284px;
+  top: 183px;
+
+  background-color: rgba(31, 31, 31, .5);
+  border-radius: 8px;
+}
+
+.fourth_divs_search_button {
+  width: 208px;
+  height: 36px;
+  margin-left: 400px;
+  border-radius: 8px;
+}
+
+.tableitem {
+  border-bottom: 1px solid #1F1F1F;
+}
+
+.fourth_divs_tabls {
+  display: flex;
+  justify-content: space-around;
+
+  margin-bottom: 0px;
+  margin-top: 20px;
+
+}
+
+.Iteam_table {
+  box-sizing: border-box;
+  position: absolute;
+  width: 330px;
+  height: 280px;
+  left: 283px;
+  top: 830px;
+  background: #F1FFED;
+  border-radius: 8px;
+}
+
+.fourth_divs_tabls_two {
+  width: 455px;
+  /* height: 366px; */
+  left: 283px;
+  top: 249px;
+  margin: 10px;
+
+  /* border: 3px solid; */
+
+  background-color: #bfbfbf;
+}
+
+.fourth_divs_tabls_three {
+  width: 455px;
+  /* height: 366px; */
+  left: 283px;
+  margin: 10px;
+  top: 249px;
+  /* border: 3px solid; */
+
+  background: #bfbfbf;
+}
+
+.fourth_divs_change_table_buttons {
+  /* margin: 10px;
+     */
+  padding: 15px;
+}

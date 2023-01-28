@@ -1,6 +1,7 @@
 {
   "name": "clientapp",
   "version": "0.1.0",
+  "homepage": "https://Darshil8251.github.io/Track-All",
   "private": true,
   "proxy": "https://heyq.bsite.net/api/Order/GetOrders",
   "dependencies": {
@@ -16,6 +17,7 @@
     "datatables.net": "^1.12.1",
     "datatables.net-dt": "^1.12.1",
     "framework7-react": "^7.0.8",
+    "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-chartjs-2": "^4.3.1",
@@ -28,6 +30,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

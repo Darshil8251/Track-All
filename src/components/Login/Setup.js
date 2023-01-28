@@ -103,13 +103,13 @@ function Body() {
 
               <div>
                 <button type="submit" className="setup-submit-button">
-                <Link to="../signin">Submit</Link> 
+                <Link to="../signin" style={{textDecoration:'none'}}>Submit</Link> 
                 </button>
               </div>
               <hr />
               <div>
                 <label>
-                  Already have an account ? <Link to="../signin">Sign in</Link>
+                  Already have an account ? <Link to="../signin" style={{textDecoration:'none'}}>Sign in</Link>
                 </label>
               </div>
             </form>

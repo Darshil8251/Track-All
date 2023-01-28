@@ -5,7 +5,7 @@ import "./App.css";
 // import Dashboard from "./components/Dashboard/Dashboard";
 // import Inventory from "./components/Inventory/Inventory";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link,
@@ -45,8 +45,7 @@ function App() {
          </Routes>
     
     </div>
-       
-      
+
       </Router>
 
 

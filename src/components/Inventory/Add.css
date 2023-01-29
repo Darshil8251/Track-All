@@ -1,0 +1,20 @@
+.container{
+    position: absolute;
+    width: 400px;
+    height: 285px;
+    border: 2px solid black;
+    border-radius: 5px;
+
+}
+.title{
+    height: 50px;
+    font-family: 'Plus Jakarta Sans';
+    text-align: center;
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 25px;
+letter-spacing: -0.005em;
+
+color: #1F1F1F;
+}

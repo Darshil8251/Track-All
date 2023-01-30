@@ -18,7 +18,7 @@ function Signup() {
     password: "",
     ConfirmPassword: "",
   });
-
+  const [validate,setvalidate]=useState(true);
   // const storeData = () => {
   //   const Owner = document.getElementsByClassName("first-name-input").value;
   //   const Restaurent = document.getElementsByClassName("Restaurent-name").value;
@@ -31,30 +31,46 @@ function Signup() {
     setowner({ ...owner, [e.target.name]: e.target.value });
     // console.log("heyeyye",{...owner,[e.target.name]:e.target.value});
   };
-  const validateform=()=>{
+  // const validateform=()=>{
          
-    const owner=owner.Name;
-    const Rname=owner.RestaurantName;
-    const email=owner.Email;
-    const password=owner.password;
-    const cpassword=owner.ConfirmPassword;
+  //   const owner=owner.Name;
+  //   const Rname=owner.RestaurantName;
+  //   const email=owner.Email;
+  //   const password=owner.password;
+  //   const cpassword=owner.ConfirmPassword;
 
 
-        if(owner==null){
-          alert("Please Enter the Name:");
-            return false
-        }
-        else{
-          handlesubmit();
-        }
+  //       if(owner==null){
+  //         alert("Please Enter the Name:");
+  //           return false
+  //       }
+  //       else{
+  //         handlesubmit();
+  //       }
 
-  }
+  // }
 
 
   const handlesubmit = (e) => {
     e.preventDefault();
    
-     
+     if(owner.Name==""){
+      alert("Please Enter Restaurant Owner name");
+      setvalidate(false);
+     }
+     else if(owner.RestaurantName==""){
+      alert("Please Enter Correct Restaurent Name");
+      setvalidate(false);
+     }
+     else if(owner.Email==""){
+      alert("Please Enter email");
+      setvalidate(false);
+     }
+     else if(owner.Number==""){
+      alert("please Enter Phone Number");
+      setvalidate(false);
+     }
+
     localStorage.setItem("Owner", JSON.stringify(owner));
     var stringify = JSON.stringify(owner);
     // console.log(stringify);
@@ -168,8 +184,9 @@ function Signup() {
               />
             </div>
             <div>
-              <button className="btncontinue" onClick={validateform?<Link/>:<Signup/>}>
-                <Link to="/setup" style={{textDecoration: 'none'}}>Continue</Link>
+            {/* onClick={validateform?<Link/>:<Signup/>} */}
+              <button className="btncontinue"         onClick={handlesubmit}   >
+              <Link to="/setup" style={{textDecoration: 'none'}}>Continue</Link>
               </button>
             </div>
             <hr />

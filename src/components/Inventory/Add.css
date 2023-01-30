@@ -4,6 +4,9 @@
     height: 285px;
     border: 2px solid black;
     border-radius: 5px;
+    text-align: center;
+    margin-left: 500px;
+    margin-bottom: 1000px;
 
 }
 .title{

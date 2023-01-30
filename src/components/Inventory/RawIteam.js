@@ -1,6 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
 import  './RawIteam.css';
+import Add from './Add';
 function RawIteam(){
+
+  const[merchandise,setmerchandise]=useState(false);
     return (
         <>
             
@@ -23,14 +26,15 @@ function RawIteam(){
           type="search"
           placeholder="Search for Item"
         />
-        <button className="fourth_divs_search_button btn btn-success" type="submit">
+        <button className="fourth_divs_search_button btn btn-success" type="submit" onClick={()=>{setmerchandise(true)}}>
           + Add New Item
         </button>
+        {merchandise && <Add state={merchandise}/>}
       </form>
     </div>
   </div>
   <div>
-    <table className="Iteam_table" style={{textAlign:"center"}}>
+    {/* <table className="Iteam_table" style={{textAlign:"center"}}>
       <thead>
         <tr className="pS-1">
           <th className="pS-3 tableitem">Item</th>
@@ -70,7 +74,7 @@ function RawIteam(){
         </tr>
       </thead>
       <tbody></tbody>
-    </table>
+    </table> */}
   </div>
   <div className="fourth_divs_change_table_buttons">
     <a href="" style={{marginLeft:"550px"}}>

@@ -4,8 +4,10 @@ import Slider from "../Slider";
 import RawIteam from "./RawIteam";
 import Merchandise_Menu from "./Merchandise_Menu";
 import Add from './Add'
+import { useState } from "react";
 
 function Inventory() {
+  
   return (
     <>
       <Slider />
@@ -18,9 +20,9 @@ function Inventory() {
           flexDirection: "column",
         }}
       >
-        <Merchandise_Menu />
         <RawIteam />
-        <Add/>
+        <Merchandise_Menu />
+        {/* <Add/> */}
       </div>
     </>
   );

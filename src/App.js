@@ -34,8 +34,8 @@ function App() {
     <Router>
     <div className="app">
        <Routes>
+        <Route path="signup" exact element={<Signup/>}></Route>
         <Route path="/" exact element={<Signup/>}></Route>
-        <Route path="Singnup" exact element={<Signup/>}></Route>
         <Route path="Setup" element={<Setup/>}></Route>
         <Route path="Signin" element={<Signin/>}></Route>
          <Route path="order" element={<Ordered/>}/>

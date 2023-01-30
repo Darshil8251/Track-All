@@ -18,7 +18,7 @@ function Signup() {
     password: "",
     ConfirmPassword: "",
   });
-  const [validate,setvalidate]=useState(true);
+  const [validate,setvalidate]=useState(false);
   // const storeData = () => {
   //   const Owner = document.getElementsByClassName("first-name-input").value;
   //   const Restaurent = document.getElementsByClassName("Restaurent-name").value;
@@ -70,7 +70,9 @@ function Signup() {
       alert("please Enter Phone Number");
       setvalidate(false);
      }
-
+    else{
+      setvalidate(true);
+    }
     localStorage.setItem("Owner", JSON.stringify(owner));
     var stringify = JSON.stringify(owner);
     // console.log(stringify);
@@ -185,8 +187,12 @@ function Signup() {
             </div>
             <div>
             {/* onClick={validateform?<Link/>:<Signup/>} */}
-              <button className="btncontinue"         onClick={handlesubmit}   >
-              <Link to="/setup" style={{textDecoration: 'none'}}>Continue</Link>
+            
+              <button className="btncontinue" onClick={handlesubmit} >
+              {
+                validate?<Link to="/setup" style={{textDecoration: 'none'}}   >Continue</Link>:<Link to="/signup" style={{textDecoration: 'none'}}  >Continue</Link>
+              }
+              
               </button>
             </div>
             <hr />

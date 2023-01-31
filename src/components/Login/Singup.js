@@ -18,7 +18,7 @@ function Signup() {
     password: "",
     ConfirmPassword: "",
   });
-  const [validate,setvalidate]=useState(false);
+  const [validate, setvalidate] = useState(false);
   // const storeData = () => {
   //   const Owner = document.getElementsByClassName("first-name-input").value;
   //   const Restaurent = document.getElementsByClassName("Restaurent-name").value;
@@ -32,13 +32,12 @@ function Signup() {
     // console.log("heyeyye",{...owner,[e.target.name]:e.target.value});
   };
   // const validateform=()=>{
-         
+
   //   const owner=owner.Name;
   //   const Rname=owner.RestaurantName;
   //   const email=owner.Email;
   //   const password=owner.password;
   //   const cpassword=owner.ConfirmPassword;
-
 
   //       if(owner==null){
   //         alert("Please Enter the Name:");
@@ -50,51 +49,39 @@ function Signup() {
 
   // }
 
-
   const handlesubmit = (e) => {
     e.preventDefault();
-   
-     if(owner.Name==""){
+
+    if (owner.Name == "") {
       alert("Please Enter Restaurant Owner name");
       setvalidate(false);
-     }
-     else if(owner.RestaurantName==""){
+    } else if (owner.RestaurantName == "") {
       alert("Please Enter Correct Restaurent Name");
       setvalidate(false);
-     }
-     else if(owner.Email==""){
+    } else if (owner.Email == "") {
       alert("Please Enter email");
       setvalidate(false);
-     }
-     else if(owner.Number==""){
+    } else if (owner.Number == "") {
       alert("please Enter Phone Number");
       setvalidate(false);
-     }
-    else{
-      setvalidate(true);
     }
     localStorage.setItem("Owner", JSON.stringify(owner));
     var stringify = JSON.stringify(owner);
-    // console.log(stringify);
-    // fetch('https://trackall.bsite.net/api/Authorization/SignUp/'+'stringify',{
-    //     method: 'POST',
-    //     mode: 'cors',
-    //     headers:{'Content-type':'application/json'},
-    //     body:stringify
-    //   }).then(r=>r.json()).then(res=>{
-    //     if(res){
-    //        console.log(res);
-    //     }
-    //   });
-
-    axios
-      .post("https://trackall.bsite.net/api/Authorization/SignUp/", stringify)
-      .then((response) => {
-        console.log(response);
-        e.target.reset();
-      })
-      .catch((error) => {
-        console.log(error);
+    console.log(stringify);
+    fetch("https://trackall.bsite.net/api/Authorization/SignUp/", {
+      method: "POST",
+      mode: "cors",
+      headers: { "Content-type": "application/json" },
+      body: stringify,
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        if (res) {
+          console.log(res);
+          setvalidate(true);
+        } else {
+          setvalidate(false);
+        }
       });
   };
 
@@ -186,19 +173,27 @@ function Signup() {
               />
             </div>
             <div>
-            {/* onClick={validateform?<Link/>:<Signup/>} */}
-            
-              <button className="btncontinue" onClick={handlesubmit} >
-              {
-                validate?<Link to="/setup" style={{textDecoration: 'none'}}   >Continue</Link>:<Link to="/signup" style={{textDecoration: 'none'}}  >Continue</Link>
-              }
-              
+              {/* onClick={validateform?<Link/>:<Signup/>} */}
+
+              <button className="btncontinue" onClick={handlesubmit}>
+                {validate ? (
+                  <Link to="/setup" style={{ textDecoration: "none" }}>
+                    Continue
+                  </Link>
+                ) : (
+                  <Link to="/signup" style={{ textDecoration: "none" }}>
+                    Continue
+                  </Link>
+                )}
               </button>
             </div>
             <hr />
             <div>
               <label className="signin-link">
-                Already have an account ? <Link to="signin" style={{textDecoration:'none'}} >Sign in</Link>
+                Already have an account ?{" "}
+                <Link to="signin" style={{ textDecoration: "none" }}>
+                  Sign in
+                </Link>
               </label>
             </div>
           </form>

@@ -27,7 +27,6 @@ function Body() {
     if (id_pattren.test(id_value)) {
       setIdValue("");
     } else if (!id_pattren.test(id_value) && id_value !== "") {
-      
     } else {
       setIdValue("");
     }
@@ -59,7 +58,7 @@ function Body() {
                     <input
                       type="text"
                       className="merchandise-input"
-                      placeholder="Add your Zometo Merchandise ID"
+                      placeholder="Add your Zomato Merchandise ID"
                       onChange={idonchangehandler}
                     />
 
@@ -80,36 +79,42 @@ function Body() {
                   </div>
                   {<div className=" setup-validateerror">{idValue}</div>}
 
-                  {serviceList.length - 1 === index && serviceList.length < 4 && (
-                    <div
-                      className="add-field-plus-button"
-                      onClick={serviceHandleAdd}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="25"
-                        height="25"
-                        fill="currentColor"
-                        className="bi bi-plus-circle-fill"
-                        viewBox="0 0 16 16"
+                  {serviceList.length - 1 === index &&
+                    serviceList.length < 4 && (
+                      <div
+                        className="add-field-plus-button"
+                        onClick={serviceHandleAdd}
                       >
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                      </svg>
-                      <p className="add-plus-button-text">Add another id</p>
-                    </div>
-                  )}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="25"
+                          height="25"
+                          fill="currentColor"
+                          className="bi bi-plus-circle-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                        </svg>
+                        <p className="add-plus-button-text">Add another id</p>
+                      </div>
+                    )}
                 </div>
               ))}
 
               <div>
                 <button type="submit" className="setup-submit-button">
-                <Link to="../signin" style={{textDecoration:'none'}}>Submit</Link> 
+                  <Link to="../signin" style={{ textDecoration: "none" }}>
+                    Submit
+                  </Link>
                 </button>
               </div>
               <hr />
               <div>
                 <label>
-                  Already have an account ? <Link to="../signin" style={{textDecoration:'none'}}>Sign in</Link>
+                  Already have an account ?{" "}
+                  <Link to="../signin" style={{ textDecoration: "none" }}>
+                    Sign in
+                  </Link>
                 </label>
               </div>
             </form>

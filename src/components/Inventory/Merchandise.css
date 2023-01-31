@@ -41,8 +41,15 @@
    
   }
   .header{
-   text-align: center;
+    font-family: 'Plus Jakarta Sans';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 30px;
+margin-left: 10%;
+   text-align: left;
    color: rgba(27, 27, 27, 0.7);
+   
 
   }
   
@@ -93,11 +100,16 @@ border-radius: 8px;
     height: 36px;
     left: 284px;
     top: 183px;
-  
-    background-color: rgba(31, 31, 31, 0.5);
+    background: rgba(31, 31, 31, 0.09);
+    
     border-radius: 8px;
   }
-  
+
+  .second_divs_search_box::placeholder{
+    color:black
+    
+  }
+    
   .second_divs_search_button {
     width: 208px;
     height: 36px;
@@ -119,18 +131,27 @@ font-size: 16px;
   
   .Merchandise_Table{
     box-sizing: border-box;
-    position: absolute;
+    
     width: 332px;
     height: 225px;
     left: 283px;
     top: 862px;
     
-    background: #FFFCF3;
-   
+    background: rgb(255, 252, 243,0.4);
+    
+    border: 0.4px solid #1F1F1F;
     border-radius: 8px;
+    
   }
 
-  
+  .item{
+    font-family: 'Plus Jakarta Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 30px;
+    color:rgba(27, 27, 27, 0.7);
+  }
   .second_divs_change_table_buttons {
     /* margin: 10px; */
     padding: 15px;

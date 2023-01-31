@@ -140,7 +140,7 @@ function Ordered() {
     setloading(true);
   };
 
-  const accept = async() => {
+  const accept = async () => {
     const accept = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -149,10 +149,12 @@ function Ordered() {
       "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
         newOrder.marketPlaceName +
         "/" +
-        newOrder.orderId+"/"+time,
+        newOrder.orderId +
+        "/" +
+        time,
       accept
     );
-  
+
     setShow(false);
   };
 
@@ -179,7 +181,7 @@ function Ordered() {
 
   const numberOfPages = Math.ceil(Details.length / postsPerPage);
 
-  const pageNumbers = [...Array(numberOfPages + 1).keys()].slice(1);
+  const pageNumbers = [...Array(numberOfPages + 1).keys()].slice(2);
 
   const nextPage = () => {
     if (currentPage !== numberOfPages) setcurrentPage(currentPage + 1);
@@ -447,9 +449,7 @@ function Ordered() {
           </nav>
         </div>
 
-
- {/* Popup  */}
-
+        {/* Popup  */}
 
         <Modal
           show={show}

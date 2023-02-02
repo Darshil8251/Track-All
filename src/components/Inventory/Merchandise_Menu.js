@@ -3,6 +3,7 @@ import "./Merchandise.css";
 import Add from "./Add";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { json } from "react-router-dom";
 
 function Merchandise_Menu() {
   const [merchandise, setmerchandise] = useState(false);
@@ -25,6 +26,10 @@ function Merchandise_Menu() {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
+  const [zomato,setzomato]=useState([{}]);
+  const [swiggy,setswiggy]=useState([{}]);
+  const [foodpanda,setfoodpanda]=useState([{}]);
+  const [uber,setuber]=useState([{}]);
 
   // Use for Data fetch from A
   useEffect(() => {
@@ -35,8 +40,8 @@ function Merchandise_Menu() {
       try {
         const response = await fetch(url);
         const json = await response.json();
-        console.log(json);
         setData(json);
+        
       } catch (error) {
         console.log("error", error);
       }
@@ -44,6 +49,79 @@ function Merchandise_Menu() {
 
     fetchData();
   }, []);
+
+  const fetchswiggy=()=>{
+    const url =
+      "https://heyq.bsite.net/api/api/GetSwiggyProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        setData(json);
+        console.log(json);
+        
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+
+  }
+  const fetchzomato=()=>{
+    const url =
+      "https://heyq.bsite.net/api/api/GetZomatoProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        setData(json);
+        console.log(json);
+        
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+  }
+  const fetchUber=()=>{
+                const url="https://heyq.bsite.net/api/api/GetUberEatsProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
+
+                const fetchData = async () => {
+                  try {
+                    const response = await fetch(url);
+                    const json = await response.json();
+                    setData(json);
+                    console.log(json);
+                    
+                  } catch (error) {
+                    console.log("error", error);
+                  }
+                };
+            
+                fetchData();
+  }
+
+  const fetchfoodpandas=()=>{
+    const url="https://heyq.bsite.net/api/api/GetFoodPandaProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        setData(json);
+        console.log(json);
+        
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+  }
+
   const itemTab = Math.ceil(Data.length / 6);
 
   const tabNumber = [...Array(itemTab + 1).keys()].slice(1);
@@ -58,24 +136,34 @@ function Merchandise_Menu() {
           <div>
             <ul className="Merchandise_Name">
               <li className="Merchandise">
-                <a href="/" className="Name">
+                {/* <a href="/" className="Name">
                   Zomato
-                </a>
+                </a> */}
+                <button className="Name" onClick={fetchzomato}>
+                Zomato
+                </button>
               </li>
               <li className="Merchandise">
-                <a href="/" className="Name">
+              <button className="Name" onClick={fetchswiggy}>
+                       swiggy
+              </button>
+                {/* <a href="/" className="Name" >
                   Swiggy
-                </a>
+                </a> */}
               </li>
               <li className="Merchandise">
-                <a href="/" className="Name">
+                {/* <a href="/" className="Name">
                   Uber Eats
-                </a>
+                </a> */}
+                <button className="Name" onClick={fetchUber}>Uber Eatas</button>
               </li>
               <li className="Merchandise">
-                <a href="/" className="Name">
+                {/* <a href="/" className="Name">
                   Food Panda
-                </a>
+                </a> */}
+                <button className="Name" onClick={fetchfoodpandas}>
+                       food Pandas
+                </button>
               </li>
             </ul>
             <hr style={{ marginLeft: "20px", marginTop: "3px" }} />
@@ -114,12 +202,12 @@ function Merchandise_Menu() {
                     <div>
                       <table
                         className="Merchandise_Table"
-                        style={{ textAlign: "center" }}
+                        style={{ textAlign: "center",marginLeft:"46px"}}
                       >
                         <thead>
                           <tr className="p-1">
-                            <th className="p-1 tableitem header">Item</th>
-                            <th className="pS-3 tableitem header">
+                            <th className="p-1 tableitem header" style={{textAlign:"center"}}>Item</th>
+                            <th className="pS-3 tableitem header" style={{textAlign:"center"}}>
                               Stock Status
                             </th>
                           </tr>

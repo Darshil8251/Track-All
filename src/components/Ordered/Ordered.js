@@ -10,10 +10,14 @@ import "bootstrap/dist/css/bootstrap.css";
 import Spinner from "react-bootstrap/Spinner";
 import Zomato from "../Image/Zomato.svg";
 import Slider from "../Slider";
+import "../Searchbar.css";
 import Foodpanda from "../Image/Foodpanda.svg";
+import Pagination from '@mui/material/PaginationItem';
+import ReactPaginate from "react-paginate";
+
 
 function Ordered() {
-  const [newOrder, setNewOrder] = useState({});
+  const [NewOrder, setNewOrder] = useState({});
   const [show, setShow] = useState(false);
   const [time, settime] = useState(10);
 
@@ -24,9 +28,9 @@ function Ordered() {
     };
     const response = await fetch(
       "https://trackall.bsite.net/api/order/PutRejectOrder/" +
-        newOrder.marketPlaceName +
+        NewOrder.marketPlaceName +
         "/" +
-        newOrder.orderId,
+        NewOrder.orderId,
       requestOptions
     );
     setShow(false);
@@ -93,6 +97,7 @@ function Ordered() {
   const [resetdata, setresetdata] = useState([{}]); //To filter The data
   const [currentPage, setcurrentPage] = useState(1); // Use for pagination to set pages
   const [postsPerPage, setpostsPerPage] = useState(5); // set postperpage
+  // const [currentPosts,setcurrentPosts]=useState([{}]);
 
   // Use For timer
 
@@ -138,6 +143,7 @@ function Ordered() {
     setDetails(data);
     setresetdata(data);
     setloading(true);
+    // setcurrentPosts(data);
   };
 
   const accept = async () => {
@@ -147,9 +153,9 @@ function Ordered() {
     };
     const response = await fetch(
       "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
-        newOrder.marketPlaceName +
+        NewOrder.marketPlaceName +
         "/" +
-        newOrder.orderId +
+        NewOrder.orderId +
         "/" +
         time,
       accept
@@ -162,33 +168,30 @@ function Ordered() {
     FetchData();
   }, []);
 
-  // if(loading==false){
-  //   return (
-  //     <>
-
-  //    <div className="spiner">
-  //      <Spinner animation="border"  />
-
-  //    </div>
-  //     </>
-  //   )
-  // }
-
+  // const[firstIndex,setfirstIndex]=useState(0);
   //Pagination java script code
   const lastIndex = currentPage * postsPerPage;
   const firstIndex = lastIndex - postsPerPage;
-  const currentPosts = Details.slice(firstIndex, lastIndex);
+  const divide=Details.slice(firstIndex, lastIndex);
+  // setcurrentPosts(divide);
+  let currentPosts = Details.slice(firstIndex, lastIndex);
+  // const[firstIndex,setfirstIndex]=useState(0);
+  // const lastIndex = firstIndex * postsPerPage;
+  // const currentPosts = Details.slice(firstIndex, lastIndex);
+  // const numberOfPages = Math.ceil(Details.length / postsPerPage);
+  // const handlePageClick = (event) => {
+  //   setfirstIndex((event.selected * postsPerPage) % Details.length);
+  //    currentPosts=Details.slice(firstIndex,lastIndex);
+  //   // setItemOffset(newOffset);
+  // };
 
-  const numberOfPages = Math.ceil(Details.length / postsPerPage);
-
-  const pageNumbers = [...Array(numberOfPages + 1).keys()].slice(2);
-
-  const nextPage = () => {
-    if (currentPage !== numberOfPages) setcurrentPage(currentPage + 1);
-  };
-  const prevPage = () => {
-    if (currentPage !== 1) setcurrentPage(currentPage - 1);
-  };
+  // const nextPage = () => {
+  //   if (currentPage !== numberOfPages) setcurrentPage(currentPage + 1);
+  // };
+  // const prevPage = () => {
+  //   if (currentPage !== 1) setcurrentPage(currentPage - 1);
+  // };
+  
 
   // Image Import
 
@@ -199,11 +202,30 @@ function Ordered() {
     if (supplier == "Food Panda")
       return "https://play-lh.googleusercontent.com/1keEOkk2GrxZpaRH73-vDqpAXhJNU9tbP5mfk82X6YxH8EhnU2JPOb5w1FLUJiqkEg";
   };
+  const[searchInput,setsearchInput]=useState("");
+  const handleChange = (e) => {
+    e.preventDefault();
+    setsearchInput(e.target.value);
+    let searchData=Details.filter((data)=>{
+      return data.location.toLowerCase().includes(searchInput.toLowerCase());
+    });
+    currentPosts=searchData;
+  };
+  
+    
+
 
   return (
     <>
       <Slider />
-      <Searchbar Details={Details} />
+      <div style={{    float: "right",marginTop: "-69px"}}>
+      {/*  */}
+      <input className="divinput" type="text" placeholder="Search Name, Order ID or Items" onChange={handleChange} value={searchInput}  />
+       <p style={{marginLeft:"500px",display:"inline",marginRight: "115px"}}></p> 
+      
+     
+      {/* <button className="Login">Login</button> */}
+    </div>
       <div className="maincontainer">
         <div>
           <div className="navbar">
@@ -222,7 +244,7 @@ function Ordered() {
                     fill="currentColor"
                     className="bi bi-chevron-down"
                     viewBox="0 0 16 16"
-                    class="dropicon"
+                    className="dropicon"
                   >
                     <path
                       fill-rule="evenodd"
@@ -414,7 +436,7 @@ function Ordered() {
           </table>
 
           {/* Pagination Html/css Code  */}
-          <nav className="paginationmain">
+          {/* <nav className="paginationmain">
             <ul
               className="pagination justify-content-center"
               style={{ marginTop: "15px", float: "right" }}
@@ -446,7 +468,27 @@ function Ordered() {
                 </a>
               </li>
             </ul>
-          </nav>
+          </nav> */}
+          <br />
+          {/* <ReactPaginate
+        previousLabel={"<"}
+        nextLabel={">"}
+        breakLabel={"..."}
+        pageCount={postsPerPage}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination justify-content-center"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"active"}
+      /> */}
         </div>
 
         {/* Popup  */}
@@ -485,17 +527,17 @@ function Ordered() {
                 <p style={{ textAlign: "center" }}>
                   Orderd From:
                   <span style={{ color: "#E3263F" }}>
-                    {newOrder.marketPlaceName}
+                    {NewOrder.marketPlaceName}
                   </span>
                 </p>
                 <hr />
 
-                {/* {newOrder.itemName} = {newOrder.price}
+                {/* {NewOrder.itemName} = {NewOrder.price}
                     <hr></hr>
-                    Total = {newOrder.price} */}
+                    Total = {NewOrder.price} */}
 
                 <p style={{ textAlign: "center", lineHeight: "38px" }}>
-                  {newOrder.itemName} = {newOrder.price}
+                  {NewOrder.itemName} = {NewOrder.price}
                   <br />
                   <div
                     style={{
@@ -505,7 +547,7 @@ function Ordered() {
                       marginRight: "auto",
                     }}
                   ></div>
-                  Total = {newOrder.price}
+                  Total = {NewOrder.price}
                   <hr />
                 </p>
               </Modal.Body>
@@ -516,7 +558,7 @@ function Ordered() {
                 Select Preprationtime
                 <br />
                 <div
-                  class="btn-group"
+                  className="btn-group"
                   role="group"
                   aria-label="Basic mixed styles example"
                 >

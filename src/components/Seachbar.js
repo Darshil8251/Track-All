@@ -3,7 +3,7 @@ import "./Searchbar.css";
 import { useEffect, useState } from "react";
 
 function Right({Details}) {
-  const[search,setsearch]=useState('');
+  const[searchInput,setsearchInput]=useState('');
   const [Data,setData]=useState('');
   
  
@@ -13,15 +13,25 @@ function Right({Details}) {
     setData(JSON.parse(detail));
      
   },[])
+  
+  
+  const handleChange = (e) => {
+    e.preventDefault();
+    setsearchInput(e.target.value);
+  };
+  if (searchInput.length > 0) {
+    Details.filter((country) => {
+    return Details.location.match(searchInput);
+});
+}
+
  
   
 
   return (
     <>
       <div style={{    float: "right",marginTop: "-69px"}}>
-      <input className="divinput" type="text" placeholder="Search Name, Order ID or Items" onChange={event =>{
-        setsearch(event.target.value)
-      }} />
+      <input className="divinput" type="text" placeholder="Search Name, Order ID or Items" value={searchInput} onChange={handleChange} />
        <p style={{marginLeft:"500px",display:"inline",marginRight: "115px"}}>{Data.Name}</p> 
       
      

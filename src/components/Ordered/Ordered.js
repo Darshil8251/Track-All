@@ -12,9 +12,8 @@ import Zomato from "../Image/Zomato.svg";
 import Slider from "../Slider";
 import "../Searchbar.css";
 import Foodpanda from "../Image/Foodpanda.svg";
-import Pagination from '@mui/material/PaginationItem';
+import Pagination from "@mui/material/PaginationItem";
 import ReactPaginate from "react-paginate";
-
 
 function Ordered() {
   const [NewOrder, setNewOrder] = useState({});
@@ -170,20 +169,22 @@ function Ordered() {
 
   // const[firstIndex,setfirstIndex]=useState(0);
   //Pagination java script code
-  const lastIndex = currentPage * postsPerPage;
-  const firstIndex = lastIndex - postsPerPage;
-  const divide=Details.slice(firstIndex, lastIndex);
+  const [lastIndex, setlastIndex] = useState(postsPerPage);
+  const StartIndex = lastIndex - postsPerPage;
+  const divide = Details.slice(StartIndex, lastIndex);
   // setcurrentPosts(divide);
-  let currentPosts = Details.slice(firstIndex, lastIndex);
-  // const[firstIndex,setfirstIndex]=useState(0);
+  let currentPosts = Details.slice(StartIndex, lastIndex);
+  const [firstIndex, setfirstIndex] = useState(0);
+
   // const lastIndex = firstIndex * postsPerPage;
   // const currentPosts = Details.slice(firstIndex, lastIndex);
   // const numberOfPages = Math.ceil(Details.length / postsPerPage);
-  // const handlePageClick = (event) => {
-  //   setfirstIndex((event.selected * postsPerPage) % Details.length);
-  //    currentPosts=Details.slice(firstIndex,lastIndex);
-  //   // setItemOffset(newOffset);
-  // };
+  const handlePageClick = (event) => {
+    setfirstIndex((event.selected * postsPerPage) % resetdata.length);
+    setlastIndex(event.selected * postsPerPage + postsPerPage);
+    currentPosts = resetdata.slice(firstIndex, lastIndex % resetdata.length);
+    console.log(firstIndex, lastIndex);
+  };
 
   // const nextPage = () => {
   //   if (currentPage !== numberOfPages) setcurrentPage(currentPage + 1);
@@ -191,7 +192,6 @@ function Ordered() {
   // const prevPage = () => {
   //   if (currentPage !== 1) setcurrentPage(currentPage - 1);
   // };
-  
 
   // Image Import
 
@@ -202,30 +202,42 @@ function Ordered() {
     if (supplier == "Food Panda")
       return "https://play-lh.googleusercontent.com/1keEOkk2GrxZpaRH73-vDqpAXhJNU9tbP5mfk82X6YxH8EhnU2JPOb5w1FLUJiqkEg";
   };
-  const[searchInput,setsearchInput]=useState("");
+  const [searchInput, setsearchInput] = useState("");
   const handleChange = (e) => {
     e.preventDefault();
     setsearchInput(e.target.value);
-    let searchData=Details.filter((data)=>{
+    if (e.target.value == "") {
+      return setDetails(resetdata);
+    }
+    let searchData = resetdata.filter((data) => {
       return data.location.toLowerCase().includes(searchInput.toLowerCase());
     });
-    currentPosts=searchData;
+    console.log("Method Called");
+    setDetails(searchData);
   };
-  
-    
-
 
   return (
     <>
       <Slider />
-      <div style={{    float: "right",marginTop: "-69px"}}>
-      {/*  */}
-      <input className="divinput" type="text" placeholder="Search Name, Order ID or Items" onChange={handleChange} value={searchInput}  />
-       <p style={{marginLeft:"500px",display:"inline",marginRight: "115px"}}></p> 
-      
-     
-      {/* <button className="Login">Login</button> */}
-    </div>
+      <div style={{ float: "right", marginTop: "-69px" }}>
+        {/*  */}
+        <input
+          className="divinput"
+          type="text"
+          placeholder="Search Name, Order ID or Items"
+          onChange={handleChange}
+          value={searchInput}
+        />
+        <p
+          style={{
+            marginLeft: "500px",
+            display: "inline",
+            marginRight: "115px",
+          }}
+        ></p>
+
+        {/* <button className="Login">Login</button> */}
+      </div>
       <div className="maincontainer">
         <div>
           <div className="navbar">
@@ -312,7 +324,7 @@ function Ordered() {
                   >
                     <option value="5">5</option>
                     <option value="10">10</option>
-                    <option>20</option>
+                    <option value="20">20</option>
                   </select>
                   <div className="20"></div>
                 </p>
@@ -470,25 +482,25 @@ function Ordered() {
             </ul>
           </nav> */}
           <br />
-          {/* <ReactPaginate
-        previousLabel={"<"}
-        nextLabel={">"}
-        breakLabel={"..."}
-        pageCount={postsPerPage}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={3}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination justify-content-center"}
-        pageClassName={"page-item"}
-        pageLinkClassName={"page-link"}
-        previousClassName={"page-item"}
-        previousLinkClassName={"page-link"}
-        nextClassName={"page-item"}
-        nextLinkClassName={"page-link"}
-        breakClassName={"page-item"}
-        breakLinkClassName={"page-link"}
-        activeClassName={"active"}
-      /> */}
+          <ReactPaginate
+            previousLabel={"<"}
+            nextLabel={">"}
+            breakLabel={"..."}
+            pageCount={Details.length / postsPerPage}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination justify-content-center"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            activeClassName={"active"}
+          />
         </div>
 
         {/* Popup  */}

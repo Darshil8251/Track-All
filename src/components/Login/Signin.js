@@ -36,7 +36,7 @@ function Signin() {
     localStorage.setItem("Owner", JSON.stringify(user));
     var stringify = JSON.stringify(user);
     console.log(stringify);
-    fetch("https://trackall.bsite.net/api/Authorization/SignIn/", {
+    fetch("http://localhost:38967/api/Authorization/SignIn/", {
       method: "POST",
       mode: "cors",
       headers: { "Content-type": "application/json" },
@@ -46,7 +46,7 @@ function Signin() {
       .then((res) => {
         if (res) {
           console.log(res);
-          setvalidate(false);
+          setvalidate(true);
         } else {
           setvalidate(false);
         }
@@ -122,9 +122,15 @@ function Signin() {
                 className="btncontinue"
                 onClick={handlesubmit}
               >
-                <Link to="/Dashboard" style={{ textDecoration: "none" }}>
-                  Submit
-                </Link>
+                {validate ? (
+                  <Link to="/Dashboard" style={{ textDecoration: "none" }}>
+                    Continue
+                  </Link>
+                ) : (
+                  <Link to="/signin" style={{ textDecoration: "none" }}>
+                    Continue
+                  </Link>
+                )}
               </button>
             </div>
           </form>

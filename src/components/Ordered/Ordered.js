@@ -169,22 +169,19 @@ function Ordered() {
 
   // const[firstIndex,setfirstIndex]=useState(0);
   //Pagination java script code
-  const [lastIndex, setlastIndex] = useState(postsPerPage);
-  const StartIndex = lastIndex - postsPerPage;
-  const divide = Details.slice(StartIndex, lastIndex);
-  // setcurrentPosts(divide);
-  let currentPosts = Details.slice(StartIndex, lastIndex);
-  const [firstIndex, setfirstIndex] = useState(0);
+  // const [lastIndex, setlastIndex] = useState(postsPerPage);
 
-  // const lastIndex = firstIndex * postsPerPage;
-  // const currentPosts = Details.slice(firstIndex, lastIndex);
-  // const numberOfPages = Math.ceil(Details.length / postsPerPage);
+  // setcurrentPosts(divide);
+  // let currentPosts = Details.slice(StartIndex, lastIndex);
+  // const [firstIndex, setfirstIndex] = useState(0);
+
+  const lastIndex = currentPage * postsPerPage;
+  const firstIndex = lastIndex - postsPerPage;
+  const currentPosts = Details.slice(firstIndex, lastIndex);
+
   const handlePageClick = (event) => {
-       console.log("gdfhjkl");
-    setfirstIndex((event.selected * postsPerPage) % resetdata.length);
-    setlastIndex(firstIndex+postsPerPage);
-    currentPosts = resetdata.slice(firstIndex, lastIndex % resetdata.length);
-    console.log(firstIndex, lastIndex);
+    console.log(event, typeof event.selected);
+    setcurrentPage(Number(event.selected + 1));
   };
 
   // const nextPage = () => {
@@ -411,9 +408,8 @@ function Ordered() {
               {currentPosts.map((item, index) => {
                 return (
                   <>
-
                     <tr key={index} className="trborder">
-                      <th scope="row">{index + 1+firstIndex}</th>
+                      <th scope="row">{index + 1 + firstIndex}</th>
 
                       <td className="table_order_details_orderidname">
                         <div

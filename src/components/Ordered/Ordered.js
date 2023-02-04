@@ -180,8 +180,9 @@ function Ordered() {
   // const currentPosts = Details.slice(firstIndex, lastIndex);
   // const numberOfPages = Math.ceil(Details.length / postsPerPage);
   const handlePageClick = (event) => {
+       console.log("gdfhjkl");
     setfirstIndex((event.selected * postsPerPage) % resetdata.length);
-    setlastIndex(event.selected * postsPerPage + postsPerPage);
+    setlastIndex(firstIndex+postsPerPage);
     currentPosts = resetdata.slice(firstIndex, lastIndex % resetdata.length);
     console.log(firstIndex, lastIndex);
   };
@@ -277,7 +278,7 @@ function Ordered() {
                     onClick={() => {
                       setDetails(
                         resetdata.filter(
-                          (item) => item.marketPlaceName === "Zomato"
+                          (item) => item.marketPlaceName == "Zomato"
                         )
                       );
                       setcurrentPage(1);
@@ -319,7 +320,8 @@ function Ordered() {
                     className="entery_selection"
                     value={postsPerPage}
                     onChange={(e) => {
-                      setpostsPerPage(e.target.value);
+                      setpostsPerPage(parseInt(e.target.value));
+                      setcurrentPage(1);
                     }}
                   >
                     <option value="5">5</option>
@@ -409,8 +411,9 @@ function Ordered() {
               {currentPosts.map((item, index) => {
                 return (
                   <>
+
                     <tr key={index} className="trborder">
-                      <th scope="row">{index + 1}</th>
+                      <th scope="row">{index + 1+firstIndex}</th>
 
                       <td className="table_order_details_orderidname">
                         <div

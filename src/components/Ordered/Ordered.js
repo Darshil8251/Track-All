@@ -12,7 +12,6 @@ import Zomato from "../Image/Zomato.svg";
 import Slider from "../Slider";
 import "../Searchbar.css";
 import Foodpanda from "../Image/Foodpanda.svg";
-import Pagination from "@mui/material/PaginationItem";
 import ReactPaginate from "react-paginate";
 
 function Ordered() {
@@ -32,8 +31,28 @@ function Ordered() {
         NewOrder.orderId,
       requestOptions
     );
+    console.log(response);
     setShow(false);
   };
+  const handleAccept = async () => {
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    };
+    const response = await fetch(
+      "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
+        NewOrder.marketPlaceName +
+        "/" +
+        NewOrder.orderId +
+        "/" +
+        time,
+        requestOptions
+    );
+    console.log(response);
+    setShow(false);
+  };
+
+
   const handleShow = () => setShow(true);
   const Ref = useRef(null);
 
@@ -145,23 +164,7 @@ function Ordered() {
     // setcurrentPosts(data);
   };
 
-  const accept = async () => {
-    const accept = {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-    };
-    const response = await fetch(
-      "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
-        NewOrder.marketPlaceName +
-        "/" +
-        NewOrder.orderId +
-        "/" +
-        time,
-      accept
-    );
-
-    setShow(false);
-  };
+  
 
   useEffect(() => {
     FetchData();
@@ -182,6 +185,7 @@ function Ordered() {
   const handlePageClick = (event) => {
     console.log(event, typeof event.selected);
     setcurrentPage(Number(event.selected + 1));
+    
   };
 
   // const nextPage = () => {
@@ -213,6 +217,8 @@ function Ordered() {
     console.log("Method Called");
     setDetails(searchData);
   };
+
+
 
   return (
     <>
@@ -318,7 +324,10 @@ function Ordered() {
                     value={postsPerPage}
                     onChange={(e) => {
                       setpostsPerPage(parseInt(e.target.value));
-                      setcurrentPage(1);
+                        const pageset=()=>{
+                         setcurrentPage(1);
+                        }
+                        pageset();
                     }}
                   >
                     <option value="5">5</option>
@@ -445,41 +454,6 @@ function Ordered() {
               })}
             </tbody>
           </table>
-
-          {/* Pagination Html/css Code  */}
-          {/* <nav className="paginationmain">
-            <ul
-              className="pagination justify-content-center"
-              style={{ marginTop: "15px", float: "right" }}
-            >
-              <li className="page-item">
-                <a className="page-link" onClick={prevPage} href="#">
-                  &laquo;
-                </a>
-              </li>
-              {pageNumbers.map((pgNumber) => (
-                <li
-                  key={pgNumber}
-                  className={`page-item ${
-                    currentPage == pgNumber ? "active" : ""
-                  } `}
-                >
-                  <a
-                    onClick={() => setcurrentPage(pgNumber)}
-                    className="page-link"
-                    href="#"
-                  >
-                    {pgNumber}
-                  </a>
-                </li>
-              ))}
-              <li className="page-item">
-                <a className="page-link" onClick={nextPage} href="#">
-                  &raquo;
-                </a>
-              </li>
-            </ul>
-          </nav> */}
           <br />
           <ReactPaginate
             previousLabel={"<"}
@@ -499,6 +473,7 @@ function Ordered() {
             breakClassName={"page-item"}
             breakLinkClassName={"page-link"}
             activeClassName={"active"}
+            forcePage={currentPage - 1}
           />
         </div>
 
@@ -617,7 +592,7 @@ function Ordered() {
                     backgroundColor: "#279500",
                     color: "white",
                   }}
-                  onClick={accept}
+                  onClick={handleAccept}
                 >
                   Accept ({timer})
                 </button>

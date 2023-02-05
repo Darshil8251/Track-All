@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   const FetchData = async () => {
     let res = await fetch(
-      "http://localhost:38967/api/analytics/GetNumberAnalytics/71897957-87eb-45c0-8d50-a73c5490f17e",
+      "https://TrackAll.bsite.net/api/analytics/GetNumberAnalytics/71897957-87eb-45c0-8d50-a73c5490f17e",
       {
         mode: "cors",
         headers: {

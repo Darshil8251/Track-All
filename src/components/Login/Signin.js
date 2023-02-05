@@ -36,7 +36,7 @@ function Signin() {
     localStorage.setItem("Owner", JSON.stringify(user));
     var stringify = JSON.stringify(user);
     console.log(stringify);
-    fetch("http://localhost:38967/api/Authorization/SignIn/", {
+    fetch("https://trackall.bsite.net/api/Authorization/SignIn/", {
       method: "POST",
       mode: "cors",
       headers: { "Content-type": "application/json" },

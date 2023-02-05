@@ -4,9 +4,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
   Link,
   Routes,
+  Navigate,
 } from "react-router-dom";
+import Dashboard from "../Dashboard/Dashboard";
 import "./Sigin.css";
 import TrackAll from "./TrackAll";
 
@@ -44,11 +47,12 @@ function Signin() {
     })
       .then((r) => r.json())
       .then((res) => {
-        if (res) {
+        if (res.success == "User Logged In") {
           console.log(res);
           setvalidate(true);
         } else {
-          setvalidate(false);
+          alert(res.Error);
+          console.log(res);
         }
       });
   };
@@ -122,10 +126,9 @@ function Signin() {
                 className="btncontinue"
                 onClick={handlesubmit}
               >
+                {console.log(validate)}
                 {validate ? (
-                  <Link to="/Dashboard" style={{ textDecoration: "none" }}>
-                    Continue
-                  </Link>
+                  <Navigate to={"/dashboard"} />
                 ) : (
                   <Link to="/signin" style={{ textDecoration: "none" }}>
                     Continue

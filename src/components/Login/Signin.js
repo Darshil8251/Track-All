@@ -12,6 +12,7 @@ import {
 import Dashboard from "../Dashboard/Dashboard";
 import "./Sigin.css";
 import TrackAll from "./TrackAll";
+import Cookies from 'js-cookie';
 
 function Signin() {
   const [user, setuser] = useState({
@@ -48,8 +49,13 @@ function Signin() {
       .then((r) => r.json())
       .then((res) => {
         if (res.success == "User Logged In") {
-          console.log(res);
+            console.log(res)
+            
+            const date=new  Date(res.expires);
           setvalidate(true);
+          Cookies.set('token',res.token,{expires:date,httpOnly: true});
+          const a=Cookies.get('token');
+          console.log(a.token);
         } else {
           alert(res.Error);
           console.log(res);

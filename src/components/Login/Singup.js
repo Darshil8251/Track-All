@@ -9,6 +9,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import axios from "axios";
+import { createLogger } from "@microsoft/signalr/dist/esm/Utils";
 
 function Signup() {
   const [owner, setowner] = useState({
@@ -28,35 +29,13 @@ function Signup() {
   const [cpassErrr, setCPassErrr] = useState(false);
   const [Cpass, setCpass] = useState("");
   const [pass, setPass] = useState("");
-  // const storeData = () => {
-  //   const Owner = document.getElementsByClassName("first-name-input").value;
-  //   const Restaurent = document.getElementsByClassName("Restaurent-name").value;
-
-  //   localStorage.setItem("Owner", Owner);
-  //   localStorage.setItem("Restaurent", Restaurent);
-  // };
+  
 
   const handlechange = (e) => {
     setowner({ ...owner, [e.target.name]: e.target.value });
     // console.log("heyeyye",{...owner,[e.target.name]:e.target.value});
   };
-  // const validateform=()=>{
-
-  //   const owner=owner.Name;
-  //   const Rname=owner.RestaurantName;
-  //   const email=owner.Email;
-  //   const password=owner.password;
-  //   const cpassword=owner.ConfirmPassword;
-
-  //       if(owner==null){
-  //         alert("Please Enter the Name:");
-  //           return false
-  //       }
-  //       else{
-  //         handlesubmit();
-  //       }
-
-  // }
+ 
   function nameHandle(e) {
     if (e.target.value.length < 2) {
       setMessage(true);
@@ -108,7 +87,7 @@ function Signup() {
     e.preventDefault();
   }
 
-  const handlesubmit = (e) => {
+  const handlesubmit = async(e) => {
     e.preventDefault();
 
     if (owner.Name == "") {
@@ -126,30 +105,32 @@ function Signup() {
     } else {
       setvalidate(true);
     }
-    localStorage.setItem("Owner", JSON.stringify(owner));
     var stringify = JSON.stringify(owner);
     // console.log(stringify);
-    // fetch('https://trackall.bsite.net/api/Authorization/SignUp/'+'stringify',{
-    //     method: 'POST',
-    //     mode: 'cors',
-    //     headers:{'Content-type':'application/json'},
-    //     body:stringify
-    //   }).then(r=>r.json()).then(res=>{
-    //     if(res){
-    //        console.log(res);
-    //     }
-    //   });
-
-    axios
-      .post("https://trackall.bsite.net/api/Authorization/SignUp/", stringify)
-      .then((response) => {
-        console.log(response);
-        e.target.reset();
-      })
-      .catch((error) => {
-        console.log(error);
+    const response=await fetch('https://trackall.bsite.net/api/Authorization/SignUp/',{
+        method: 'POST',
+        mode: 'cors',
+        headers:{'Content-type':'application/json'},
+        body:stringify
+      }).then(r=>r.json()).then(res=>{
+        if(res){
+           console.log(res);
+        }
       });
-  };
+
+      localStorage.setItem('Email',owner.Email);
+     console.log(response);
+  //   axios
+  //     .post("https://trackall.bsite.net/api/Authorization/SignUp/", stringify)
+  //     .then((response) => {
+  //       console.log(response);
+  //       e.target.reset();
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+    }
 
   return (
     <>

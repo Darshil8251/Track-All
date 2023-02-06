@@ -5,12 +5,24 @@ import {
   Switch,
   Route,
   Link,
+  Navigate,
   Routes,
 } from "react-router-dom";
+import { createLogger } from "@microsoft/signalr/dist/esm/Utils";
+
 
 function Body() {
   const [serviceList, SetserviceList] = useState([{ service: "" }]);
-
+  const [marketPlace, setmarketPlace] = useState(
+    {
+      RestaurantEmail: "",
+      Zomato: "",
+      Swiggy:"",
+      UberEats:"",
+      FoodPanda:""
+    }
+  );
+  const [validate,setvalidate]=useState(false);
   const serviceHandleAdd = () => {
     SetserviceList([...serviceList, { service: "" }]);
   };
@@ -21,16 +33,44 @@ function Body() {
     SetserviceList(list);
   };
   const [idValue, setIdValue] = useState("");
-  const idonchangehandler = (e) => {
-    let id_value = e.target.value;
-    const id_pattren = /[0-9]{10}/g;
-    if (id_pattren.test(id_value)) {
-      setIdValue("");
-    } else if (!id_pattren.test(id_value) && id_value !== "") {
-    } else {
-      setIdValue("");
-    }
-    console.warn(e.target.value);
+  // const idonchangehandler = (e) => {
+  //   let id_value = e.target.value;
+  //   const id_pattren = /[0-9]{10}/g;
+  //   if (id_pattren.test(id_value)) {
+  //     setIdValue("");
+  //   } else if (!id_pattren.test(id_value) && id_value !== "") {
+  //   } else {
+  //     setIdValue("");
+  //   }
+  //   console.warn(e.target.value);
+  // };
+  const handleonchange=(e)=>{
+        console.log(typeof e.target.name)
+         setmarketPlace({...marketPlace,[e.target.name]:e.target.value})
+         
+  }
+
+  const handlechange = async () => {
+                 const email=localStorage.getItem('Email');
+                 marketPlace.RestaurantEmail = email;
+                 console.log(marketPlace.RestaurantEmail);
+           console.log(marketPlace);
+       const response=await fetch('https://trackall.bsite.net/api/Authorization/MarketPlaces',{
+        method: 'POST',
+        mode: 'cors',
+        headers:{'Content-type':'application/json'},
+        body:marketPlace
+      }).then(r=>r.json()).then(res=>{
+        if(res==true){
+           console.log(res);
+           setvalidate(true);
+        }
+        else{
+          console.log(res);
+        }
+      });
+
+      console.log(response);
   };
   return (
     <>
@@ -51,61 +91,65 @@ function Body() {
                   traking app
                 </p>
               </div>
-
-              {serviceList.map((singleService, index) => (
-                <div>
-                  <div key={index} className="setup-inputfield-remove ">
-                    <input
-                      type="text"
-                      className="merchandise-input"
-                      placeholder="Add your Zomato Merchandise ID"
-                      onChange={idonchangehandler}
-                    />
-
-                    {serviceList.length > 1 && (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="30"
-                        height="30"
-                        fill="currentColor"
-                        class="bi bi-calendar-x mx-1"
-                        viewBox="0 0 16 16"
-                        onClick={() => serviceHandleRemove(index)}
-                      >
-                        <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z" />
-                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                      </svg>
-                    )}
-                  </div>
-                  {<div className=" setup-validateerror">{idValue}</div>}
-
-                  {serviceList.length - 1 === index &&
-                    serviceList.length < 4 && (
-                      <div
-                        className="add-field-plus-button"
-                        onClick={serviceHandleAdd}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="25"
-                          height="25"
-                          fill="currentColor"
-                          className="bi bi-plus-circle-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                        </svg>
-                        <p className="add-plus-button-text">Add another id</p>
-                      </div>
-                    )}
+              <div>
+                <div className="setup-inputfield-remove ">
+                  <input
+                    type="text"
+                    className="merchandise-input"
+                    placeholder="Please Enter Zomato ID"
+                    name="Zomato"
+                    value={marketPlace.Zomato}
+                    onChange={handleonchange}
+                  />
+                          <br />
                 </div>
-              ))}
+                </div>
+                <div className="setup-inputfield-remove">
+                <input
+                    type="text"
+                    className="merchandise-input"
+                    placeholder="Plese Enter Swiggy ID"
+                    name="Swiggy"
+                    value={marketPlace.Swiggy}
+                    onChange={handleonchange}
+                  />
+                </div>
+                  
+                <div className="setup-inputfield-remove">
+                <input
+                    type="text"
+                    className="merchandise-input"
+                    placeholder="Please Enter UberEats ID"
+                    name="UberEats"
+                    value={marketPlace.UberEats}
+                    onChange={handleonchange}
+                  />
+                </div>
+                <div className="setup-inputfield-remove">
+                <input
+                    type="text"
+                    className="merchandise-input"
+                    placeholder="Please Enter FoodPanda ID"
+                    name="FoodPanda"
+                    value={marketPlace.FoodPanda}
+                    onChange={handleonchange}
+                  />
+                </div>
+            
 
               <div>
-                <button type="submit" className="setup-submit-button">
-                  <Link to="../signin" style={{ textDecoration: "none" }}>
+                <button type="submit" className="setup-submit-button" onClick={handlechange}>
+
+                  {/* <Link to="../signin" style={{ textDecoration: "none" }}>
                     Submit
-                  </Link>
+                  </Link> */}
+                  {validate ? 
+                    (
+                  <Navigate to="/signin" />
+                ):
+                  (<Link to="/setup" style={{ textDecoration: "none" }}>
+                    Continue
+                  </Link>) }
                 </button>
               </div>
               <hr />

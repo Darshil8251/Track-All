@@ -33,7 +33,7 @@ function Signup() {
 
   const handlechange = (e) => {
     setowner({ ...owner, [e.target.name]: e.target.value });
-    // console.log("heyeyye",{...owner,[e.target.name]:e.target.value});
+   
   };
  
   function nameHandle(e) {
@@ -66,7 +66,7 @@ function Signup() {
   }
 
   function passHandle(e) {
-    // console.log(e.target.value);
+    
     if (e.target.value.length > 8) {
       setPassErrr(false);
       setPass(e.target.value);
@@ -102,9 +102,7 @@ function Signup() {
     } else if (owner.Number == "") {
       alert("please Enter Phone Number");
       setvalidate(false);
-    } else {
-      setvalidate(true);
-    }
+    } 
     var stringify = JSON.stringify(owner);
     // console.log(stringify);
     const response=await fetch('https://trackall.bsite.net/api/Authorization/SignUp/',{
@@ -112,24 +110,19 @@ function Signup() {
         mode: 'cors',
         headers:{'Content-type':'application/json'},
         body:stringify
-      }).then(r=>r.json()).then(res=>{
-        if(res){
-           console.log(res);
+      }).then(r=>r.json()).then((res)=>{
+        console.log(res);
+        if(res.message=='User already exists'){
+          setvalidate(false);
+        }
+        else if(res.Success=='User Signed Up'){
+          setvalidate(true);
         }
       });
 
       localStorage.setItem('Email',owner.Email);
      console.log(response);
-  //   axios
-  //     .post("https://trackall.bsite.net/api/Authorization/SignUp/", stringify)
-  //     .then((response) => {
-  //       console.log(response);
-  //       e.target.reset();
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  
     }
 
   return (

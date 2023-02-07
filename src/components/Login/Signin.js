@@ -24,7 +24,7 @@ function Signin() {
 
   const handlechange = (e) => {
     setuser({ ...user, [e.target.name]: e.target.value });
-    // console.log("heyeyye",{...owner,[e.target.name]:e.target.value});
+
   };
 
   const handlesubmit = (e) => {
@@ -53,9 +53,10 @@ function Signin() {
             
             const date=new  Date(res.expires);
           setvalidate(true);
-          Cookies.set('token',res.token,{expires:date,httpOnly: true});
-          const a=Cookies.get('token');
-          console.log(a.token);
+          // Cookies.set('token',res.token,{expires:date,httpOnly: true});
+          // const a=Cookies.get('token');
+          document.cookie = `token=${res.token};expires=${date};Secure;HttpOnly`;
+         
         } else {
           alert(res.Error);
           console.log(res);

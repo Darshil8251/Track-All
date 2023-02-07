@@ -2,27 +2,11 @@ import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Tooltip, LabelList } from 'recharts';
 import { useEffect, useState } from "react";
 
-// const data = [
-//   { name: 'Group A', value: 400 },
-//   { name: 'Group B', value: 300 },
-//   { name: 'Group C', value: 300 },
-//   { name: 'Group D', value: 200 },
-// ];
 
 
 
-// const RADIAN = Math.PI / 180;
-// const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-//   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-//   const x = cx + radius * Math.cos(-midAngle * RADIAN);
-//   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-  // return (
-//     <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-//       {`${(percent * 100).toFixed(0)}%`}
-//     </text>
-//   );
-// };
+
 
 function Barchart2() {
   const [Data , setData] = useState([{}]);
@@ -67,34 +51,13 @@ function Barchart2() {
             dataKey="totalSales"
             // label='marketPlaceName'
           >
-            {/* {Data.map((entry, index) => ( */}
-              {/* <Cell key={Data.marketPlaceName} fill={['#0088FE'] ,['#0088FE'] } /> */}
-            {/* ))} */}
-            {/* <LabelList data={Data.salesByMarketPlace} position="outside"></LabelList> */}
           </Pie>
           <Pie dataKey={Data.marketPlaceName} data={Data.marketPlaceName} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
         </PieChart>
       </ResponsiveContainer>
 
 
-    //   <ResponsiveContainer width="80%" height="80%">
-    //   <PieChart width={400} height={400}>
-    //     <Pie
-    //      data={Data.salesByMarketPlace}
-    //       isAnimationActive={false}
-    //       cx="50%"
-    //       cy="50%"
-    //       outerRadius={120}
-    //       fill={}
-    //       dataKey="totalSales"
-           
-    //     />
-    //     <Pie dataKey="marketPlaceName" data={Data.marketPlaceName} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" >
-    //     <LabelList dataKey="marketPlaceName" position="inside"></LabelList>
-    //     </Pie>
-    //     <Tooltip />
-    //   </PieChart>
-    // </ResponsiveContainer>
+    
     );
   }
 

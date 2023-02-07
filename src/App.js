@@ -23,7 +23,7 @@ import Dashboard  from "./components/Dashboard/Dashboard";
 import Ordered from "./components/Ordered/Ordered";
 import Inventory from "./components/Inventory/Inventory";
 import Resources from "./components/Resources/Resources";
-
+import Add from './components/Inventory/Add';
 
 function App() {
 
@@ -37,12 +37,14 @@ function App() {
         <Route path="signup" exact element={<Signup/>}></Route>
         <Route path="/" exact element={<Signup/>}></Route>
         <Route path="Setup" element={<Setup/>}></Route>
-        <Route path="Signin" element={<Signin/>}></Route>
+        <Route path="/Signin" element={<Signin/>}></Route>
+        
          <Route path="order" element={<Ordered/>}/>
          <Route path="dashboard" exact element={<Dashboard />}></Route>
             <Route path="ordered" element={<Ordered/>}></Route>
             <Route path="inventory" element={<Inventory />}></Route>
             <Route path="Resources" element={<Resources />}></Route>
+           
          </Routes>
     
     </div>

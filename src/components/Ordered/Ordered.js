@@ -39,9 +39,11 @@ function Ordered() {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     };
+    const txt=NewOrder.marketPlaceName;
+    const result=txt.trim();
     const response = await fetch(
       "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
-        NewOrder.marketPlaceName +
+        result +
         "/" +
         NewOrder.orderId +
         "/" +
@@ -140,6 +142,7 @@ function Ordered() {
   useEffect(() => {
     connection.on("ReceiveOrder", (data) => {
       handleShow();
+      console.log(data);
       setNewOrder(data);
       clearTimer(getDeadTime());
     });
@@ -161,22 +164,11 @@ function Ordered() {
     setDetails(data);
     setresetdata(data);
     setloading(true);
-    // setcurrentPosts(data);
+    
   };
-
-  
-
   useEffect(() => {
     FetchData();
   }, []);
-
-  // const[firstIndex,setfirstIndex]=useState(0);
-  //Pagination java script code
-  // const [lastIndex, setlastIndex] = useState(postsPerPage);
-
-  // setcurrentPosts(divide);
-  // let currentPosts = Details.slice(StartIndex, lastIndex);
-  // const [firstIndex, setfirstIndex] = useState(0);
 
   const lastIndex = currentPage * postsPerPage;
   const firstIndex = lastIndex - postsPerPage;
@@ -188,12 +180,7 @@ function Ordered() {
     
   };
 
-  // const nextPage = () => {
-  //   if (currentPage !== numberOfPages) setcurrentPage(currentPage + 1);
-  // };
-  // const prevPage = () => {
-  //   if (currentPage !== 1) setcurrentPage(currentPage - 1);
-  // };
+ 
 
   // Image Import
 
@@ -224,7 +211,6 @@ function Ordered() {
     <>
       <Slider />
       <div style={{ float: "right", marginTop: "-69px" }}>
-        {/*  */}
         <input
           className="divinput"
           type="text"
@@ -417,7 +403,7 @@ function Ordered() {
               {currentPosts.map((item, index) => {
                 return (
                   <>
-                    <tr key={index} className="trborder">
+                    <tr key={index + 1 + firstIndex} className="trborder">
                       <th scope="row">{index + 1 + firstIndex}</th>
 
                       <td className="table_order_details_orderidname">

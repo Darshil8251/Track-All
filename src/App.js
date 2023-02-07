@@ -24,6 +24,7 @@ import Ordered from "./components/Ordered/Ordered";
 import Inventory from "./components/Inventory/Inventory";
 import Resources from "./components/Resources/Resources";
 import Add from './components/Inventory/Add';
+import History from './components/Ordered/Histroy';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
             <Route path="ordered" element={<Ordered/>}></Route>
             <Route path="inventory" element={<Inventory />}></Route>
             <Route path="Resources" element={<Resources />}></Route>
+            <Route path="History" element={<History/>}></Route>
            
          </Routes>
     

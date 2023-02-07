@@ -48,7 +48,7 @@ function Signin() {
     })
       .then((r) => r.json())
       .then((res) => {
-        if (res.success == "User Logged In") {
+        if (res.Success == "User Logged In") {
             console.log(res)
             
             const date=new  Date(res.expires);

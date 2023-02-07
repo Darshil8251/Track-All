@@ -14,7 +14,7 @@ import "../Searchbar.css";
 import Foodpanda from "../Image/Foodpanda.svg";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-
+// import History  from "./history";
 
 function Ordered() {
   const [NewOrder, setNewOrder] = useState({});
@@ -163,7 +163,7 @@ function Ordered() {
       console.log(data);
       setNewOrder(data);
       clearTimer(getDeadTime());
-    });  
+    });
   }, []);
 
   // Fetching Data From API
@@ -227,6 +227,7 @@ function Ordered() {
 
   return (
     <>
+
       <Slider />
       <div style={{ float: "right", marginTop: "-69px" }}>
         <input
@@ -236,22 +237,24 @@ function Ordered() {
           onChange={handleChange}
           value={searchInput}
         />
-         
-        {/* <p
+        <p
           style={{
             marginLeft: "500px",
             display: "inline",
             marginRight: "115px",
           }}
-        ></p> */}
-        <button className="history_btn">
-
-<Link to="/History"  style={{textDecoration:"none"}}>History</Link>
-</button>
-
+        ></p>
+        <br />
+  
+                
         {/* <button className="Login">Login</button> */}
       </div>
-      <div className="maincontainer">
+      <button className="back_btn">
+       <Link to="/ordered" style={{textDecoration:"none"}}>Back</Link>
+       </button>
+        
+
+      <div className="maincontainer" style={{ marginTop:"90px",}}>
         <div>
           <div className="navbar">
             <header>
@@ -327,7 +330,7 @@ function Ordered() {
 
               <div className="dropname2">
                 <p className="dropdownname">
-                  Entries per page:{" "}
+                  Entrie per page:{" "}
                   <select
                     className="entery_selection"
                     value={postsPerPage}
@@ -486,131 +489,9 @@ function Ordered() {
           />
         </div>
 
-        {/* Popup  */}
-
-        <Modal
-          show={show}
-          onHide={handleClose}
-          backdrop="static"
-          keyboard={false}
-          centered
-          style={{ width: "374px", margin: "auto", borderRadius: "12px" }}
-        >
-          <div style={{ borderRadius: "3px" }}>
-            <div
-              style={{
-                backgroundColor: "#FBB700",
-                borderRadius: "12px",
-                textAlign: "center",
-              }}
-            >
-              <Modal.Header>
-                <div
-                  style={{
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    fontWeight: "700",
-                    fontSize: "18px",
-                  }}
-                >
-                  Order Alert
-                </div>
-              </Modal.Header>
-            </div>
-            <div>
-              <Modal.Body>
-                <p style={{ textAlign: "center" }}>
-                  Orderd From:
-                  <span style={{ color: "#E3263F" }}>
-                    {NewOrder.marketPlaceName}
-                  </span>
-                </p>
-                <hr />
-
-                {/* {NewOrder.itemName} = {NewOrder.price}
-                    <hr></hr>
-                    Total = {NewOrder.price} */}
-
-                <p style={{ textAlign: "center", lineHeight: "38px" }}>
-                  {NewOrder.itemName} = {NewOrder.price}
-                  <br />
-                  <div
-                    style={{
-                      borderBottom: "2px dashed black",
-                      width: "214px",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                    }}
-                  ></div>
-                  Total = {NewOrder.price}
-                  <hr />
-                </p>
-              </Modal.Body>
-            </div>
-
-            <div style={{ textAlign: "center" }}>
-              <p>
-                Select Preprationtime
-                <br />
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic mixed styles example"
-                >
-                  <button
-                    type="button"
-                    style={{ background: " #FEDE87", borderRadius: "2px" }}
-                    onClick={() => {
-                      if (time >= 5) {
-                        settime(time - 5);
-                      }
-                    }}
-                  >
-                    -
-                  </button>
-                  <button type="button" style={{ background: " #FEDE87" }}>
-                    <div>{time}</div>
-                  </button>
-                  <button
-                    type="button"
-                    style={{ background: " #FEDE87" }}
-                    onClick={() => {
-                      settime(time + 5);
-                    }}
-                  >
-                    +
-                  </button>
-                </div>
-              </p>
-              <div className="button" style={{ margin: "20px" }}>
-                <button
-                  className="btn btn-outline-danger"
-                  style={{
-                    width: "150px",
-                    height: "40px",
-                  }}
-                  onClick={handleClose}
-                >
-                  Reject
-                </button>
-                <button
-                  className="btn"
-                  style={{
-                    width: "150px",
-                    height: "40px",
-                    backgroundColor: "#279500",
-                    color: "white",
-                  }}
-                  onClick={handleAccept}
-                >
-                  Accept ({timer})
-                </button>
-              </div>
-            </div>
-          </div>
-        </Modal>
-      
+       
       </div>
+      
     </>
   );
 }

@@ -1,13 +1,9 @@
 import React from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import "./Ordered.css";
-import { Modal } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
-import Searchbar from "../Seachbar";
 import Swiggy from "../Image/Swiggy.svg";
 import Ubereat from "../Image/Uber_Eats.svg";
 import "bootstrap/dist/css/bootstrap.css";
-import Spinner from "react-bootstrap/Spinner";
 import Zomato from "../Image/Zomato.svg";
 import Slider from "../Slider";
 import "../Searchbar.css";
@@ -15,161 +11,28 @@ import Foodpanda from "../Image/Foodpanda.svg";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 // import History  from "./history";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { createLogger } from "@microsoft/signalr/dist/esm/Utils";
+import './History.css';
 
 function Ordered() {
-  const [NewOrder, setNewOrder] = useState({});
-  const [show, setShow] = useState(false);
-  const [time, settime] = useState(10);
-
-  const handleClose = async () => {
-    const requestOptions = {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-    };
-    const response = await fetch(
-      "https://trackall.bsite.net/api/order/PutRejectOrder/" +
-        NewOrder.marketPlaceName +
-        "/" +
-        NewOrder.orderId,
-      requestOptions
-    ).then((r)=>{r.json()})
-    .then((res)=>{
-      console.log(res);
-         FetchData();
-    });
-    console.log(response);
-    setShow(false);
-  };
-  // useEffect(()=>{
-  //             handleAccept();
-  // },[])
-  const handleAccept = async () => {
-    const requestOptions = {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-    };
-    const txt=NewOrder.marketPlaceName;
-    const result=txt.trim();
-    const response = await fetch(
-      "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
-        result +
-        "/" +
-        NewOrder.orderId +
-        "/" +
-        time,
-        requestOptions
-    )
-    .then((r)=>r.json)
-    .then((res)=>{
-      console.log(res);
-      FetchData()
-    });
-    console.log(response);
-    setShow(false);
-    window.addEventListener("onclick", (event) => {
-      FetchData();
-      console.log("API call before page reload");
-  });
-  };
-
-
-  const handleShow = () => setShow(true);
-  const Ref = useRef(null);
-
-  const [loading, setloading] = useState(false);
-  // The state for our timer
-  const [timer, setTimer] = useState("0:00");
-
-  const getTimeRemaining = (e) => {
-    const total = Date.parse(e) - Date.parse(new Date());
-    const seconds = Math.floor((total / 1000) % 60);
-    const minutes = Math.floor((total / 1000 / 60) % 60);
-
-    return {
-      total,
-      minutes,
-      seconds,
-    };
-  };
-
-  const startTimer = (e) => {
-    let { total, minutes, seconds } = getTimeRemaining(e);
-    if (total >= 0) {
-      // update the timer
-      // check if less than 10 then we need to
-      // add '0' at the beginning of the variable
-      setTimer(
-        (minutes > 9 ? minutes : minutes) +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds)
-      );
-    }
-  };
-
-  const clearTimer = (e) => {
-    setTimer("0:60");
-
-    if (Ref.current) clearInterval(Ref.current);
-    const id = setInterval(() => {
-      startTimer(e);
-    }, 1000);
-    Ref.current = id;
-  };
-
-  const getDeadTime = () => {
-    let deadline = new Date();
-
-    deadline.setSeconds(deadline.getSeconds() + 60);
-    return deadline;
-  };
-
-  const onClickReset = () => {
-    clearTimer(getDeadTime());
-  };
-
-  const mystyle = {
-    margintop: "200px",
-    marginleft: "261px",
-  };
+ 
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [Details, setDetails] = useState([{}]); //State to render the fetched or Filtered Data
   const [resetdata, setresetdata] = useState([{}]); //To filter The data
   const [currentPage, setcurrentPage] = useState(1); // Use for pagination to set pages
   const [postsPerPage, setpostsPerPage] = useState(5); // set postperpage
+  const[show,setshow]=useState(false);
   // const [currentPosts,setcurrentPosts]=useState([{}]);
 
-  // Use For timer
+  
 
-  const connection = new HubConnectionBuilder()
-    .withUrl("https://heyq.bsite.net/signalRServer")
-    .build();
-  useEffect(() => {
-    var s = "71897957-87eb-45c0-8d50-a73c5490f17e";
-    connection
-      .start()
-      .then(() => {
-        connection.invoke("Get", s).catch((err) => console.error(err));
-        console.log(s);
-        console.log("connected");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  const [order, setOrder] = useState([]);
-
-  useEffect(() => {
-    connection.on("ReceiveOrder", (data) => {
-      handleShow();
-      console.log(data);
-      setNewOrder(data);
-      clearTimer(getDeadTime());
-    });
-  }, []);
-
+  
   // Fetching Data From API
   const FetchData = async () => {
     let res = await fetch(
-      "https://heyq.bsite.net/api/api/orderapi/71897957-87eb-45c0-8d50-a73c5490f17e",
+      "https://heyq.bsite.net/api/api/Orders/71897957-87eb-45c0-8d50-a73c5490f17e",
       {
         mode: "cors",
         headers: {
@@ -181,7 +44,7 @@ function Ordered() {
     let data = await res.json();
     setDetails(data);
     setresetdata(data);
-    setloading(true);
+    // setloading(true);
     
   };
   useEffect(() => {
@@ -223,7 +86,15 @@ function Ordered() {
     setDetails(searchData);
   };
 
+  
 
+  const handleCalendarChange =( date )=> {
+    setshow(false);
+    setDetails(resetdata.filter((a)=>
+      new Date(a.orderTime).getDate() ==date.getDate() 
+    ))
+    setSelectedDate(date);
+  };
 
   return (
     <>
@@ -349,6 +220,25 @@ function Ordered() {
                   </select>
                   <div className="20"></div>
                 </p>
+
+                     <div style={{marginLeft:'165px'}}>
+
+                      
+                      <button onClick={()=>{
+                        setshow(true);
+                      }}>
+                        {
+                          show?<Calendar onChange={handleCalendarChange} value={selectedDate} />:`calendar`
+                        }
+                  
+                      </button>
+      
+                 
+                
+
+             
+                     </div> 
+
               </div>
 
               <nav className="navbarstatus">

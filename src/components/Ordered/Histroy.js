@@ -14,8 +14,9 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./History.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarAlt,faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 function Ordered() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -109,14 +110,22 @@ function Ordered() {
 
         {/* <button className="Login">Login</button> */}
       </div>
-      <button
+      {/* <button
         className="back_btn"
         style={{ marginLeft: "282px", marginTop: "96px" }}
       >
-        <Link to="/ordered" style={{ textDecoration: "none" }}>
+        
+      </button> */}
+      <Button
+        variant="secondary"
+        className="back_btn"
+        style={{ marginLeft: "282px", marginTop: "96px" }}
+      >
+      <FontAwesomeIcon icon={faArrowLeft} />
+        <Link to="/ordered" style={{ textDecoration: "none",color:'white' }}>
           Back
         </Link>
-      </button>
+      </Button>
 
       <div className="maincontainer" style={{ marginTop: "35px" }}>
         <div>

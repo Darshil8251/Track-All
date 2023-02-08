@@ -3,7 +3,6 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import "./Ordered.css";
 import { Modal } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
-import Searchbar from "../Seachbar";
 import Swiggy from "../Image/Swiggy.svg";
 import Ubereat from "../Image/Uber_Eats.svg";
 import "bootstrap/dist/css/bootstrap.css";
@@ -14,7 +13,9 @@ import "../Searchbar.css";
 import Foodpanda from "../Image/Foodpanda.svg";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import Button from "react-bootstrap/Button";
 
 function Ordered() {
   const [NewOrder, setNewOrder] = useState({});
@@ -32,11 +33,14 @@ function Ordered() {
         "/" +
         NewOrder.orderId,
       requestOptions
-    ).then((r)=>{r.json()})
-    .then((res)=>{
-      console.log(res);
-         FetchData();
-    });
+    )
+      .then((r) => {
+        r.json();
+      })
+      .then((res) => {
+        console.log(res);
+        FetchData();
+      });
     console.log(response);
     setShow(false);
   };
@@ -48,8 +52,8 @@ function Ordered() {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     };
-    const txt=NewOrder.marketPlaceName;
-    const result=txt.trim();
+    const txt = NewOrder.marketPlaceName;
+    const result = txt.trim();
     const response = await fetch(
       "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
         result +
@@ -57,21 +61,20 @@ function Ordered() {
         NewOrder.orderId +
         "/" +
         time,
-        requestOptions
+      requestOptions
     )
-    .then((r)=>r.json)
-    .then((res)=>{
-      console.log(res);
-      FetchData()
-    });
+      .then((r) => r.json)
+      .then((res) => {
+        console.log(res);
+        FetchData();
+      });
     console.log(response);
     setShow(false);
     window.addEventListener("onclick", (event) => {
       FetchData();
       console.log("API call before page reload");
-  });
+    });
   };
-
 
   const handleShow = () => setShow(true);
   const Ref = useRef(null);
@@ -163,7 +166,7 @@ function Ordered() {
       console.log(data);
       setNewOrder(data);
       clearTimer(getDeadTime());
-    });  
+    });
   }, []);
 
   // Fetching Data From API
@@ -182,7 +185,6 @@ function Ordered() {
     setDetails(data);
     setresetdata(data);
     setloading(true);
-    
   };
   useEffect(() => {
     FetchData();
@@ -195,10 +197,7 @@ function Ordered() {
   const handlePageClick = (event) => {
     console.log(event, typeof event.selected);
     setcurrentPage(Number(event.selected + 1));
-    
   };
-
- 
 
   // Image Import
 
@@ -223,8 +222,6 @@ function Ordered() {
     setDetails(searchData);
   };
 
-
-
   return (
     <>
       <Slider />
@@ -236,20 +233,19 @@ function Ordered() {
           onChange={handleChange}
           value={searchInput}
         />
-         
-        {/* <p
-          style={{
-            marginLeft: "500px",
-            display: "inline",
-            marginRight: "115px",
-          }}
-        ></p> */}
-        <button className="history_btn">
-
-<Link to="/History"  style={{textDecoration:"none"}}>History</Link>
-</button>
-
-        {/* <button className="Login">Login</button> */}
+        <Button variant="secondary" className="history_btn">
+          <Link
+            to="/History"
+            style={{
+              textDecoration: "none",
+              color: "white",
+              marginRight: "5px",
+            }}
+          >
+            History
+          </Link>
+          <FontAwesomeIcon icon={faArrowRight} />
+        </Button>
       </div>
       <div className="maincontainer">
         <div>
@@ -333,10 +329,10 @@ function Ordered() {
                     value={postsPerPage}
                     onChange={(e) => {
                       setpostsPerPage(parseInt(e.target.value));
-                        const pageset=()=>{
-                         setcurrentPage(1);
-                        }
-                        pageset();
+                      const pageset = () => {
+                        setcurrentPage(1);
+                      };
+                      pageset();
                     }}
                   >
                     <option value="5">5</option>
@@ -609,7 +605,6 @@ function Ordered() {
             </div>
           </div>
         </Modal>
-      
       </div>
     </>
   );

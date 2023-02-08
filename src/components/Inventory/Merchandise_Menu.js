@@ -3,7 +3,9 @@ import "./Merchandise.css";
 import Add from "./Add";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Modal } from "react-bootstrap";
+
+import { faL } from "@fortawesome/free-solid-svg-icons";
+import Switch from "react-switch";
 
 const select = {
   textDecoration:' none',
@@ -22,6 +24,7 @@ function Merchandise_Menu() {
   const[swiggy,setswiggy]=useState(false);
   const[Ubereat,setUbereat]=useState(false);
   const[foodpanda,setfoodpanda]=useState(false);
+  const[isset,setisset]=useState(false);
     
   const responsive = {
     desktop: {
@@ -160,10 +163,13 @@ function Merchandise_Menu() {
     let searchData = resetdata.filter((data) => {
       return data.name.toLowerCase().includes(searchInput.toLowerCase());
     });
-    console.log("Method Called");
     // setDetails(searchData);
     setData(searchData);
   };
+
+  const handletoggle=()=>{
+
+  }
 
   return (
     <>
@@ -221,128 +227,6 @@ function Merchandise_Menu() {
               </form>
             </div>
           </div>
-
-          {/* // It is use to generate model  */}
-          <Modal
-            show={merchandise}
-            onHide={() => {
-              setmerchandise(false);
-            }}
-            backdrop="static"
-            keyboard={false}
-            centered
-            style={{ width: "420px", margin: "auto", borderRadius: "12px" }}
-          >
-            <div style={{ borderRadius: "3px" }}>
-              <div
-                style={{
-                  backgroundColor: "#FBB700",
-                  borderRadius: "12px",
-                  textAlign: "center",
-                }}
-              >
-                <Modal.Header>
-                  <div
-                    style={{
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      fontWeight: "700",
-                      fontSize: "18px",
-                    }}
-                  >
-                    Add New Iteam
-                  </div>
-                </Modal.Header>
-              </div>
-              <div>
-                <Modal.Body>
-                  <table>
-                    <tr>
-                      <td>
-                        Enter Iteam Name
-                        <br />
-                        <input
-                          type="text"
-                          style={{
-                            background: "#F2F2F2",
-                            border: " 0.3px solid #1F1F1F",
-                            borderRadius: "8px",
-                            marginRight: "10px",
-                          }}
-                        />
-                      </td>
-                      <td>
-                        Enter Iteam Unit
-                        <br />
-                        <input
-                          type="text"
-                          style={{
-                            background: "#F2F2F2",
-                            border: " 0.3px solid #1F1F1F",
-                            borderRadius: "8px",
-                            width: "80px",
-                          }}
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Enter Dish Name
-                        <br />
-                        <input
-                          type="text"
-                          style={{
-                            background: "#F2F2F2",
-                            border: " 0.3px solid #1F1F1F",
-                            borderRadius: "8px",
-                          }}
-                        />
-                      </td>
-                      <td>
-                        Enter unit Required
-                        <br />
-                        <input
-                          type="text"
-                          style={{
-                            background: "#F2F2F2",
-                            border: " 0.3px solid #1F1F1F",
-                            borderRadius: "8px",
-                            width: "80px",
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  </table>
-                </Modal.Body>
-              </div>
-
-              <div style={{ textAlign: "center" }}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-plus-circle-fill"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                </svg>
-                &nbsp; Add Other Dish
-                <br />
-                <div className="button" style={{ margin: "20px" }}>
-                  <button
-                    type="button"
-                    className="btn btn-success"
-                    onClick={() => {
-                      setmerchandise(false);
-                    }}
-                  >
-                    submit
-                  </button>
-                </div>
-              </div>
-            </div>
-          </Modal>
           <div>
             <Carousel
               responsive={responsive}
@@ -385,12 +269,10 @@ function Merchandise_Menu() {
                                       className="form-check-input border border-success border-2"
                                       type="checkbox"
                                       role="switch"
+                                      checked={a.stock==1?true:false}
                                       id="flexSwitchCheckDefault"
+                                      onClick={handletoggle}
                                     />
-                                    <label
-                                      className="form-check-label"
-                                      htmlFor="flexSwitchCheckDefault"
-                                    ></label>
                                   </div>
                                 </td>
                               </tr>

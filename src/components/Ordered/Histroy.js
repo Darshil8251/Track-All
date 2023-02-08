@@ -10,25 +10,22 @@ import "../Searchbar.css";
 import Foodpanda from "../Image/Foodpanda.svg";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-// import History  from "./history";
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import { createLogger } from "@microsoft/signalr/dist/esm/Utils";
-import './History.css';
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import "./History.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import Modal from "react-bootstrap/Modal";
 
 function Ordered() {
- 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [Details, setDetails] = useState([{}]); //State to render the fetched or Filtered Data
   const [resetdata, setresetdata] = useState([{}]); //To filter The data
   const [currentPage, setcurrentPage] = useState(1); // Use for pagination to set pages
   const [postsPerPage, setpostsPerPage] = useState(5); // set postperpage
-  const[show,setshow]=useState(false);
+  const [show, setshow] = useState(false);
   // const [currentPosts,setcurrentPosts]=useState([{}]);
 
-  
-
-  
   // Fetching Data From API
   const FetchData = async () => {
     let res = await fetch(
@@ -45,7 +42,6 @@ function Ordered() {
     setDetails(data);
     setresetdata(data);
     // setloading(true);
-    
   };
   useEffect(() => {
     FetchData();
@@ -58,10 +54,7 @@ function Ordered() {
   const handlePageClick = (event) => {
     console.log(event, typeof event.selected);
     setcurrentPage(Number(event.selected + 1));
-    
   };
-
- 
 
   // Image Import
 
@@ -86,19 +79,16 @@ function Ordered() {
     setDetails(searchData);
   };
 
-  
-
-  const handleCalendarChange =( date )=> {
+  const handleCalendarChange = (date) => {
     setshow(false);
-    setDetails(resetdata.filter((a)=>
-      new Date(a.orderTime).getDate() ==date.getDate() 
-    ))
+    setDetails(
+      resetdata.filter((a) => new Date(a.orderTime).getDate() == date.getDate())
+    );
     setSelectedDate(date);
   };
 
   return (
     <>
-
       <Slider />
       <div style={{ float: "right", marginTop: "-69px" }}>
         <input
@@ -116,17 +106,19 @@ function Ordered() {
           }}
         ></p>
         <br />
-  
-                
+
         {/* <button className="Login">Login</button> */}
       </div>
-      <button className="back_btn" style={{marginLeft: "282px",
-    marginTop: "96px",}}>
-       <Link to="/ordered" style={{textDecoration:"none"}}>Back</Link>
-       </button>
-        
+      <button
+        className="back_btn"
+        style={{ marginLeft: "282px", marginTop: "96px" }}
+      >
+        <Link to="/ordered" style={{ textDecoration: "none" }}>
+          Back
+        </Link>
+      </button>
 
-      <div className="maincontainer" style={{ marginTop:"35px",}}>
+      <div className="maincontainer" style={{ marginTop: "35px" }}>
         <div>
           <div className="navbar">
             <header>
@@ -208,10 +200,10 @@ function Ordered() {
                     value={postsPerPage}
                     onChange={(e) => {
                       setpostsPerPage(parseInt(e.target.value));
-                        const pageset=()=>{
-                         setcurrentPage(1);
-                        }
-                        pageset();
+                      const pageset = () => {
+                        setcurrentPage(1);
+                      };
+                      pageset();
                     }}
                   >
                     <option value="5">5</option>
@@ -221,24 +213,48 @@ function Ordered() {
                   <div className="20"></div>
                 </p>
 
-                     <div style={{marginLeft:'165px'}}>
-
-                      
-                      <button onClick={()=>{
-                        setshow(true);
-                      }}>
-                        {
-                          show?<Calendar onChange={handleCalendarChange} value={selectedDate} />:`calendar`
-                        }
-                  
-                      </button>
-      
-                 
-                
-
-             
-                     </div> 
-
+                <div style={{ marginLeft: "165px" }}>
+                  <button
+                    onClick={() => {
+                      setshow(true);
+                    }}
+                  >
+                    {show ? (
+                      <Modal
+                        show={show}
+                        onHide={() => {
+                          setshow(false);
+                        }}
+                        backdrop="static"
+                        keyboard={false}
+                        centered
+                        style={{
+                          width: "374px",
+                          margin: "auto",
+                          borderRadius: "12px",
+                        }}
+                      >
+                        <div style={{ borderRadius: "3px" }}>
+                          <div
+                            style={{
+                              backgroundColor: "#FBB700",
+                              borderRadius: "12px",
+                              textAlign: "center",
+                            }}
+                          >
+                            <Calendar
+                              onChange={handleCalendarChange}
+                              value={selectedDate}
+                              style={{ marginTop: "50px" }}
+                            />
+                          </div>
+                        </div>
+                      </Modal>
+                    ) : (
+                      <FontAwesomeIcon icon={faCalendarAlt} />
+                    )}
+                  </button>
+                </div>
               </div>
 
               <nav className="navbarstatus">
@@ -379,10 +395,7 @@ function Ordered() {
             forcePage={currentPage - 1}
           />
         </div>
-
-       
       </div>
-      
     </>
   );
 }

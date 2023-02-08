@@ -3,13 +3,26 @@ import "./Merchandise.css";
 import Add from "./Add";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Modal } from "react-bootstrap";
 
-
+const select = {
+  textDecoration:' none',
+  position: 'absolute',
+  color:' #666666',
+  textAlign: 'center',
+  borderRadius: '8px 8px 0px 0px',
+  width: '132px',
+  height: '35px'
+}
 function Merchandise_Menu() {
   const [merchandise, setmerchandise] = useState(false);
   const [Data, setData] = useState([{}]);
-  const [resetdata,setresetdata]=useState([{}]);
-
+  const [resetdata, setresetdata] = useState([{}]);
+  const[zomato,setzomato]=useState(true);
+  const[swiggy,setswiggy]=useState(false);
+  const[Ubereat,setUbereat]=useState(false);
+  const[foodpanda,setfoodpanda]=useState(false);
+    
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -28,8 +41,6 @@ function Merchandise_Menu() {
     },
   };
 
-
-
   // Use for Data fetch from A
   useEffect(() => {
     const url =
@@ -41,7 +52,6 @@ function Merchandise_Menu() {
         const json = await response.json();
         setData(json);
         setresetdata(json);
-        
       } catch (error) {
         console.log("error", error);
       }
@@ -50,7 +60,7 @@ function Merchandise_Menu() {
     fetchData();
   }, []);
 
-  const fetchswiggy=()=>{
+  const fetchswiggy = () => {
     const url =
       "https://heyq.bsite.net/api/api/GetSwiggyProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
 
@@ -60,16 +70,19 @@ function Merchandise_Menu() {
         const json = await response.json();
         setData(json);
         setresetdata(json);
-        
       } catch (error) {
         console.log("error", error);
       }
     };
 
     fetchData();
-
-  }
-  const fetchzomato=()=>{
+    setzomato(false);
+    setUbereat(false);
+    setswiggy(true);
+    setfoodpanda(false);
+    
+  };
+  const fetchzomato = () => {
     const url =
       "https://heyq.bsite.net/api/api/GetZomatoProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
 
@@ -79,48 +92,59 @@ function Merchandise_Menu() {
         const json = await response.json();
         setData(json);
         setresetdata(json);
-        
       } catch (error) {
         console.log("error", error);
       }
     };
 
     fetchData();
-  }
-  const fetchUber=()=>{
-                const url="https://heyq.bsite.net/api/api/GetUberEatsProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
+    setzomato(true);
+    setUbereat(false);
+    setswiggy(false);
+    setfoodpanda(false);
+  };
+  const fetchUber = () => {
+    const url =
+      "https://heyq.bsite.net/api/api/GetUberEatsProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
 
-                const fetchData = async () => {
-                  try {
-                    const response = await fetch(url);
-                    const json = await response.json();
-                    setData(json);
-                    setresetdata(json);
-                    
-                  } catch (error) {
-                    console.log("error", error);
-                  }
-                };
-            
-                fetchData();
-  }
-
-  const fetchfoodpandas=()=>{
-    const url="https://heyq.bsite.net/api/api/GetFoodPandaProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
     const fetchData = async () => {
       try {
         const response = await fetch(url);
         const json = await response.json();
         setData(json);
         setresetdata(json);
-        
       } catch (error) {
         console.log("error", error);
       }
     };
 
     fetchData();
-  }
+    setzomato(false);
+    setUbereat(true);
+    setswiggy(false);
+    setfoodpanda(false);
+  };
+
+  const fetchfoodpandas = () => {
+    const url =
+      "https://heyq.bsite.net/api/api/GetFoodPandaProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        setData(json);
+        setresetdata(json);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+    setzomato(false);
+    setUbereat(false);
+    setswiggy(false);
+    setfoodpanda(true);
+  };
 
   const itemTab = Math.ceil(Data.length / 6);
 
@@ -152,25 +176,23 @@ function Merchandise_Menu() {
           <div>
             <ul className="Merchandise_Name">
               <li className="Merchandise">
-              
-                <button className="Name" onClick={fetchzomato}>
-                Zomato
+                <button className="Name" onClick={fetchzomato} style={zomato?{...select,background:'#FBB700'}:select}>
+                  Zomato
                 </button>
               </li>
               <li className="Merchandise">
-              <button className="Name" onClick={fetchswiggy}>
-                       swiggy
-              </button>
-               
+                <button className="Name" onClick={fetchswiggy} style={swiggy?{...select,background:'#FBB700'}:select}>
+                  swiggy
+                </button>
               </li>
               <li className="Merchandise">
-              
-                <button className="Name" onClick={fetchUber}>Uber Eatas</button>
+                <button className="Name" onClick={fetchUber} style={Ubereat?{...select,background:'#FBB700'}:select}>
+                  Uber Eatas
+                </button>
               </li>
               <li className="Merchandise">
-                
-                <button className="Name" onClick={fetchfoodpandas}>
-                       food Pandas
+                <button className="Name" onClick={fetchfoodpandas} style={foodpanda?{...select,background:'#FBB700'}:select}>
+                  food Pandas
                 </button>
               </li>
             </ul>
@@ -190,17 +212,137 @@ function Merchandise_Menu() {
                   className="second_divs_search_button btn btn-success"
                   type="submit"
                   onClick={() => {
-                    // setmerchandise(true);]
+                    setmerchandise(true);
 
-                    <Add state={merchandise}/>
                   }}
                 >
                   + Add New Item
                 </button>
-                {/* {merchandise && <Add state={merchandise} />} */}
               </form>
             </div>
           </div>
+
+          {/* // It is use to generate model  */}
+          <Modal
+            show={merchandise}
+            onHide={() => {
+              setmerchandise(false);
+            }}
+            backdrop="static"
+            keyboard={false}
+            centered
+            style={{ width: "420px", margin: "auto", borderRadius: "12px" }}
+          >
+            <div style={{ borderRadius: "3px" }}>
+              <div
+                style={{
+                  backgroundColor: "#FBB700",
+                  borderRadius: "12px",
+                  textAlign: "center",
+                }}
+              >
+                <Modal.Header>
+                  <div
+                    style={{
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      fontWeight: "700",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Add New Iteam
+                  </div>
+                </Modal.Header>
+              </div>
+              <div>
+                <Modal.Body>
+                  <table>
+                    <tr>
+                      <td>
+                        Enter Iteam Name
+                        <br />
+                        <input
+                          type="text"
+                          style={{
+                            background: "#F2F2F2",
+                            border: " 0.3px solid #1F1F1F",
+                            borderRadius: "8px",
+                            marginRight: "10px",
+                          }}
+                        />
+                      </td>
+                      <td>
+                        Enter Iteam Unit
+                        <br />
+                        <input
+                          type="text"
+                          style={{
+                            background: "#F2F2F2",
+                            border: " 0.3px solid #1F1F1F",
+                            borderRadius: "8px",
+                            width: "80px",
+                          }}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Enter Dish Name
+                        <br />
+                        <input
+                          type="text"
+                          style={{
+                            background: "#F2F2F2",
+                            border: " 0.3px solid #1F1F1F",
+                            borderRadius: "8px",
+                          }}
+                        />
+                      </td>
+                      <td>
+                        Enter unit Required
+                        <br />
+                        <input
+                          type="text"
+                          style={{
+                            background: "#F2F2F2",
+                            border: " 0.3px solid #1F1F1F",
+                            borderRadius: "8px",
+                            width: "80px",
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  </table>
+                </Modal.Body>
+              </div>
+
+              <div style={{ textAlign: "center" }}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-plus-circle-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                </svg>
+                &nbsp; Add Other Dish
+                <br />
+                <div className="button" style={{ margin: "20px" }}>
+                  <button
+                    type="button"
+                    className="btn btn-success"
+                    onClick={() => {
+                      setmerchandise(false);
+                    }}
+                  >
+                    submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Modal>
           <div>
             <Carousel
               responsive={responsive}
@@ -214,12 +356,20 @@ function Merchandise_Menu() {
                     <div>
                       <table
                         className="Merchandise_Table"
-                        style={{ textAlign: "center",marginLeft:"46px"}}
+                        style={{ textAlign: "center", marginLeft: "46px" }}
                       >
                         <thead>
                           <tr className="p-1">
-                            <th className="p-1 tableitem header" style={{textAlign:"center"}}>Item</th>
-                            <th className="pS-3 tableitem header" style={{textAlign:"center"}}>
+                            <th
+                              className="p-1 tableitem header"
+                              style={{ textAlign: "center" }}
+                            >
+                              Item
+                            </th>
+                            <th
+                              className="pS-3 tableitem header"
+                              style={{ textAlign: "center" }}
+                            >
                               Stock Status
                             </th>
                           </tr>
@@ -236,7 +386,6 @@ function Merchandise_Menu() {
                                       type="checkbox"
                                       role="switch"
                                       id="flexSwitchCheckDefault"
-                                      
                                     />
                                     <label
                                       className="form-check-label"

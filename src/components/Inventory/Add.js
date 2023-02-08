@@ -1,5 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import { Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./Add.css";
 import Inventory from "./Inventory";
 
@@ -12,131 +13,7 @@ function Add({ state }) {
  
   return (
     <>
-      {/* {
-        Dish.map((index, iteam) => {
-          return(
-            <>
-            <div key={index} className="container">
-          <div className="title">
-            <h1 className="title" style={{ backgroundColor: "#FBB700" }}>
-              Add New Iteam
-            </h1>
-          </div>
-          <div>
-            <table>
-              <tr>
-                <td>
-                  Enter Iteam Name
-                  <br />
-                  <input type="text" 
-                  name="Iteam Namw"
-                  value={Dish.Iteam_Name}
-                    onChange={handlechange}
-                  />
-                </td>
-                <td>
-                  Enter Iteam Unit
-                  <br />
-                  <input type="text" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Enter Dish Name
-                  <br />
-                  <input type="text" /
-                  
-                  >
-                </td>
-                <td>
-                  Enter unit Required
-                  <br />
-                  <input type="text" />
-                </td>
-              </tr>
-            </table>
-          </div>
-                    <div
-                      className="add-field-plus-button"
-                      onClick={DishAdd}
-                    >
-                        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            className="bi bi-plus-circle-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-          </svg>
-          <p>Add Other Dish</p> 
-                    </div>
-                  
-        
-          <br />
-          <button type="button" className="btn btn-success" onClick={()=>{
-            setmerchandise(false);
-          }}>
-            Submit
-          </button>
-        </div>;
-            </>
-
-          )
-       
-      })} */}
-      {/* <div className="container">
-          <div className="title">
-            <h1 className="title" style={{ backgroundColor: "#FBB700" }}>
-              Add New Iteam
-            </h1>
-          </div>
-          <div>
-            <table>
-              <tr>
-                <td>
-                  Enter Iteam Name
-                  <br />
-                  <input type="text" />
-                </td>
-                <td>
-                  Enter Iteam Unit
-                  <br />
-                  <input type="text" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Enter Dish Name
-                  <br />
-                  <input type="text" />
-                </td>
-                <td>
-                  Enter unit Required
-                  <br />
-                  <input type="text" />
-                </td>
-              </tr>
-            </table>
-          </div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            className="bi bi-plus-circle-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-          </svg>{" "}
-          &nbsp; Add Other Dish
-          <br />
-          <button type="button" className="btn btn-success">
-            Submit
-          </button>
-        </div>; */}
-
+     
       <Modal
         show={show}
         onHide={handleClose}
@@ -250,7 +127,8 @@ function Add({ state }) {
 
                 }}
                 >
-                Submit
+                submit
+        
               </button>
               
             </div>
@@ -261,3 +139,4 @@ function Add({ state }) {
   );
 }
 export default Add;
+

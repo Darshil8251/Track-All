@@ -249,12 +249,13 @@ function Ordered() {
                 
         {/* <button className="Login">Login</button> */}
       </div>
-      <button className="back_btn">
+      <button className="back_btn" style={{marginLeft: "282px",
+    marginTop: "96px",}}>
        <Link to="/ordered" style={{textDecoration:"none"}}>Back</Link>
        </button>
         
 
-      <div className="maincontainer" style={{ marginTop:"90px",}}>
+      <div className="maincontainer" style={{ marginTop:"35px",}}>
         <div>
           <div className="navbar">
             <header>

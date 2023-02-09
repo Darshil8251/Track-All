@@ -14,6 +14,7 @@ function RawIteam() {
     Stock: "",
     Category: "",
   });
+
   const [Data, setData] = useState([{}]);
   const responsive = {
     desktop: {
@@ -40,9 +41,7 @@ function RawIteam() {
   };
 
   const handlesubmit = async () => {
-    console.log(RawIteam);
-    var stringify = JSON.stringify(RawIteam);
-    console.log(stringify);
+    var stringify = JSON.stringify(RawItem);
     const response = await fetch(
       "https://trackall.bsite.net/api/Inventory/Post",
       {
@@ -57,7 +56,9 @@ function RawIteam() {
     )
       .then((r) => r.json())
       .then((res) => {
-        console.log(res);
+        if(res.succeeded==true){
+        alert("Item add Successfully");
+        fetchdata()}
       });
   };
 

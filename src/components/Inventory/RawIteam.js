@@ -37,6 +37,8 @@ function RawIteam() {
     setshow(false);
   };
   const handlechange = (e) => {
+    console.log(e.target.value);
+    console.log(e.target.name);
     setRawIteam({ ...RawItem, [e.target.name]: e.target.value });
   };
 

@@ -402,9 +402,7 @@ function Ordered() {
                       className="statusbutton"
                       onClick={() =>
                         setDetails(
-                          resetdata.filter(
-                            (item) => item.status === "Cancelled"
-                          )
+                          resetdata.filter((item) => item.status === "Rejected")
                         )
                       }
                     >
@@ -460,7 +458,14 @@ function Ordered() {
                       <td>{item.location}</td>
                       <td className="order_status">
                         {item.status}
-                        <br /> {item.toPrepare}
+                        <br />
+                        {item.status === "NotAccepted"
+                          ? timer
+                          : item.status === "Accepted"
+                          ? item.toPrepare
+                          : item.status === "Cancelled"
+                          ? ""
+                          : ""}
                       </td>
                     </tr>
                   </>

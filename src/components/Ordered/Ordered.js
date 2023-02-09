@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 
+
 function Ordered() {
   const [NewOrder, setNewOrder] = useState({});
   const [show, setShow] = useState(false);
@@ -247,6 +248,7 @@ function Ordered() {
           <FontAwesomeIcon icon={faArrowRight} />
         </Button>
       </div>
+      {loading?(
       <div className="maincontainer">
         <div>
           <div className="navbar">
@@ -406,7 +408,7 @@ function Ordered() {
               </nav>
             </header>
           </div>
-          <table id="example" className="tablecss">
+          {loading?(<table id="example" className="tablecss">
             <thead>
               <tr className="trhead">
                 <th scope="col">No</th>
@@ -458,7 +460,8 @@ function Ordered() {
                 );
               })}
             </tbody>
-          </table>
+          </table>):(<Spinner animation="border" style={{marginleft:'500px'}} />)}
+          
           <br />
           <ReactPaginate
             previousLabel={"<"}
@@ -480,7 +483,10 @@ function Ordered() {
             activeClassName={"active"}
             forcePage={currentPage - 1}
           />
-        </div>
+        </div></div>):(<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <Spinner animation="border" />
+    </div>)
+      }
 
         {/* Popup  */}
 
@@ -514,6 +520,7 @@ function Ordered() {
               </Modal.Header>
             </div>
             <div>
+            
               <Modal.Body>
                 <p style={{ textAlign: "center" }}>
                   Orderd From:
@@ -604,8 +611,9 @@ function Ordered() {
               </div>
             </div>
           </div>
+      
         </Modal>
-      </div>
+  
     </>
   );
 }

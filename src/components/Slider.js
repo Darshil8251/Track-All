@@ -18,10 +18,6 @@ import Logo from './Image/Logo.svg';
 import { useHistory } from "react-router-dom";
 
 
-
-
-
-
 const Navbar = () => {
   return (
     <>

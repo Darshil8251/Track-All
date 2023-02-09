@@ -12,31 +12,35 @@ import Barchart2 from "./Chart/Barchart2";
 // import Piechart1 from "./chart/Piechart";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Slider from "../Slider";
+import Cookies from "js-cookie";
 
 const Dashboard = () => {
   const [Data, setData] = useState([]);
   const [Dashboard, setDashboard] = useState([]);
   const [popularity, setpopularity] = useState([]);
   const [Details, setDetails] = useState([]);
-
+  const token = Cookies.get("token");
   const FetchData = async () => {
     let res = await fetch(
-      "http://localhost:38967/api/analytics/GetNumberAnalytics/71897957-87eb-45c0-8d50-a73c5490f17e",
+      "https://trackall.bsite.net/api/analytics/GetNumberAnalytics",
       {
         mode: "cors",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
       }
     );
+    console.log(res.json);
     let pop = await fetch(
-      "https://trackall.bsite.net/api/Analytics/GetTopProduct/71897957-87eb-45c0-8d50-a73c5490f17e",
+      "https://trackall.bsite.net/api/Analytics/GetTopProduct/",
       {
         mode: "cors",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
       }
     );

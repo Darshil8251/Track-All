@@ -4,11 +4,15 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
   Link,
   Routes,
+  Navigate,
 } from "react-router-dom";
+import Dashboard from "../Dashboard/Dashboard";
 import "./Sigin.css";
 import TrackAll from "./TrackAll";
+import Cookies from "js-cookie";
 
 function Signin() {
   const [user, setuser] = useState({
@@ -20,7 +24,6 @@ function Signin() {
 
   const handlechange = (e) => {
     setuser({ ...user, [e.target.name]: e.target.value });
-    // console.log("heyeyye",{...owner,[e.target.name]:e.target.value});
   };
 
   const handlesubmit = (e) => {
@@ -36,7 +39,7 @@ function Signin() {
     localStorage.setItem("Owner", JSON.stringify(user));
     var stringify = JSON.stringify(user);
     console.log(stringify);
-    fetch("http://localhost:38967/api/Authorization/SignIn/", {
+    fetch("https://trackall.bsite.net/api/Authorization/SignIn/", {
       method: "POST",
       mode: "cors",
       headers: { "Content-type": "application/json" },
@@ -44,11 +47,27 @@ function Signin() {
     })
       .then((r) => r.json())
       .then((res) => {
-        if (res) {
+<<<<<<< HEAD
+        if (res.Success == "User Logged In") {
           console.log(res);
+
+          const date = new Date(res.Valid);
           setvalidate(true);
+          Cookies.set("token", res.User, { expires: date });
+          console.log(Cookies.get("token"));
+=======
+        console.log(res);
+        if (res.Success == "User Logged In") {        
+            const date=new  Date(res.Validte);
+          setvalidate(true);
+           Cookies.set('token',res.User,{expires:date,httpOnly: true});
+           const a=Cookies.get('token');
+           console.log(a);
+            
+>>>>>>> 957dd053a38bded912f8b68ee5e3543c0c9e1703
         } else {
-          setvalidate(false);
+          alert(res.Error);
+          console.log(res);
         }
       });
   };
@@ -123,9 +142,7 @@ function Signin() {
                 onClick={handlesubmit}
               >
                 {validate ? (
-                  <Link to="/Dashboard" style={{ textDecoration: "none" }}>
-                    Continue
-                  </Link>
+                  <Navigate to={"/dashboard"} />
                 ) : (
                   <Link to="/signin" style={{ textDecoration: "none" }}>
                     Continue

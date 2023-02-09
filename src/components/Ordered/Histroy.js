@@ -1,207 +1,50 @@
 import React from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import "./Ordered.css";
-import { Modal } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 import Swiggy from "../Image/Swiggy.svg";
 import Ubereat from "../Image/Uber_Eats.svg";
 import "bootstrap/dist/css/bootstrap.css";
-import Spinner from "react-bootstrap/Spinner";
 import Zomato from "../Image/Zomato.svg";
 import Slider from "../Slider";
 import "../Searchbar.css";
 import Foodpanda from "../Image/Foodpanda.svg";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import Cookies from "js-cookie";
-=======
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import "./History.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarAlt,faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import Modal from "react-bootstrap/Modal";
+import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 
->>>>>>> 957dd053a38bded912f8b68ee5e3543c0c9e1703
-
 function Ordered() {
-  const [NewOrder, setNewOrder] = useState({});
-  const [show, setShow] = useState(false);
-  const [time, settime] = useState(10);
-  const token = Cookies.get("token");
-  const handleClose = async () => {
-    const requestOptions = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    };
-    console.log(NewOrder.marketPlaceName);
-    const response = await fetch(
-      "https://trackall.bsite.net/api/order/PutRejectOrder/" +
-        NewOrder.marketPlaceName +
-        "/" +
-        NewOrder.orderId,
-      requestOptions
-    )
-      .then((r) => {
-        r.json();
-      })
-      .then((res) => {
-        console.log(res);
-        FetchData();
-      });
-    console.log(response);
-    setShow(false);
-  };
-  // useEffect(()=>{
-  //             handleAccept();
-  // },[])
-  const handleAccept = async () => {
-    const requestOptions = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    };
-    const txt = NewOrder.marketPlaceName;
-    const result = txt.trim();
-<<<<<<< HEAD
-    console.log(result);
-=======
->>>>>>> 957dd053a38bded912f8b68ee5e3543c0c9e1703
-    const response = await fetch(
-      "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
-        result +
-        "/" +
-        NewOrder.orderId +
-        "/" +
-        time,
-      requestOptions
-    )
-      .then((r) => r.json)
-      .then((res) => {
-        console.log(res);
-        FetchData();
-      });
-    console.log(response);
-    setShow(false);
-    window.addEventListener("onclick", (event) => {
-      FetchData();
-      console.log("API call before page reload");
-    });
-  };
-
-  const handleShow = () => setShow(true);
-  const Ref = useRef(null);
-
-  const [loading, setloading] = useState(false);
-  // The state for our timer
-  const [timer, setTimer] = useState("0:00");
-
-  const getTimeRemaining = (e) => {
-    const total = Date.parse(e) - Date.parse(new Date());
-    const seconds = Math.floor((total / 1000) % 60);
-    const minutes = Math.floor((total / 1000 / 60) % 60);
-
-    return {
-      total,
-      minutes,
-      seconds,
-    };
-  };
-
-  const startTimer = (e) => {
-    let { total, minutes, seconds } = getTimeRemaining(e);
-    if (total >= 0) {
-      // update the timer
-      // check if less than 10 then we need to
-      // add '0' at the beginning of the variable
-      setTimer(
-        (minutes > 9 ? minutes : minutes) +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds)
-      );
-    }
-  };
-
-  const clearTimer = (e) => {
-    setTimer("0:60");
-
-    if (Ref.current) clearInterval(Ref.current);
-    const id = setInterval(() => {
-      startTimer(e);
-    }, 1000);
-    Ref.current = id;
-  };
-
-  const getDeadTime = () => {
-    let deadline = new Date();
-
-    deadline.setSeconds(deadline.getSeconds() + 60);
-    return deadline;
-  };
-
-  const onClickReset = () => {
-    clearTimer(getDeadTime());
-  };
-
-  const mystyle = {
-    margintop: "200px",
-    marginleft: "261px",
-  };
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [Details, setDetails] = useState([{}]); //State to render the fetched or Filtered Data
   const [resetdata, setresetdata] = useState([{}]); //To filter The data
   const [currentPage, setcurrentPage] = useState(1); // Use for pagination to set pages
   const [postsPerPage, setpostsPerPage] = useState(5); // set postperpage
+  const [show, setshow] = useState(false);
+  const [loading,setloading]=useState(false);
   // const [currentPosts,setcurrentPosts]=useState([{}]);
-
-  // Use For timer
-
-  const connection = new HubConnectionBuilder()
-    .withUrl("https://trackall.bsite.net/signalRServer")
-    .build();
-  useEffect(() => {
-    var s = token;
-    connection
-      .start()
-      .then(() => {
-        connection.invoke("Get", s).catch((err) => console.error(err));
-        console.log(s);
-        console.log("connected");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  const [order, setOrder] = useState([]);
-
-  useEffect(() => {
-    connection.on("ReceiveOrder", (data) => {
-      handleShow();
-      console.log(data.newOrder);
-      setNewOrder(data.newOrder);
-      clearTimer(getDeadTime());
-    });
-  }, []);
 
   // Fetching Data From API
   const FetchData = async () => {
     let res = await fetch(
-      "https://trackall.bsite.net/api/order/GetTodayOrders",
+      "https://heyq.bsite.net/api/api/Orders/71897957-87eb-45c0-8d50-a73c5490f17e",
       {
         mode: "cors",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
         },
       }
     );
     let data = await res.json();
     setDetails(data);
     setresetdata(data);
-    setloading(true);
+     setloading(true);
   };
   useEffect(() => {
     FetchData();
@@ -239,6 +82,14 @@ function Ordered() {
     setDetails(searchData);
   };
 
+  const handleCalendarChange = (date) => {
+    setshow(false);
+    setDetails(
+      resetdata.filter((a) => new Date(a.orderTime).getDate() == date.getDate())
+    );
+    setSelectedDate(date);
+  };
+
   return (
     <>
       <Slider />
@@ -250,40 +101,27 @@ function Ordered() {
           onChange={handleChange}
           value={searchInput}
         />
-<<<<<<< HEAD
-
-        {/* <p
+        <p
           style={{
             marginLeft: "500px",
             display: "inline",
             marginRight: "115px",
           }}
-        ></p> */}
-        <button className="history_btn">
-          <Link to="/History" style={{ textDecoration: "none" }}>
-            History
-          </Link>
-        </button>
-
-        {/* <button className="Login">Login</button> */}
-=======
-        <Button variant="secondary" className="history_btn">
-          <Link
-            to="/History"
-            style={{
-              textDecoration: "none",
-              color: "white",
-              marginRight: "5px",
-            }}
-          >
-            History
-          </Link>
-          <FontAwesomeIcon icon={faArrowRight} />
-        </Button>
->>>>>>> 957dd053a38bded912f8b68ee5e3543c0c9e1703
+        ></p>
+        <br />
       </div>
-      {loading?(
-      <div className="maincontainer">
+      <Button
+        variant="secondary"
+        className="back_btn"
+        style={{ marginLeft: "282px", marginTop: "96px" }}
+      >
+      <FontAwesomeIcon icon={faArrowLeft} />
+        <Link to="/ordered" style={{ textDecoration: "none",color:'white' }}>
+          Back
+        </Link>
+      </Button>
+{  loading?(
+      <div className="maincontainer" style={{ marginTop: "35px" }}>
         <div>
           <div className="navbar">
             <header>
@@ -357,11 +195,11 @@ function Ordered() {
                 </div>
               </div>
 
-              <div className="dropname2">
-                <p className="dropdownname">
-                  Entries per page:{" "}
+              <div className="entry">
+                <p className="select">
+                  Entrie per page:{" "}
                   <select
-                    className="entery_selection"
+                    className=""
                     value={postsPerPage}
                     onChange={(e) => {
                       setpostsPerPage(parseInt(e.target.value));
@@ -377,6 +215,49 @@ function Ordered() {
                   </select>
                   <div className="20"></div>
                 </p>
+
+                <div style={{ marginLeft: "165px" }}>
+                  <button
+                    onClick={() => {
+                      setshow(true);
+                    }}
+                  >
+                    {show ? (
+                      <Modal
+                        show={show}
+                        onHide={() => {
+                          setshow(false);
+                        }}
+                        backdrop="static"
+                        keyboard={false}
+                        centered
+                        style={{
+                          width: "374px",
+                          margin: "auto",
+                          borderRadius: "12px",
+                        }}
+                      >
+                        <div style={{ borderRadius: "3px" }}>
+                          <div
+                            style={{
+                              backgroundColor: "#FBB700",
+                              borderRadius: "12px",
+                              textAlign: "center",
+                            }}
+                          >
+                            <Calendar
+                              onChange={handleCalendarChange}
+                              value={selectedDate}
+                              style={{ marginTop: "50px" }}
+                            />
+                          </div>
+                        </div>
+                      </Modal>
+                    ) : (
+                      <FontAwesomeIcon icon={faCalendarAlt} />
+                    )}
+                  </button>
+                </div>
               </div>
 
               <nav className="navbarstatus">
@@ -442,7 +323,7 @@ function Ordered() {
               </nav>
             </header>
           </div>
-          {loading?(<table id="example" className="tablecss">
+          <table id="example" className="tablecss">
             <thead>
               <tr className="trhead">
                 <th scope="col">No</th>
@@ -494,8 +375,7 @@ function Ordered() {
                 );
               })}
             </tbody>
-          </table>):(<Spinner animation="border" style={{marginleft:'500px'}} />)}
-          
+          </table>
           <br />
           <ReactPaginate
             previousLabel={"<"}
@@ -517,142 +397,11 @@ function Ordered() {
             activeClassName={"active"}
             forcePage={currentPage - 1}
           />
-        </div></div>):(<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+        </div>
+      </div>):(<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
       <Spinner animation="border" />
     </div>)
-      }
-
-        {/* Popup  */}
-
-        <Modal
-          show={show}
-          onHide={handleClose}
-          backdrop="static"
-          keyboard={false}
-          centered
-          style={{ width: "374px", margin: "auto", borderRadius: "12px" }}
-        >
-          <div style={{ borderRadius: "3px" }}>
-            <div
-              style={{
-                backgroundColor: "#FBB700",
-                borderRadius: "12px",
-                textAlign: "center",
-              }}
-            >
-              <Modal.Header>
-                <div
-                  style={{
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    fontWeight: "700",
-                    fontSize: "18px",
-                  }}
-                >
-                  Order Alert
-                </div>
-              </Modal.Header>
-            </div>
-            <div>
-            
-              <Modal.Body>
-                <p style={{ textAlign: "center" }}>
-                  Orderd From:
-                  <span style={{ color: "#E3263F" }}>
-                    {NewOrder.marketPlaceName}
-                  </span>
-                </p>
-                <hr />
-
-                {/* {NewOrder.itemName} = {NewOrder.price}
-                    <hr></hr>
-                    Total = {NewOrder.price} */}
-
-                <p style={{ textAlign: "center", lineHeight: "38px" }}>
-                  {NewOrder.itemName} = {NewOrder.price}
-                  <br />
-                  <div
-                    style={{
-                      borderBottom: "2px dashed black",
-                      width: "214px",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                    }}
-                  ></div>
-                  Total = {NewOrder.price}
-                  <hr />
-                </p>
-              </Modal.Body>
-            </div>
-
-            <div style={{ textAlign: "center" }}>
-              <p>
-                Select Preprationtime
-                <br />
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic mixed styles example"
-                >
-                  <button
-                    type="button"
-                    style={{ background: " #FEDE87", borderRadius: "2px" }}
-                    onClick={() => {
-                      if (time >= 5) {
-                        settime(time - 5);
-                      }
-                    }}
-                  >
-                    -
-                  </button>
-                  <button type="button" style={{ background: " #FEDE87" }}>
-                    <div>{time}</div>
-                  </button>
-                  <button
-                    type="button"
-                    style={{ background: " #FEDE87" }}
-                    onClick={() => {
-                      settime(time + 5);
-                    }}
-                  >
-                    +
-                  </button>
-                </div>
-              </p>
-              <div className="button" style={{ margin: "20px" }}>
-                <button
-                  className="btn btn-outline-danger"
-                  style={{
-                    width: "150px",
-                    height: "40px",
-                  }}
-                  onClick={handleClose}
-                >
-                  Reject
-                </button>
-                <button
-                  className="btn"
-                  style={{
-                    width: "150px",
-                    height: "40px",
-                    backgroundColor: "#279500",
-                    color: "white",
-                  }}
-                  onClick={handleAccept}
-                >
-                  Accept ({timer})
-                </button>
-              </div>
-            </div>
-          </div>
-<<<<<<< HEAD
-        </Modal>
-      </div>
-=======
-      
-        </Modal>
-  
->>>>>>> 957dd053a38bded912f8b68ee5e3543c0c9e1703
+}
     </>
   );
 }

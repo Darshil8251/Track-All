@@ -1,91 +1,79 @@
-import React, { PureComponent } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Tooltip, LabelList } from 'recharts';
+import React, { PureComponent } from "react";
+import {
+  PieChart,
+  Pie,
+  Sector,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  LabelList,
+} from "recharts";
 import { useEffect, useState } from "react";
-
-
-
-
-
-
+import Cookies from "js-cookie";
 
 function Barchart2() {
-  const [Data , setData] = useState([{}]);
+  const [Data, setData] = useState([{}]);
   const COLORS = [
-    {nam :'#0088FE'},
-    {nam : '#00C49F'},
-    { nam :'#FFBB28'},
-    {nam : '#FF8042'},
+    { nam: "#0088FE" },
+    { nam: "#00C49F" },
+    { nam: "#FFBB28" },
+    { nam: "#FF8042" },
   ];
-
+  const token = Cookies.get("token");
   const FetchData = async () => {
     let res = await fetch(
-      "https://TrackAll.bsite.net/api/Analytics/GetTotalSalesByMarket/71897957-87eb-45c0-8d50-a73c5490f17e",
+      "https://TrackAll.bsite.net/api/Analytics/GetTotalSalesByMarket",
       {
         mode: "cors",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
       }
     );
     let data = await res.json();
     setData(data);
   };
-  
+
   useEffect(() => {
     FetchData();
   }, []);
 
-    return (
-      <ResponsiveContainer width="80%" height="80%" >
-        <PieChart width={500} height={500} style={{marginLeft: "34px",marginBottom : "0px"}}>
-        <Tooltip/>
-          <Pie
-            data={Data.salesByMarketPlace}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            label={Data.marketPlaceName}
-            outerRadius={120}
-            fill="#82ca9d"
-            dataKey="totalSales"
-            // label='marketPlaceName'
-          >
-          </Pie>
-          <Pie dataKey={Data.marketPlaceName} data={Data.marketPlaceName} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
-        </PieChart>
-      </ResponsiveContainer>
-
-
-    
-    );
-  }
-
-
+  return (
+    <ResponsiveContainer width="80%" height="80%">
+      <PieChart
+        width={500}
+        height={500}
+        style={{ marginLeft: "34px", marginBottom: "0px" }}
+      >
+        <Tooltip />
+        <Pie
+          data={Data.salesByMarketPlace}
+          cx="50%"
+          cy="50%"
+          labelLine={false}
+          label={Data.marketPlaceName}
+          outerRadius={120}
+          fill="#82ca9d"
+          dataKey="totalSales"
+          // label='marketPlaceName'
+        ></Pie>
+        <Pie
+          dataKey={Data.marketPlaceName}
+          data={Data.marketPlaceName}
+          cx={500}
+          cy={200}
+          innerRadius={40}
+          outerRadius={80}
+          fill="#82ca9d"
+        />
+      </PieChart>
+    </ResponsiveContainer>
+  );
+}
 
 export default Barchart2;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // import React, { PureComponent } from 'react';
 // // import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
@@ -112,7 +100,7 @@ export default Barchart2;
 // // ];
 
 // // function Barchart(){
-  
+
 // //     return (
 // //         <>
 // //       <ResponsiveContainer width="100%" height="80%">
@@ -125,7 +113,7 @@ export default Barchart2;
 // //             bottom: 5,
 // //           }}
 // //           barSize={12}
-          
+
 // //         >
 // //           <CartesianGrid vertical={false}/>
 // //           <XAxis dataKey="name" />
@@ -141,6 +129,5 @@ export default Barchart2;
 // //       </>
 // //     );
 // //   }
-
 
 // // export default Barchart;

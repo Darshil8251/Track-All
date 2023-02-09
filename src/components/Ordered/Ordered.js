@@ -14,29 +14,36 @@ import "../Searchbar.css";
 import Foodpanda from "../Image/Foodpanda.svg";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-
+import Cookies from "js-cookie";
 
 function Ordered() {
   const [NewOrder, setNewOrder] = useState({});
   const [show, setShow] = useState(false);
   const [time, settime] = useState(10);
-
+  const token = Cookies.get("token");
   const handleClose = async () => {
     const requestOptions = {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     };
+    console.log(NewOrder.marketPlaceName);
     const response = await fetch(
       "https://trackall.bsite.net/api/order/PutRejectOrder/" +
         NewOrder.marketPlaceName +
         "/" +
         NewOrder.orderId,
       requestOptions
-    ).then((r)=>{r.json()})
-    .then((res)=>{
-      console.log(res);
-         FetchData();
-    });
+    )
+      .then((r) => {
+        r.json();
+      })
+      .then((res) => {
+        console.log(res);
+        FetchData();
+      });
     console.log(response);
     setShow(false);
   };
@@ -46,10 +53,14 @@ function Ordered() {
   const handleAccept = async () => {
     const requestOptions = {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     };
-    const txt=NewOrder.marketPlaceName;
-    const result=txt.trim();
+    const txt = NewOrder.marketPlaceName;
+    const result = txt.trim();
+    console.log(result);
     const response = await fetch(
       "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
         result +
@@ -57,21 +68,20 @@ function Ordered() {
         NewOrder.orderId +
         "/" +
         time,
-        requestOptions
+      requestOptions
     )
-    .then((r)=>r.json)
-    .then((res)=>{
-      console.log(res);
-      FetchData()
-    });
+      .then((r) => r.json)
+      .then((res) => {
+        console.log(res);
+        FetchData();
+      });
     console.log(response);
     setShow(false);
     window.addEventListener("onclick", (event) => {
       FetchData();
       console.log("API call before page reload");
-  });
+    });
   };
-
 
   const handleShow = () => setShow(true);
   const Ref = useRef(null);
@@ -140,10 +150,10 @@ function Ordered() {
   // Use For timer
 
   const connection = new HubConnectionBuilder()
-    .withUrl("https://heyq.bsite.net/signalRServer")
+    .withUrl("https://trackall.bsite.net/signalRServer")
     .build();
   useEffect(() => {
-    var s = "71897957-87eb-45c0-8d50-a73c5490f17e";
+    var s = token;
     connection
       .start()
       .then(() => {
@@ -160,21 +170,22 @@ function Ordered() {
   useEffect(() => {
     connection.on("ReceiveOrder", (data) => {
       handleShow();
-      console.log(data);
-      setNewOrder(data);
+      console.log(data.newOrder);
+      setNewOrder(data.newOrder);
       clearTimer(getDeadTime());
-    });  
+    });
   }, []);
 
   // Fetching Data From API
   const FetchData = async () => {
     let res = await fetch(
-      "https://heyq.bsite.net/api/api/orderapi/71897957-87eb-45c0-8d50-a73c5490f17e",
+      "https://trackall.bsite.net/api/order/GetTodayOrders",
       {
         mode: "cors",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
       }
     );
@@ -182,7 +193,6 @@ function Ordered() {
     setDetails(data);
     setresetdata(data);
     setloading(true);
-    
   };
   useEffect(() => {
     FetchData();
@@ -195,10 +205,7 @@ function Ordered() {
   const handlePageClick = (event) => {
     console.log(event, typeof event.selected);
     setcurrentPage(Number(event.selected + 1));
-    
   };
-
- 
 
   // Image Import
 
@@ -223,8 +230,6 @@ function Ordered() {
     setDetails(searchData);
   };
 
-
-
   return (
     <>
       <Slider />
@@ -236,7 +241,7 @@ function Ordered() {
           onChange={handleChange}
           value={searchInput}
         />
-         
+
         {/* <p
           style={{
             marginLeft: "500px",
@@ -245,9 +250,10 @@ function Ordered() {
           }}
         ></p> */}
         <button className="history_btn">
-
-<Link to="/History"  style={{textDecoration:"none"}}>History</Link>
-</button>
+          <Link to="/History" style={{ textDecoration: "none" }}>
+            History
+          </Link>
+        </button>
 
         {/* <button className="Login">Login</button> */}
       </div>
@@ -333,10 +339,10 @@ function Ordered() {
                     value={postsPerPage}
                     onChange={(e) => {
                       setpostsPerPage(parseInt(e.target.value));
-                        const pageset=()=>{
-                         setcurrentPage(1);
-                        }
-                        pageset();
+                      const pageset = () => {
+                        setcurrentPage(1);
+                      };
+                      pageset();
                     }}
                   >
                     <option value="5">5</option>
@@ -609,7 +615,6 @@ function Ordered() {
             </div>
           </div>
         </Modal>
-      
       </div>
     </>
   );

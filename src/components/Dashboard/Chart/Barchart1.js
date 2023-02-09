@@ -1,72 +1,86 @@
-
-import React, { PureComponent} from 'react';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
+import React, { PureComponent } from "react";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  LabelList,
+} from "recharts";
 import "./Barchart.css";
 import { useEffect, useState } from "react";
-import '../Dashboard.css';
+import "../Dashboard.css";
+import Cookies from "js-cookie";
 
+function Barchart() {
+  const [Data, setData] = useState([{}]);
+  const [resetdata, setresetdata] = useState([{}]);
+  const [y, sety] = useState("date");
+  const token = Cookies.get("token");
 
-function Barchart(){
-  
-  const [Data , setData] = useState([{}]);
-  const [resetdata,setresetdata]=useState([{}]);
-  const [y,sety]=useState("date");
+  const FetchData = async () => {
+    let res = await fetch(
+      "https://TrackAll.bsite.net/api/Analytics/GetTotalSales",
+      {
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    let data = await res.json();
+    setData(data.weekDaysSales);
+    setresetdata(data);
+  };
 
+  useEffect(() => {
+    FetchData();
+  }, []);
 
-const FetchData = async () => {
-  let res = await fetch(
-    "https://TrackAll.bsite.net/api/Analytics/GetTotalSales/71897957-87eb-45c0-8d50-a73c5490f17e",
-    {
-      mode: "cors",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  let data = await res.json();
-  setData(data.weekDaysSales);
-  setresetdata(data);
-};
-
-useEffect(() => {
-  FetchData();
-}, []);
-
-
-    return (
-        <>
-         <div className="dropdown"  >
-            <button
-              className="btn btn-secondary dropdown-toggle" 
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Filter By
-            </button>
-            <div className="dropdown-menu dphover" aria-labelledby="dropdownMenuButton" style={{backgroundColor:" #ffeebf"}}>
-              <a className="dropdown-item" onClick={
-                ()=>{
-                  setData(resetdata.weekDaysSales);
-                }
-              } >
-                Weekly
-              </a>
-              <a className="dropdown-item" 
-               onClick={
-                ()=>{
-                  setData(resetdata.yearlySaleOverMonth);
-                  sety("month");
-                }
-              } >
-                Yearly
-              </a>
-            </div>
-          </div> 
-        <ResponsiveContainer width="100%" height="80%"  >
+  return (
+    <>
+      <div className="dropdown">
+        <button
+          className="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Filter By
+        </button>
+        <div
+          className="dropdown-menu dphover"
+          aria-labelledby="dropdownMenuButton"
+          style={{ backgroundColor: " #ffeebf" }}
+        >
+          <a
+            className="dropdown-item"
+            onClick={() => {
+              setData(resetdata.weekDaysSales);
+            }}
+          >
+            Weekly
+          </a>
+          <a
+            className="dropdown-item"
+            onClick={() => {
+              setData(resetdata.yearlySaleOverMonth);
+              sety("month");
+            }}
+          >
+            Yearly
+          </a>
+        </div>
+      </div>
+      <ResponsiveContainer width="100%" height="80%">
         <BarChart
           data={Data}
           margin={{
@@ -74,33 +88,26 @@ useEffect(() => {
             right: 30,
             left: 20,
             bottom: 5,
-            
           }}
           barSize={12}
-          
-          
-            >
-          <CartesianGrid vertical={false}/>
+        >
+          <CartesianGrid vertical={false} />
           <XAxis dataKey={y} />
           <YAxis tickCount={6} />
-          <Tooltip/>
-          <Bar dataKey="totalSales" fill="#1b1b1bb3" radius={[3,3,0,0]}  style={{backgroundColor:"#FFF7E1"}} >
-          
-          </Bar>
-         
+          <Tooltip />
+          <Bar
+            dataKey="totalSales"
+            fill="#1b1b1bb3"
+            radius={[3, 3, 0, 0]}
+            style={{ backgroundColor: "#FFF7E1" }}
+          ></Bar>
         </BarChart>
       </ResponsiveContainer>
-        
-        
-      
-      </>
-    );
-  }
-
+    </>
+  );
+}
 
 export default Barchart;
-
-
 
 // import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
@@ -276,7 +283,6 @@ export default Barchart;
 // ];
 
 // function Barchart1() {
-  
 
 //     return (
 //       <ResponsiveContainer width="200%" height="90%">
@@ -301,7 +307,7 @@ export default Barchart;
 //         </LineChart>
 //       </ResponsiveContainer>
 //     );
-  
+
 // }
 
 // export default Barchart1;

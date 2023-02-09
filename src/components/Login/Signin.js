@@ -12,7 +12,7 @@ import {
 import Dashboard from "../Dashboard/Dashboard";
 import "./Sigin.css";
 import TrackAll from "./TrackAll";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 function Signin() {
   const [user, setuser] = useState({
@@ -24,7 +24,6 @@ function Signin() {
 
   const handlechange = (e) => {
     setuser({ ...user, [e.target.name]: e.target.value });
-
   };
 
   const handlesubmit = (e) => {
@@ -48,14 +47,12 @@ function Signin() {
     })
       .then((r) => r.json())
       .then((res) => {
-        console.log(res);
-        if (res.Success == "User Logged In") {        
-            const date=new  Date(res.Validte);
+        if (res.Success == "User Logged In") {
+          console.log(res);
+
+          const date = new Date(res.Valid);
           setvalidate(true);
-           Cookies.set('token',res.User,{expires:date,httpOnly: true});
-           const a=Cookies.get('token');
-           console.log(a);
-            
+          Cookies.set("token", res.User, { expires: date });
         } else {
           alert(res.Error);
           console.log(res);
@@ -132,6 +129,7 @@ function Signin() {
                 className="btncontinue"
                 onClick={handlesubmit}
               >
+                {console.log(validate)}
                 {validate ? (
                   <Navigate to={"/dashboard"} />
                 ) : (

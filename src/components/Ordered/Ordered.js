@@ -3,6 +3,7 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import "./Ordered.css";
 import { Modal } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
+import Searchbar from "../Seachbar";
 import Swiggy from "../Image/Swiggy.svg";
 import Ubereat from "../Image/Uber_Eats.svg";
 import "bootstrap/dist/css/bootstrap.css";
@@ -13,21 +14,22 @@ import "../Searchbar.css";
 import Foodpanda from "../Image/Foodpanda.svg";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import Button from "react-bootstrap/Button";
-
+import Cookies from "js-cookie";
 
 function Ordered() {
   const [NewOrder, setNewOrder] = useState({});
   const [show, setShow] = useState(false);
   const [time, settime] = useState(10);
-
+  const token = Cookies.get("token");
   const handleClose = async () => {
     const requestOptions = {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     };
+    console.log(NewOrder.marketPlaceName);
     const response = await fetch(
       "https://trackall.bsite.net/api/order/PutRejectOrder/" +
         NewOrder.marketPlaceName +
@@ -51,10 +53,14 @@ function Ordered() {
   const handleAccept = async () => {
     const requestOptions = {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
     };
     const txt = NewOrder.marketPlaceName;
     const result = txt.trim();
+    console.log(result);
     const response = await fetch(
       "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
         result +
@@ -144,10 +150,10 @@ function Ordered() {
   // Use For timer
 
   const connection = new HubConnectionBuilder()
-    .withUrl("https://heyq.bsite.net/signalRServer")
+    .withUrl("https://trackall.bsite.net/signalRServer")
     .build();
   useEffect(() => {
-    var s = "71897957-87eb-45c0-8d50-a73c5490f17e";
+    var s = token;
     connection
       .start()
       .then(() => {
@@ -164,8 +170,8 @@ function Ordered() {
   useEffect(() => {
     connection.on("ReceiveOrder", (data) => {
       handleShow();
-      console.log(data);
-      setNewOrder(data);
+      console.log(data.newOrder);
+      setNewOrder(data.newOrder);
       clearTimer(getDeadTime());
     });
   }, []);
@@ -173,12 +179,13 @@ function Ordered() {
   // Fetching Data From API
   const FetchData = async () => {
     let res = await fetch(
-      "https://heyq.bsite.net/api/api/orderapi/71897957-87eb-45c0-8d50-a73c5490f17e",
+      "https://trackall.bsite.net/api/order/GetTodayOrders",
       {
         mode: "cors",
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
       }
     );
@@ -234,21 +241,22 @@ function Ordered() {
           onChange={handleChange}
           value={searchInput}
         />
-        <Button variant="secondary" className="history_btn">
-          <Link
-            to="/History"
-            style={{
-              textDecoration: "none",
-              color: "white",
-              marginRight: "5px",
-            }}
-          >
+
+        {/* <p
+          style={{
+            marginLeft: "500px",
+            display: "inline",
+            marginRight: "115px",
+          }}
+        ></p> */}
+        <button className="history_btn">
+          <Link to="/History" style={{ textDecoration: "none" }}>
             History
           </Link>
-          <FontAwesomeIcon icon={faArrowRight} />
-        </Button>
+        </button>
+
+        {/* <button className="Login">Login</button> */}
       </div>
-      {loading?(
       <div className="maincontainer">
         <div>
           <div className="navbar">
@@ -265,9 +273,8 @@ function Ordered() {
                     width="13"
                     height="13"
                     fill="currentColor"
-                    className="bi bi-chevron-down"
+                    className="bi bi-chevron-down dropicon"
                     viewBox="0 0 16 16"
-                    className="dropicon"
                   >
                     <path
                       fill-rule="evenodd"
@@ -408,7 +415,7 @@ function Ordered() {
               </nav>
             </header>
           </div>
-          {loading?(<table id="example" className="tablecss">
+          <table id="example" className="tablecss">
             <thead>
               <tr className="trhead">
                 <th scope="col">No</th>
@@ -460,8 +467,7 @@ function Ordered() {
                 );
               })}
             </tbody>
-          </table>):(<Spinner animation="border" style={{marginleft:'500px'}} />)}
-          
+          </table>
           <br />
           <ReactPaginate
             previousLabel={"<"}
@@ -483,10 +489,7 @@ function Ordered() {
             activeClassName={"active"}
             forcePage={currentPage - 1}
           />
-        </div></div>):(<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-      <Spinner animation="border" />
-    </div>)
-      }
+        </div>
 
         {/* Popup  */}
 
@@ -520,7 +523,6 @@ function Ordered() {
               </Modal.Header>
             </div>
             <div>
-            
               <Modal.Body>
                 <p style={{ textAlign: "center" }}>
                   Orderd From:
@@ -611,9 +613,8 @@ function Ordered() {
               </div>
             </div>
           </div>
-      
         </Modal>
-  
+      </div>
     </>
   );
 }

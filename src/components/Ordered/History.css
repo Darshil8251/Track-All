@@ -91,3 +91,24 @@
     background: #6f48eb;
     color: white;
    }
+   .entry{
+    background-color: white;
+    color: black;
+    margin-right: 10px;
+    cursor: pointer;
+    display: flex;
+    /* padding: 2px 12px; */
+    width: 200px;
+    height: 26px;
+    border: 1px solid rgba(31, 31, 31, 0.2);
+    border-radius: 4px;
+  
+    font-style: normal;
+    font-weight: 350;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.005em;
+   }
+   .select{
+ display: inline;
+   }  

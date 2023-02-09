@@ -3,7 +3,6 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import "./Ordered.css";
 import { Modal } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
-import Searchbar from "../Seachbar";
 import Swiggy from "../Image/Swiggy.svg";
 import Ubereat from "../Image/Uber_Eats.svg";
 import "bootstrap/dist/css/bootstrap.css";
@@ -14,7 +13,14 @@ import "../Searchbar.css";
 import Foodpanda from "../Image/Foodpanda.svg";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import Cookies from "js-cookie";
+=======
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import Button from "react-bootstrap/Button";
+
+>>>>>>> 957dd053a38bded912f8b68ee5e3543c0c9e1703
 
 function Ordered() {
   const [NewOrder, setNewOrder] = useState({});
@@ -60,7 +66,10 @@ function Ordered() {
     };
     const txt = NewOrder.marketPlaceName;
     const result = txt.trim();
+<<<<<<< HEAD
     console.log(result);
+=======
+>>>>>>> 957dd053a38bded912f8b68ee5e3543c0c9e1703
     const response = await fetch(
       "https://trackall.bsite.net/api/order/PutAcceptOrder/" +
         result +
@@ -241,6 +250,7 @@ function Ordered() {
           onChange={handleChange}
           value={searchInput}
         />
+<<<<<<< HEAD
 
         {/* <p
           style={{
@@ -256,7 +266,23 @@ function Ordered() {
         </button>
 
         {/* <button className="Login">Login</button> */}
+=======
+        <Button variant="secondary" className="history_btn">
+          <Link
+            to="/History"
+            style={{
+              textDecoration: "none",
+              color: "white",
+              marginRight: "5px",
+            }}
+          >
+            History
+          </Link>
+          <FontAwesomeIcon icon={faArrowRight} />
+        </Button>
+>>>>>>> 957dd053a38bded912f8b68ee5e3543c0c9e1703
       </div>
+      {loading?(
       <div className="maincontainer">
         <div>
           <div className="navbar">
@@ -416,7 +442,7 @@ function Ordered() {
               </nav>
             </header>
           </div>
-          <table id="example" className="tablecss">
+          {loading?(<table id="example" className="tablecss">
             <thead>
               <tr className="trhead">
                 <th scope="col">No</th>
@@ -468,7 +494,8 @@ function Ordered() {
                 );
               })}
             </tbody>
-          </table>
+          </table>):(<Spinner animation="border" style={{marginleft:'500px'}} />)}
+          
           <br />
           <ReactPaginate
             previousLabel={"<"}
@@ -490,7 +517,10 @@ function Ordered() {
             activeClassName={"active"}
             forcePage={currentPage - 1}
           />
-        </div>
+        </div></div>):(<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <Spinner animation="border" />
+    </div>)
+      }
 
         {/* Popup  */}
 
@@ -524,6 +554,7 @@ function Ordered() {
               </Modal.Header>
             </div>
             <div>
+            
               <Modal.Body>
                 <p style={{ textAlign: "center" }}>
                   Orderd From:
@@ -614,8 +645,14 @@ function Ordered() {
               </div>
             </div>
           </div>
+<<<<<<< HEAD
         </Modal>
       </div>
+=======
+      
+        </Modal>
+  
+>>>>>>> 957dd053a38bded912f8b68ee5e3543c0c9e1703
     </>
   );
 }

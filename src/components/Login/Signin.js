@@ -53,7 +53,6 @@ function Signin() {
           const date = new Date(res.Valid);
           setvalidate(true);
           Cookies.set("token", res.User, { expires: date });
-          console.log(Cookies.get("token"));
         } else {
           alert(res.Error);
           console.log(res);

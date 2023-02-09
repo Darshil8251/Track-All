@@ -14,8 +14,10 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./History.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarAlt,faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
+import Spinner from "react-bootstrap/Spinner";
+import Button from "react-bootstrap/Button";
 
 function Ordered() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -24,6 +26,7 @@ function Ordered() {
   const [currentPage, setcurrentPage] = useState(1); // Use for pagination to set pages
   const [postsPerPage, setpostsPerPage] = useState(5); // set postperpage
   const [show, setshow] = useState(false);
+  const [loading,setloading]=useState(false);
   // const [currentPosts,setcurrentPosts]=useState([{}]);
 
   // Fetching Data From API
@@ -41,7 +44,7 @@ function Ordered() {
     let data = await res.json();
     setDetails(data);
     setresetdata(data);
-    // setloading(true);
+     setloading(true);
   };
   useEffect(() => {
     FetchData();
@@ -106,18 +109,18 @@ function Ordered() {
           }}
         ></p>
         <br />
-
-        {/* <button className="Login">Login</button> */}
       </div>
-      <button
+      <Button
+        variant="secondary"
         className="back_btn"
         style={{ marginLeft: "282px", marginTop: "96px" }}
       >
-        <Link to="/ordered" style={{ textDecoration: "none" }}>
+      <FontAwesomeIcon icon={faArrowLeft} />
+        <Link to="/ordered" style={{ textDecoration: "none",color:'white' }}>
           Back
         </Link>
-      </button>
-
+      </Button>
+{  loading?(
       <div className="maincontainer" style={{ marginTop: "35px" }}>
         <div>
           <div className="navbar">
@@ -192,11 +195,11 @@ function Ordered() {
                 </div>
               </div>
 
-              <div className="dropname2">
-                <p className="dropdownname">
+              <div className="entry">
+                <p className="select">
                   Entrie per page:{" "}
                   <select
-                    className="entery_selection"
+                    className=""
                     value={postsPerPage}
                     onChange={(e) => {
                       setpostsPerPage(parseInt(e.target.value));
@@ -395,7 +398,10 @@ function Ordered() {
             forcePage={currentPage - 1}
           />
         </div>
-      </div>
+      </div>):(<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
+      <Spinner animation="border" />
+    </div>)
+}
     </>
   );
 }

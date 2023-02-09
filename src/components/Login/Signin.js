@@ -47,6 +47,7 @@ function Signin() {
     })
       .then((r) => r.json())
       .then((res) => {
+<<<<<<< HEAD
         if (res.Success == "User Logged In") {
           console.log(res);
 
@@ -54,6 +55,16 @@ function Signin() {
           setvalidate(true);
           Cookies.set("token", res.User, { expires: date });
           console.log(Cookies.get("token"));
+=======
+        console.log(res);
+        if (res.Success == "User Logged In") {        
+            const date=new  Date(res.Validte);
+          setvalidate(true);
+           Cookies.set('token',res.User,{expires:date,httpOnly: true});
+           const a=Cookies.get('token');
+           console.log(a);
+            
+>>>>>>> 957dd053a38bded912f8b68ee5e3543c0c9e1703
         } else {
           alert(res.Error);
           console.log(res);
@@ -130,7 +141,6 @@ function Signin() {
                 className="btncontinue"
                 onClick={handlesubmit}
               >
-                {console.log(validate)}
                 {validate ? (
                   <Navigate to={"/dashboard"} />
                 ) : (

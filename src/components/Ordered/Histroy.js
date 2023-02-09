@@ -14,10 +14,11 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./History.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt,faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import { faCalendarAlt, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
+import Cookies from "js-cookie";
 
 function Ordered() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -26,25 +27,24 @@ function Ordered() {
   const [currentPage, setcurrentPage] = useState(1); // Use for pagination to set pages
   const [postsPerPage, setpostsPerPage] = useState(5); // set postperpage
   const [show, setshow] = useState(false);
-  const [loading,setloading]=useState(false);
+  const [loading, setloading] = useState(false);
+  const token = Cookies.get("token");
   // const [currentPosts,setcurrentPosts]=useState([{}]);
 
   // Fetching Data From API
   const FetchData = async () => {
-    let res = await fetch(
-      "https://heyq.bsite.net/api/api/Orders/71897957-87eb-45c0-8d50-a73c5490f17e",
-      {
-        mode: "cors",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    let res = await fetch("https://trackall.bsite.net/api/order/GetOrders", {
+      mode: "cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
     let data = await res.json();
     setDetails(data);
     setresetdata(data);
-     setloading(true);
+    setloading(true);
   };
   useEffect(() => {
     FetchData();
@@ -115,293 +115,302 @@ function Ordered() {
         className="back_btn"
         style={{ marginLeft: "282px", marginTop: "96px" }}
       >
-      <FontAwesomeIcon icon={faArrowLeft} />
-        <Link to="/ordered" style={{ textDecoration: "none",color:'white' }}>
+        <FontAwesomeIcon icon={faArrowLeft} />
+        <Link to="/ordered" style={{ textDecoration: "none", color: "white" }}>
           Back
         </Link>
       </Button>
-{  loading?(
-      <div className="maincontainer" style={{ marginTop: "35px" }}>
-        <div>
-          <div className="navbar">
-            <header>
-              <div className="brand">
-                <a>Order List</a>
-              </div>
-
-              <div className="dropdown">
-                <button className="dropbtn">
-                  <p className="dropname">Filter by</p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="13"
-                    height="13"
-                    fill="currentColor"
-                    className="bi bi-chevron-down"
-                    viewBox="0 0 16 16"
-                    className="dropicon"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    />
-                  </svg>
-                </button>
-                <div className="dropdown-content">
-                  <a
-                    onClick={() => {
-                      setDetails(resetdata);
-                      setcurrentPage(1);
-                    }}
-                  >
-                    All
-                  </a>
-                  <a
-                    onClick={() => {
-                      setDetails(
-                        resetdata.filter(
-                          (item) => item.marketPlaceName == "Zomato"
-                        )
-                      );
-                      setcurrentPage(1);
-                    }}
-                  >
-                    Zomato
-                  </a>
-                  <a
-                    onClick={() => {
-                      setDetails(
-                        resetdata.filter(
-                          (item) => item.marketPlaceName === "Swiggy"
-                        )
-                      );
-                      setcurrentPage(1);
-                    }}
-                  >
-                    Swiggy
-                  </a>
-                  <a
-                    onClick={() => {
-                      setDetails(
-                        resetdata.filter(
-                          (item) => item.marketPlaceName === "Uber Eats"
-                        )
-                      );
-                      setcurrentPage(1);
-                    }}
-                  >
-                    Uber Eats
-                  </a>
+      {loading ? (
+        <div className="maincontainer" style={{ marginTop: "35px" }}>
+          <div>
+            <div className="navbar">
+              <header>
+                <div className="brand">
+                  <a>Order List</a>
                 </div>
-              </div>
 
-              <div className="entry">
-                <p className="select">
-                  Entrie per page:{" "}
-                  <select
-                    className=""
-                    value={postsPerPage}
-                    onChange={(e) => {
-                      setpostsPerPage(parseInt(e.target.value));
-                      const pageset = () => {
-                        setcurrentPage(1);
-                      };
-                      pageset();
-                    }}
-                  >
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                  </select>
-                  <div className="20"></div>
-                </p>
-
-                <div style={{ marginLeft: "165px" }}>
-                  <button
-                    onClick={() => {
-                      setshow(true);
-                    }}
-                  >
-                    {show ? (
-                      <Modal
-                        show={show}
-                        onHide={() => {
-                          setshow(false);
-                        }}
-                        backdrop="static"
-                        keyboard={false}
-                        centered
-                        style={{
-                          width: "374px",
-                          margin: "auto",
-                          borderRadius: "12px",
-                        }}
-                      >
-                        <div style={{ borderRadius: "3px" }}>
-                          <div
-                            style={{
-                              backgroundColor: "#FBB700",
-                              borderRadius: "12px",
-                              textAlign: "center",
-                            }}
-                          >
-                            <Calendar
-                              onChange={handleCalendarChange}
-                              value={selectedDate}
-                              style={{ marginTop: "50px" }}
-                            />
-                          </div>
-                        </div>
-                      </Modal>
-                    ) : (
-                      <FontAwesomeIcon icon={faCalendarAlt} />
-                    )}
+                <div className="dropdown">
+                  <button className="dropbtn">
+                    <p className="dropname">Filter by</p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="13"
+                      height="13"
+                      fill="currentColor"
+                      className="bi bi-chevron-down"
+                      viewBox="0 0 16 16"
+                      className="dropicon"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                      />
+                    </svg>
                   </button>
-                </div>
-              </div>
-
-              <nav className="navbarstatus">
-                <ul className="ulcss">
-                  <li className="statuscss">
-                    <p href="/" className="statusbuttonname">
-                      Status :
-                    </p>
-                  </li>
-                  <li className="statuscss statuscolor">
+                  <div className="dropdown-content">
                     <a
-                      className="statusbutton"
-                      onClick={() => setDetails(resetdata)}
+                      onClick={() => {
+                        setDetails(resetdata);
+                        setcurrentPage(1);
+                      }}
                     >
                       All
                     </a>
-                  </li>
-                  <li className="statuscss statuscolor">
                     <a
-                      className="statusbutton"
-                      onClick={() =>
+                      onClick={() => {
                         setDetails(
                           resetdata.filter(
-                            (item) =>
-                              item.status == "Accepted" ||
-                              item.status == "Ready"
+                            (item) => item.marketPlaceName == "Zomato"
                           )
-                        )
-                      }
+                        );
+                        setcurrentPage(1);
+                      }}
                     >
-                      Accepted
+                      Zomato
                     </a>
-                  </li>
-                  <li className="statuscss statuscolor">
                     <a
-                      className="statusbutton"
-                      onClick={() =>
+                      onClick={() => {
                         setDetails(
                           resetdata.filter(
-                            (item) => item.status === "Completed"
+                            (item) => item.marketPlaceName === "Swiggy"
                           )
-                        )
-                      }
+                        );
+                        setcurrentPage(1);
+                      }}
                     >
-                      Completed
+                      Swiggy
                     </a>
-                  </li>
-                  <li className="statuscss statuscolor">
                     <a
-                      className="statusbutton"
-                      onClick={() =>
+                      onClick={() => {
                         setDetails(
                           resetdata.filter(
-                            (item) => item.status === "Cancelled"
+                            (item) => item.marketPlaceName === "Uber Eats"
                           )
-                        )
-                      }
+                        );
+                        setcurrentPage(1);
+                      }}
                     >
-                      Cancelled
+                      Uber Eats
                     </a>
-                  </li>
-                </ul>
-              </nav>
-            </header>
-          </div>
-          <table id="example" className="tablecss">
-            <thead>
-              <tr className="trhead">
-                <th scope="col">No</th>
-                <th scope="col">Order Details</th>
-                <th scope="col">Items</th>
-                <th scope="col">Total price</th>
-                <th scope="col">Delivery Details</th>
-                <th scope="col">Location</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody style={{ marginTop: "100px" }}>
-              {currentPosts.map((item, index) => {
-                return (
-                  <>
-                    <tr key={index + 1 + firstIndex} className="trborder">
-                      <th scope="row">{index + 1 + firstIndex}</th>
+                  </div>
+                </div>
 
-                      <td className="table_order_details_orderidname">
-                        <div
-                          className="table_order_details"
-                          style={{ marginRight: "-80px" }}
+                <div className="entry">
+                  <p className="select">
+                    Entrie per page:{" "}
+                    <select
+                      className=""
+                      value={postsPerPage}
+                      onChange={(e) => {
+                        setpostsPerPage(parseInt(e.target.value));
+                        const pageset = () => {
+                          setcurrentPage(1);
+                        };
+                        pageset();
+                      }}
+                    >
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                    </select>
+                    <div className="20"></div>
+                  </p>
+
+                  <div style={{ marginLeft: "165px" }}>
+                    <button
+                      onClick={() => {
+                        setshow(true);
+                      }}
+                    >
+                      {show ? (
+                        <Modal
+                          show={show}
+                          onHide={() => {
+                            setshow(false);
+                          }}
+                          backdrop="static"
+                          keyboard={false}
+                          centered
+                          style={{
+                            width: "374px",
+                            margin: "auto",
+                            borderRadius: "12px",
+                          }}
                         >
-                          {/* <img
+                          <div style={{ borderRadius: "3px" }}>
+                            <div
+                              style={{
+                                backgroundColor: "#FBB700",
+                                borderRadius: "12px",
+                                textAlign: "center",
+                              }}
+                            >
+                              <Calendar
+                                onChange={handleCalendarChange}
+                                value={selectedDate}
+                                style={{ marginTop: "50px" }}
+                              />
+                            </div>
+                          </div>
+                        </Modal>
+                      ) : (
+                        <FontAwesomeIcon icon={faCalendarAlt} />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <nav className="navbarstatus">
+                  <ul className="ulcss">
+                    <li className="statuscss">
+                      <p href="/" className="statusbuttonname">
+                        Status :
+                      </p>
+                    </li>
+                    <li className="statuscss statuscolor">
+                      <a
+                        className="statusbutton"
+                        onClick={() => setDetails(resetdata)}
+                      >
+                        All
+                      </a>
+                    </li>
+                    <li className="statuscss statuscolor">
+                      <a
+                        className="statusbutton"
+                        onClick={() =>
+                          setDetails(
+                            resetdata.filter(
+                              (item) =>
+                                item.status == "Accepted" ||
+                                item.status == "Ready"
+                            )
+                          )
+                        }
+                      >
+                        Accepted
+                      </a>
+                    </li>
+                    <li className="statuscss statuscolor">
+                      <a
+                        className="statusbutton"
+                        onClick={() =>
+                          setDetails(
+                            resetdata.filter(
+                              (item) => item.status === "Completed"
+                            )
+                          )
+                        }
+                      >
+                        Completed
+                      </a>
+                    </li>
+                    <li className="statuscss statuscolor">
+                      <a
+                        className="statusbutton"
+                        onClick={() =>
+                          setDetails(
+                            resetdata.filter(
+                              (item) => item.status === "Cancelled"
+                            )
+                          )
+                        }
+                      >
+                        Cancelled
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </header>
+            </div>
+            <table id="example" className="tablecss">
+              <thead>
+                <tr className="trhead">
+                  <th scope="col">No</th>
+                  <th scope="col">Order Details</th>
+                  <th scope="col">Items</th>
+                  <th scope="col">Total price</th>
+                  <th scope="col">Delivery Details</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody style={{ marginTop: "100px" }}>
+                {currentPosts.map((item, index) => {
+                  return (
+                    <>
+                      <tr key={index + 1 + firstIndex} className="trborder">
+                        <th scope="row">{index + 1 + firstIndex}</th>
+
+                        <td className="table_order_details_orderidname">
+                          <div
+                            className="table_order_details"
+                            style={{ marginRight: "-80px" }}
+                          >
+                            {/* <img
                             className="table_order_details_img"
                             src="logo192.png"
                           />{" "} */}
-                          <img
-                            className="table_order_details_img"
-                            src={image(item.marketPlaceName)}
-                            style={{ borderRadius: "12px" }}
-                          />
-                          &nbsp;&nbsp; &nbsp;
-                          {item.customerName}
-                          <br />
-                          {item.orderId}
-                        </div>
-                      </td>
-                      <td>{item.itemName}</td>
-                      <td>&#8377;{item.price}</td>
-                      <td>{item.deliveryBoyName}</td>
-                      <td>{item.location}</td>
-                      <td className="order_status">
-                        {item.status}
-                        <br /> {item.toPrepare}
-                      </td>
-                    </tr>
-                  </>
-                );
-              })}
-            </tbody>
-          </table>
-          <br />
-          <ReactPaginate
-            previousLabel={"<"}
-            nextLabel={">"}
-            breakLabel={"..."}
-            pageCount={Details.length / postsPerPage}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={3}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination justify-content-center"}
-            pageClassName={"page-item"}
-            pageLinkClassName={"page-link"}
-            previousClassName={"page-item"}
-            previousLinkClassName={"page-link"}
-            nextClassName={"page-item"}
-            nextLinkClassName={"page-link"}
-            breakClassName={"page-item"}
-            breakLinkClassName={"page-link"}
-            activeClassName={"active"}
-            forcePage={currentPage - 1}
-          />
+                            <img
+                              className="table_order_details_img"
+                              src={image(item.marketPlaceName)}
+                              style={{ borderRadius: "12px" }}
+                            />
+                            &nbsp;&nbsp; &nbsp;
+                            {item.customerName}
+                            <br />
+                            {item.orderId}
+                          </div>
+                        </td>
+                        <td>{item.itemName}</td>
+                        <td>&#8377;{item.price}</td>
+                        <td>{item.deliveryBoyName}</td>
+                        <td>{item.location}</td>
+                        <td className="order_status">
+                          {item.status}
+                          <br /> {item.toPrepare}
+                        </td>
+                      </tr>
+                    </>
+                  );
+                })}
+              </tbody>
+            </table>
+            <br />
+            <ReactPaginate
+              previousLabel={"<"}
+              nextLabel={">"}
+              breakLabel={"..."}
+              pageCount={Details.length / postsPerPage}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={3}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination justify-content-center"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              previousClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+              breakClassName={"page-item"}
+              breakLinkClassName={"page-link"}
+              activeClassName={"active"}
+              forcePage={currentPage - 1}
+            />
+          </div>
         </div>
-      </div>):(<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
-      <Spinner animation="border" />
-    </div>)
-}
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "80vh",
+          }}
+        >
+          <Spinner animation="border" />
+        </div>
+      )}
     </>
   );
 }

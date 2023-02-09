@@ -6,26 +6,27 @@ import "react-multi-carousel/lib/styles.css";
 
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import Switch from "react-switch";
+import Cookies from "js-cookie";
 
 const select = {
-  textDecoration:' none',
-  position: 'absolute',
-  color:' #666666',
-  textAlign: 'center',
-  borderRadius: '8px 8px 0px 0px',
-  width: '132px',
-  height: '35px'
-}
+  textDecoration: " none",
+  position: "absolute",
+  color: " #666666",
+  textAlign: "center",
+  borderRadius: "8px 8px 0px 0px",
+  width: "132px",
+  height: "35px",
+};
 function Merchandise_Menu() {
   const [merchandise, setmerchandise] = useState(false);
   const [Data, setData] = useState([{}]);
   const [resetdata, setresetdata] = useState([{}]);
-  const[zomato,setzomato]=useState(true);
-  const[swiggy,setswiggy]=useState(false);
-  const[Ubereat,setUbereat]=useState(false);
-  const[foodpanda,setfoodpanda]=useState(false);
-  const[isset,setisset]=useState(false);
-    
+  const [zomato, setzomato] = useState(true);
+  const [swiggy, setswiggy] = useState(false);
+  const [Ubereat, setUbereat] = useState(false);
+  const [foodpanda, setfoodpanda] = useState(false);
+  const [isset, setisset] = useState(false);
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -44,111 +45,28 @@ function Merchandise_Menu() {
     },
   };
 
+  const token = Cookies.get("token");
   // Use for Data fetch from A
   useEffect(() => {
-    const url =
-      "https://heyq.bsite.net/api/api/GetZomatoProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
-
     const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        setData(json);
-        setresetdata(json);
-      } catch (error) {
-        console.log("error", error);
-      }
+      let res = await fetch(
+        "https://trackall.bsite.net/api/Inventory/GetProduct",
+        {
+          mode: "cors",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      let data = await res.json();
+      setData(data.filter((iteam) => iteam.market == "Zomato"));
+      setresetdata(data);
     };
 
     fetchData();
   }, []);
-
-  const fetchswiggy = () => {
-    const url =
-      "https://heyq.bsite.net/api/api/GetSwiggyProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        setData(json);
-        setresetdata(json);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-
-    fetchData();
-    setzomato(false);
-    setUbereat(false);
-    setswiggy(true);
-    setfoodpanda(false);
-    
-  };
-  const fetchzomato = () => {
-    const url =
-      "https://heyq.bsite.net/api/api/GetZomatoProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        setData(json);
-        setresetdata(json);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-
-    fetchData();
-    setzomato(true);
-    setUbereat(false);
-    setswiggy(false);
-    setfoodpanda(false);
-  };
-  const fetchUber = () => {
-    const url =
-      "https://heyq.bsite.net/api/api/GetUberEatsProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        setData(json);
-        setresetdata(json);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-
-    fetchData();
-    setzomato(false);
-    setUbereat(true);
-    setswiggy(false);
-    setfoodpanda(false);
-  };
-
-  const fetchfoodpandas = () => {
-    const url =
-      "https://heyq.bsite.net/api/api/GetFoodPandaProduct/71897957-87eb-45c0-8d50-a73c5490f17e";
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        setData(json);
-        setresetdata(json);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-
-    fetchData();
-    setzomato(false);
-    setUbereat(false);
-    setswiggy(false);
-    setfoodpanda(true);
-  };
-
   const itemTab = Math.ceil(Data.length / 6);
 
   const tabNumber = [...Array(itemTab + 1).keys()].slice(1);
@@ -167,9 +85,39 @@ function Merchandise_Menu() {
     setData(searchData);
   };
 
-  const handletoggle=()=>{
+  const handletoggle = async (e) => {
+    let name = e.target.value;
+    let marketpalce = e.target.name;
+    console.log(name);
+    console.log(marketpalce);
+    console.log(
+      "https://trackall.bsite.net/api/Inventory/PutProductStock/" 
+        +name +
+        "/" +
+        marketpalce
+    );
+    const response = await fetch(
+      "https://trackall.bsite.net/api/Inventory/PutProductStock/" 
+      +
+        name +
+        "/" +
+        marketpalce,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
+      .then((r) => r.json)
+      .then((res) => {
+        console.log("fghjkl,;.");
+        console.log(res);
+      });
 
-  }
+    console.log(response);
+  };
 
   return (
     <>
@@ -182,22 +130,75 @@ function Merchandise_Menu() {
           <div>
             <ul className="Merchandise_Name">
               <li className="Merchandise">
-                <button className="Name" onClick={fetchzomato} style={zomato?{...select,background:'#FBB700'}:select}>
+                <button
+                  className="Name"
+                  onClick={() => {
+                    setData(
+                      resetdata.filter((iteam) => iteam.market == "Zomato")
+                    );
+
+                    setzomato(true);
+                    setUbereat(false);
+                    setswiggy(false);
+                    setfoodpanda(false);
+                  }}
+                  style={zomato ? { ...select, background: "#FBB700" } : select}
+                >
                   Zomato
                 </button>
               </li>
               <li className="Merchandise">
-                <button className="Name" onClick={fetchswiggy} style={swiggy?{...select,background:'#FBB700'}:select}>
+                <button
+                  className="Name"
+                  onClick={() => {
+                    setData(
+                      resetdata.filter((iteam) => iteam.market == "Swiggy")
+                    );
+                    setzomato(false);
+                    setUbereat(false);
+                    setswiggy(true);
+                    setfoodpanda(false);
+                  }}
+                  style={swiggy ? { ...select, background: "#FBB700" } : select}
+                >
                   swiggy
                 </button>
               </li>
               <li className="Merchandise">
-                <button className="Name" onClick={fetchUber} style={Ubereat?{...select,background:'#FBB700'}:select}>
+                <button
+                  className="Name"
+                  onClick={() => {
+                    setData(
+                      resetdata.filter((iteam) => iteam.market == "Uber Eats")
+                    );
+                    setzomato(false);
+                    setUbereat(true);
+                    setswiggy(false);
+                    setfoodpanda(false);
+                  }}
+                  style={
+                    Ubereat ? { ...select, background: "#FBB700" } : select
+                  }
+                >
                   Uber Eatas
                 </button>
               </li>
               <li className="Merchandise">
-                <button className="Name" onClick={fetchfoodpandas} style={foodpanda?{...select,background:'#FBB700'}:select}>
+                <button
+                  className="Name"
+                  onClick={() => {
+                    setData(
+                      resetdata.filter((iteam) => iteam.market == "Food Pandas")
+                    );
+                      setzomato(false);
+                    setUbereat(false);
+                    setswiggy(false);
+                    setfoodpanda(true);
+                  }}
+                  style={
+                    foodpanda ? { ...select, background: "#FBB700" } : select
+                  }
+                >
                   food Pandas
                 </button>
               </li>
@@ -219,7 +220,6 @@ function Merchandise_Menu() {
                   type="submit"
                   onClick={() => {
                     setmerchandise(true);
-
                   }}
                 >
                   + Add New Item
@@ -269,9 +269,11 @@ function Merchandise_Menu() {
                                       className="form-check-input border border-success border-2"
                                       type="checkbox"
                                       role="switch"
-                                      checked={a.stock==1?true:false}
+                                      checked={a.stock == 1 ? true : false}
                                       id="flexSwitchCheckDefault"
                                       onClick={handletoggle}
+                                      value={a.name}
+                                      name={a.market}
                                     />
                                   </div>
                                 </td>

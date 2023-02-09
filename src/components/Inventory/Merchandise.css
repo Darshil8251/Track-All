@@ -59,7 +59,7 @@ margin-left: 10%;
     color: #666666;
   
   }
-  .Name:hover{
+  /* .Name:hover{
     text-decoration: none;
     position: absolute;
     color: #666666;
@@ -68,7 +68,7 @@ margin-left: 10%;
     border-radius: 8px 8px 0px 0px;
     width: 132px;
     height: 35px;
-  }
+  } */
   .tabel{
     box-sizing: border-box;
 

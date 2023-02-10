@@ -216,7 +216,7 @@ function Ordered() {
                     <div className="20"></div>
                   </p>
 
-                  <div style={{ marginLeft: "165px" }}>
+                  <div>
                     <button
                       onClick={() => {
                         setshow(true);

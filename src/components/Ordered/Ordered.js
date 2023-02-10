@@ -20,7 +20,14 @@ function Ordered() {
   const [NewOrder, setNewOrder] = useState({});
   const [show, setShow] = useState(false);
   const [time, settime] = useState(10);
+  
+  if(window.sessionStorage.getItem("pop")==null)
+  window.sessionStorage.setItem("pop","false");
+  localStorage.setItem('pop','false');
   const token = Cookies.get("token");
+
+    
+
   const handleClose = async () => {
     const requestOptions = {
       method: "PUT",
@@ -43,9 +50,15 @@ function Ordered() {
       .then((res) => {
         console.log(res);
         FetchData();
+        
       });
     console.log(response);
+    //console.log(pop);
+   // pop = false;
+    window.sessionStorage.setItem("pop","false");
+   // console.log(pop);
     setShow(false);
+    //console.log(pop)
   };
   // useEffect(()=>{
   //             handleAccept();
@@ -77,10 +90,15 @@ function Ordered() {
       });
     console.log(response);
     setShow(false);
+
+    //pop= false;
+    //console.log(pop);
     window.addEventListener("onclick", (event) => {
       FetchData();
+      
       console.log("API call before page reload");
     });
+    window.sessionStorage.setItem("pop","false");
   };
 
   const handleShow = () => setShow(true);
@@ -118,12 +136,13 @@ function Ordered() {
 
   const clearTimer = (e) => {
     setTimer("0:60");
-
+console.log(Ref.current);
     if (Ref.current) clearInterval(Ref.current);
     const id = setInterval(() => {
       startTimer(e);
     }, 1000);
     Ref.current = id;
+    console.log(Ref.current);
   };
 
   const getDeadTime = () => {
@@ -166,13 +185,18 @@ function Ordered() {
       });
   }, []);
   const [order, setOrder] = useState([]);
-
+  
   useEffect(() => {
     connection.on("ReceiveOrder", (data) => {
+      const status=window.sessionStorage.getItem('pop');
+      if(status=='false'){
+        window.sessionStorage.setItem("pop","true");
       handleShow();
       console.log(data.newOrder);
       setNewOrder(data.newOrder);
+      console.log(NewOrder.id)
       clearTimer(getDeadTime());
+      }
     });
   }, []);
 
@@ -193,6 +217,7 @@ function Ordered() {
     setDetails(data);
     setresetdata(data);
     setloading(true);
+
   };
   useEffect(() => {
     FetchData();
@@ -229,7 +254,17 @@ function Ordered() {
     console.log("Method Called");
     setDetails(searchData);
   };
+  var notAcc = resetdata.filter(a=>a.status=="NotAccepted");
 
+  const status=window.sessionStorage.getItem('pop');
+  
+    if(status=='false'&&notAcc[0]!=undefined){
+      window.sessionStorage.setItem("pop","true");
+    handleShow();
+    setNewOrder(notAcc[0]);
+    console.log(NewOrder)
+    clearTimer(getDeadTime());
+    }
   return (
     <>
       <Slider />

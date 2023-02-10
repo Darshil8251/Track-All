@@ -16,9 +16,11 @@ import Resources from "./Image/Resources.svg";
 import Dashboard from './Dashboard/Dashboard';
 import Logo from './Image/Logo.svg';
 import { useHistory } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 
 const Navbar = () => {
+  const toekn=Cookies.get('token');
   return (
     <>
       <div className="left">

@@ -51,7 +51,7 @@ function Body() {
     )
       .then((r) => r.json())
       .then((res) => {
-        if (res.succeeded == true) {
+        if (res.Success == "Market Place Mapped") {
           setvalidate(true);
           console.log(res);
           

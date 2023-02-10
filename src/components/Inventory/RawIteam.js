@@ -16,6 +16,7 @@ function RawIteam() {
   });
 
   const [Data, setData] = useState([{}]);
+  const [resetdata,setresetdata]=useState([{}]);
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -56,7 +57,9 @@ function RawIteam() {
     )
       .then((r) => r.json())
       .then((res) => {
+      
         if(res.succeeded==true){
+  
         alert("Item add Successfully");
         fetchdata()}
       });
@@ -74,7 +77,7 @@ function RawIteam() {
       },
     });
     const data = await res.json();
-
+     setresetdata(data);
     setData(data);
   };
   useEffect(() => {
@@ -90,24 +93,27 @@ function RawIteam() {
         <div>
           <ul className="fourth_divs_navbar ">
             <li className="Iteam">
-              <a href="/" className="Name">
+            <button  className="Name">
+                              Vegies
+            </button>
+              {/* <a href="/" className="Name">
                 Vegies
-              </a>
+              </a> */}
             </li>
             <li className="Iteam">
-              <a href="/" className="Name">
-                Dairy
-              </a>
+            <button  className="Name">
+                              Dairy
+            </button>
             </li>
             <li className="Iteam">
-              <a href="/" className="Name">
-                Fruits
-              </a>
+            <button  className="Name">
+            Fruits
+             </button>
             </li>
             <li className="Iteam">
-              <a href="/" className="Name">
-                Others
-              </a>
+            <button  className="Name">
+                       Other
+             </button>
             </li>
           </ul>
           <hr style={{ marginTop: "3px", marginLeft: "20px" }} />
